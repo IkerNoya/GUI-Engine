@@ -6,7 +6,7 @@
 #include "GLFW/glfw3.h"
 
 Gamebase::Gamebase() {
-	window = new Window();
+	window = new Window(1280, 720);
 }
 
 Gamebase::~Gamebase() {
@@ -14,7 +14,7 @@ Gamebase::~Gamebase() {
 }
 
 int Gamebase::initEngine() {
-	window->createWindow();
+	window->createWindow("Engine v0.1");
 	glewInit();
 	if (glewInit() != GLEW_OK) {
 		std::cout << "Error in GLEW INIT" << std::endl;
