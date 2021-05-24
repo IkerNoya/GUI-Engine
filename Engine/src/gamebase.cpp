@@ -1,7 +1,8 @@
+#include "GL/glew.h"
+
 #include "gamebase.h"
 #include <iostream>
 
-#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
 Gamebase::Gamebase() {
@@ -14,10 +15,10 @@ Gamebase::~Gamebase() {
 
 int Gamebase::initEngine() {
 	window->createWindow();
-	glewExperimental = GL_TRUE;
 	glewInit();
-	if (glewInit != GLEW_OK) {
+	if (glewInit() != GLEW_OK) {
 		std::cout << "Error in GLEW INIT" << std::endl;
+		std::cout << glewGetErrorString(glewInit()) << std::endl;
 		return 0;
 	}
 
@@ -28,6 +29,15 @@ int Gamebase::initEngine() {
 
 void Gamebase::updateEngine() {
 	while (!glfwWindowShouldClose(window->getWindow())) {
-
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		update();
+		glfwSwapBuffers(window->getWindow());
+		glfwPollEvents();
 	}
+}
+
+void Gamebase::unloadEngine() {
+	glfwTerminate();
 }

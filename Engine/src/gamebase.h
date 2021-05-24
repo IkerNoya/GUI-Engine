@@ -4,7 +4,7 @@
 #include "window.h"
 #include "vld.h"
 
-struct Window;
+class Window;
 
 class ENGINE_API Gamebase {
 	Window* window;
@@ -13,6 +13,7 @@ public:
 	~Gamebase();
 	int initEngine();
 	void updateEngine();
+	void unloadEngine();
 
 	virtual void init() = 0;
 	virtual void update() = 0;

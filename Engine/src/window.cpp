@@ -2,21 +2,27 @@
 
 #include <iostream>
 
-#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);
+}
+
 Window::Window() {
-	
+	_window = NULL;
 }
 
 Window::~Window() {
 
 }
 
-void Window::createWindow() {
+int Window::createWindow() {
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	if (!glfwInit())
+		return -1;
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	_window = glfwCreateWindow(800, 600, "Engine v0.1", NULL, NULL);
@@ -26,9 +32,6 @@ void Window::createWindow() {
 	}
 	glfwMakeContextCurrent(_window);
 	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback); // allows window resize
-}
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	glViewport(0, 0, width, height);
 }
 
 GLFWwindow* Window::getWindow() {
