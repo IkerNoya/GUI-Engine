@@ -7,8 +7,8 @@ int main() {
 		game->initEngine();
 		game->init();
 		game->updateEngine();
-		game->unload();
 		game->unloadEngine();
+		game->unload();
 		delete game;
 	}
 	return 0;

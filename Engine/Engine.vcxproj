@@ -21,11 +21,19 @@
   <ItemGroup>
     <ClInclude Include="src\export.h" />
     <ClInclude Include="src\gamebase.h" />
+    <ClInclude Include="src\renderer.h" />
+    <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp" />
+    <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\fragmentShader.shader" />
+    <None Include="src\shaders\vertexShader.shader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
