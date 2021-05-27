@@ -16,6 +16,21 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{5c734f24-15b4-4271-97f0-58cfd298441e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{219bdd42-d197-4d1c-a07a-7e4f71a58b6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Source">
+      <UniqueIdentifier>{faa3c291-7d5c-48ce-86b3-23826bc40b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Lib">
+      <UniqueIdentifier>{7284401a-2d10-4948-99a1-0ac9962eb2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Lib\LibHeaders">
+      <UniqueIdentifier>{0880dda3-c88c-453c-8359-0f08629c10cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Lib\LibSource">
+      <UniqueIdentifier>{b35817af-20c6-48d9-b833-7953abeea7cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\export.h">
@@ -34,24 +49,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\imconfig.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\imgui.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\imgui_impl_glfw_gl3.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\imgui_internal.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\stb_rect_pack.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\stb_textedit.h">
-      <Filter>Header Files</Filter>
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\stb_truetype.h">
+      <Filter>GUI\Lib\LibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,15 +87,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\imgui.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GUI\Lib\LibSource</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GUI\Lib\LibSource</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GUI\Lib\LibSource</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\imgui_impl_glfw_gl3.cpp">
+      <Filter>GUI\Lib\LibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
