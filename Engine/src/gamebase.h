@@ -5,6 +5,7 @@
 #include "renderer.h"
 #include "shape.h"
 #include "shader.h"
+#include "guiManager.h"
 #include "vld.h"
 
 
@@ -14,6 +15,7 @@ protected:
 	Window* window;
 	Renderer* renderer;
 	Shader basicShader;
+	GuiManager* gui;
 	float _x;
 
 public: 

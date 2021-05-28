@@ -61,10 +61,30 @@ void Shape::bindEBO() {
 	}
 }
 
-void Shape::draw(Shader& shader) {
-	_renderer->draw(shader, _vao, getModel());
+void Shape::setColor(float r, float g, float b) {
+	switch (shape)
+	{
+	case quad:
+		quadVertices[4] = r; quadVertices[5] = r; quadVertices[6] = r;
+		quadVertices[11] = r; quadVertices[12] = r; quadVertices[13] = r;
+		quadVertices[18] = r; quadVertices[19] = r; quadVertices[20] = r;
+		quadVertices[25] = r; quadVertices[26] = r; quadVertices[27] = r;
+		break;
+	case tri:
+		triangleVertices[4] = r; triangleVertices[5] = r; triangleVertices[6] = r;
+		triangleVertices[11] = r; triangleVertices[12] = r; triangleVertices[13] = r;
+		triangleVertices[18] = r; triangleVertices[19] = r; triangleVertices[20] = r;
+		break;
+	default:
+		break;
+	}
 }
 
 void Shape::clearBuffers() {
 	_renderer->deleteBuffers(_vao, _vbo, _ebo);
 }
+
+void Shape::draw(Shader& shader) {
+	_renderer->draw(shader, _vao, getModel());
+}
+
