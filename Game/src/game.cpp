@@ -2,21 +2,25 @@
 
 
 Game::Game() : Gamebase(){
-
+	square = new Shape(quad, renderer);
 }
 
 Game::~Game() {
-
+	if (square) delete square;
 }
 
-void Game::init() {
 	//initialization of game variables
+void Game::init() {
+	square->initShape(basicShader);
 }
 
-void Game::update() {
 	//game update
+void Game::update() {
+	square->draw(basicShader);
 }
 
-void Game::unload() {
 	// free memory
+void Game::unload() {
+	square->clearBuffers();
+	if (square) delete square;
 }

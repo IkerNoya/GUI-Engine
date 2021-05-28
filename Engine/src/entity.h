@@ -3,7 +3,6 @@
 #include "export.h"
 #include "renderer.h"
 #include "mat4x4.hpp"
-
 // using glm vec3 temporarily, will later use my own class
 
 struct ENGINE_API Rotation {

@@ -11,9 +11,6 @@
 Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
-    _vao = 0;
-    _vbo = 0;
-    _ebo = 0;
 }
 
 Gamebase::~Gamebase() {
@@ -23,6 +20,7 @@ Gamebase::~Gamebase() {
 
 int Gamebase::initEngine() {
     window->createWindow("Engine v0.1");
+    glewExperimental = GL_TRUE;
     glewInit();
     if (glewInit() != GLEW_OK) {
         std::cout << "Error in GLEW INIT" << std::endl;
@@ -33,24 +31,6 @@ int Gamebase::initEngine() {
     glGetIntegerv(GL_CONTEXT_COMPATIBILITY_PROFILE_BIT, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
     basicShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//fragmentShader.shader");
-
-    float vertices[] = {
-    0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // top right
-    0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom right
-   -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom left
-   -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f   // top left 
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-        0, 1, 3,  // first Triangle
-        1, 2, 3   // second Triangle
-    };
-    //unsigned int VBO, VAO, EBO;
-    renderer->generateVAO(_vao);
-    renderer->bindVBO(_vbo, vertices, 24);
-    renderer->bindEBO(_ebo, indices, 6);
-
-    renderer->setPositionAttribPointer(basicShader.getID(), "pos");
-    renderer->setTintAttribPointer(basicShader.getID(), "color");
 
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -77,18 +57,16 @@ void Gamebase::updateEngine() {
         
         ImGui_ImplGlfwGL3_NewFrame();
 
-		renderer->startProgram(basicShader);
-        renderer->bindVAO(_vao);
+		update();
+
         if (wireMode) {
             renderer->activateWireframeMode();
         }
         else{
             renderer->deactivateWireframeMode();
         }
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		update();
         {
-            ImGui::Text("Hello, world!");                           // Display some text (you can use a format string too)
+            ImGui::Text("Shape A");                           // Display some text (you can use a format string too)
             ImGui::SliderFloat("X Position", &f, 0.0f, window->getWidth());            // Edit 1 float using a slider from 0.0f to 1.0f    
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
@@ -111,7 +89,6 @@ void Gamebase::updateEngine() {
 void Gamebase::unloadEngine() {
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
-    renderer->deleteBuffers(_vao, _vbo, _ebo);
     glDeleteProgram(basicShader.getID());
 	glfwTerminate();
 }

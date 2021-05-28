@@ -21,6 +21,8 @@ public:
 	void bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);
 	void bindAllBuffersAtOnce(unsigned int& vbo, unsigned int& vao, unsigned int& ebo, float* vertex, unsigned int* indices, int verticesAmmount, int indicesAmmount); // binds verteces to the vbo and vao
 
+	void draw(Shader& shader, unsigned int& vao);
+
 	void activateWireframeMode();
 	void deactivateWireframeMode();
 

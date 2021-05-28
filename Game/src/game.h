@@ -3,7 +3,7 @@
 #include "gamebase.h"
 
 class Game : public Gamebase{
-
+	Shape* square;
 public:
 	Game();
 	~Game();

@@ -3,18 +3,18 @@
 #include "export.h"
 #include "window.h"
 #include "renderer.h"
+#include "shape.h"
 #include "shader.h"
 #include "vld.h"
 
-class Window;
 
 class ENGINE_API Gamebase {
+
+protected:
 	Window* window;
 	Renderer* renderer;
 	Shader basicShader;
-	unsigned int _vao;
-	unsigned int _vbo;
-	unsigned int _ebo;
+
 public: 
 	Gamebase();
 	~Gamebase();

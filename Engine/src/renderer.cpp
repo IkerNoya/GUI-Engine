@@ -1,7 +1,8 @@
 #include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
 #include "renderer.h"
 
-#include "GLFW/glfw3.h"
 
 Renderer::Renderer() {
 
@@ -74,11 +75,23 @@ void Renderer::deactivateWireframeMode() {
 }
 
 void Renderer::unbindBuffers(){
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glUseProgram(0);
 }
 
 void Renderer::deleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo) {
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteBuffers(1, &ebo);
+}
+
+void Renderer::draw(Shader& shader, unsigned int& vao) {
+    setPositionAttribPointer(shader.getID(), "pos");
+    setTintAttribPointer(shader.getID(), "color");
+    startProgram(shader);
+    bindVAO(vao);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    unbindBuffers();
 }
