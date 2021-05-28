@@ -1,11 +1,13 @@
 #version 330 core
-in vec3 pos;
+in vec4 pos;
 in vec3 color;
 
 out vec3 customColor;
 
+uniform mat4 transform;
+
 void main() 
 {
 	customColor = color;
-	gl_Position = vec4(pos, 1.0);
+	gl_Position = transform * pos;
 }

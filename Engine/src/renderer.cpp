@@ -3,6 +3,8 @@
 
 #include "renderer.h"
 
+#include "gtc/type_ptr.hpp"
+
 
 Renderer::Renderer() {
 
@@ -19,16 +21,18 @@ void Renderer::createAtribPointers(unsigned int shaderAttribIndex, int dataAmmou
 
 void Renderer::setPositionAttribPointer(unsigned int shaderID, const char* attribName) {
     unsigned int attribute = glGetAttribLocation(shaderID, attribName);
-    createAtribPointers(attribute, 3, 6, 0);
+    createAtribPointers(attribute, 4, 7, 0);
 }
 
 void Renderer::setTintAttribPointer(unsigned int shaderID, const char* attribName) {
     unsigned int attribute = glGetAttribLocation(shaderID, attribName);
-    createAtribPointers(attribute, 3, 6, 3);
+    createAtribPointers(attribute, 3, 7, 4);
 }
 
-void Renderer::startProgram(Shader& shader) {
+void Renderer::startProgram(Shader& shader, glm::mat4 model) {
+    unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
 	shader.useProgram();
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Renderer::generateVAO(unsigned int& vao) {
@@ -87,10 +91,10 @@ void Renderer::deleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int&
     glDeleteBuffers(1, &ebo);
 }
 
-void Renderer::draw(Shader& shader, unsigned int& vao) {
+void Renderer::draw(Shader& shader, unsigned int& vao, glm::mat4 model) {
     setPositionAttribPointer(shader.getID(), "pos");
     setTintAttribPointer(shader.getID(), "color");
-    startProgram(shader);
+    startProgram(shader, model);
     bindVAO(vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     unbindBuffers();

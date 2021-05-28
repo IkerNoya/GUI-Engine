@@ -11,7 +11,9 @@ void Entity::updateModel() {
 Entity::Entity(Renderer* renderer) {
 	_renderer = renderer;
 	model.translate = glm::mat4(1.0);
-	model.rotation.x, model.rotation.y, model.rotation.z = glm::mat4(1.0);
+	model.rotation.x = glm::mat4(1.0);
+	model.rotation.y = glm::mat4(1.0);
+	model.rotation.z = glm::mat4(1.0);
 	model.scale = glm::mat4(1.0);
 
 	setPos(1.0f, 1.0f, 1.0f);

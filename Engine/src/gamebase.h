@@ -14,6 +14,7 @@ protected:
 	Window* window;
 	Renderer* renderer;
 	Shader basicShader;
+	float _x;
 
 public: 
 	Gamebase();

@@ -37,10 +37,10 @@ void Shape::bindVBO() {
 	switch (shape)
 	{
 	case quad:
-		_renderer->bindVBO(_vbo, quadVertices, 24);
+		_renderer->bindVBO(_vbo, quadVertices, 28);
 		break;
 	case tri:
-		_renderer->bindVBO(_vbo, triangleVertices, 18);
+		_renderer->bindVBO(_vbo, triangleVertices, 22);
 		break;
 	default:
 		break;
@@ -62,7 +62,7 @@ void Shape::bindEBO() {
 }
 
 void Shape::draw(Shader& shader) {
-	_renderer->draw(shader, _vao);
+	_renderer->draw(shader, _vao, getModel());
 }
 
 void Shape::clearBuffers() {

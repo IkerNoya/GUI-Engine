@@ -2,6 +2,7 @@
 #define RENDERER_H
 #include "export.h"
 #include "shader.h"
+#include "mat4x4.hpp"
 
 class ENGINE_API Renderer {
 public:
@@ -13,7 +14,7 @@ public:
 	void setPositionAttribPointer(unsigned int shaderID, const char* attribName);
 	void setTintAttribPointer(unsigned int shaderID, const char* attribName);
 
-	void startProgram(Shader &shader);
+	void startProgram(Shader &shader, glm::mat4 model);
 
 	void generateVAO(unsigned int& vao);
 	void bindVAO(unsigned int& vao);
@@ -21,7 +22,7 @@ public:
 	void bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);
 	void bindAllBuffersAtOnce(unsigned int& vbo, unsigned int& vao, unsigned int& ebo, float* vertex, unsigned int* indices, int verticesAmmount, int indicesAmmount); // binds verteces to the vbo and vao
 
-	void draw(Shader& shader, unsigned int& vao);
+	void draw(Shader& shader, unsigned int& vao, glm::mat4 model);
 
 	void activateWireframeMode();
 	void deactivateWireframeMode();
