@@ -20,6 +20,7 @@ void Game::init() {
 void Game::update() {
 	square->draw(basicShader);
 	square->setPos(_x, 0, 0);
+	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
 }
 
 	// free memory

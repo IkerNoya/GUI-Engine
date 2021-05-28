@@ -91,11 +91,12 @@ void Renderer::deleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int&
     glDeleteBuffers(1, &ebo);
 }
 
-void Renderer::draw(Shader& shader, unsigned int& vao, glm::mat4 model) {
+void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount,glm::mat4 model) {
+    bindVAO(vao);
+    bindVBO(vbo, vertices, verticesAmmount);
     setPositionAttribPointer(shader.getID(), "pos");
     setTintAttribPointer(shader.getID(), "color");
     startProgram(shader, model);
-    bindVAO(vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     unbindBuffers();
 }
