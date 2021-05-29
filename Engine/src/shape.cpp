@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-Shape::Shape(Type type, Renderer* renderer) : Entity(Entity::_renderer){
+Shape::Shape(Type type, Renderer* renderer) : Entity(renderer){
 	shape = type;
 
 	_vao = 0;
@@ -13,8 +13,6 @@ Shape::Shape(Type type, Renderer* renderer) : Entity(Entity::_renderer){
 	
 Shape::~Shape() {
 	clearBuffers();
-	if (_renderer) delete _renderer;
-	
 }
 
 void Shape::initShape(Shader& shader) {

@@ -2,9 +2,9 @@
 #define ENTITY_H
 #include "export.h"
 #include "renderer.h"
-#include "mat4x4.hpp"
-// using glm vec3 temporarily, will later use my own class
+#include "mat4x4.hpp" own class
 
+// using glm vec3 temporarily, will later use my
 struct ENGINE_API Rotation {
 	glm::mat4 x;
 	glm::mat4 y;

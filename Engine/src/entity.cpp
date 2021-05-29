@@ -25,7 +25,6 @@ Entity::Entity(Renderer* renderer) {
 }
 
 Entity::~Entity() {
-	_renderer = NULL;
 }
 
 Renderer* Entity::getRenderer() {

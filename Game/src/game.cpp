@@ -26,5 +26,8 @@ void Game::update() {
 	// free memory
 void Game::unload() {
 	square->clearBuffers();
-	if (square) delete square;
+	if (square) {
+		delete square;
+		square = NULL;
+	}
 }
