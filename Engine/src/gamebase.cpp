@@ -31,7 +31,7 @@ int Gamebase::initEngine() {
 
     glGetIntegerv(GL_CONTEXT_COMPATIBILITY_PROFILE_BIT, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
-
+    input.setWindow(window->getWindow());
     basicShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//fragmentShader.shader");
 
     gui->init(window->getWindow());
@@ -67,6 +67,7 @@ void Gamebase::updateEngine() {
         }
            
         gui->render();
+
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();
          
@@ -75,6 +76,7 @@ void Gamebase::updateEngine() {
 
 void Gamebase::unloadEngine() {
     gui->unload();
+    input.unloadWindow();
     glDeleteProgram(basicShader.getID());
 	glfwTerminate();
 }

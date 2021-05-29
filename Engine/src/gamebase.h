@@ -6,6 +6,7 @@
 #include "shape.h"
 #include "shader.h"
 #include "guiManager.h"
+#include "input.h"
 #include "vld.h"
 
 
@@ -16,6 +17,9 @@ protected:
 	Renderer* renderer;
 	Shader basicShader;
 	GuiManager* gui;
+
+	Input input;
+
 	float _x;
 
 public: 
