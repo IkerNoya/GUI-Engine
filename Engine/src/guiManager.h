@@ -17,7 +17,7 @@ public:
 	void init(GLFWwindow* window);
 	void setDarkStyle();
 	void createFrame();
-	void createTestWindow(const char* windowName, float& _x);
+	void createTestWindow(const char* windowName, float& _x1, float& _x2);
 	void render();
 	void unload();
 	bool getButtonPressed();

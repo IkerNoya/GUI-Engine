@@ -10,7 +10,7 @@ Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
     gui = new GuiManager();
-    _x = 0;
+    _x1 = 0;
 }
 
 Gamebase::~Gamebase() {
@@ -57,7 +57,7 @@ void Gamebase::updateEngine() {
 
 		update();
 
-        gui->createTestWindow("BOX", _x);
+        gui->createTestWindow("BOX", _x1, _x2);
 
         if (gui->getButtonPressed()) {
             renderer->activateWireframeMode();

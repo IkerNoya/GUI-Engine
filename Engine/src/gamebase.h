@@ -20,7 +20,8 @@ protected:
 
 	Input input;
 
-	float _x;
+	float _x1;
+	float _x2;
 
 public: 
 	Gamebase();
