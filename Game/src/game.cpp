@@ -14,8 +14,9 @@ Game::~Game() {
 	//initialization of game variables
 void Game::init() {
 	square->initShape(basicShader);
-	square->setPos(0, 0, 0);
-	square->setScale(0.5f, 0.5f, 0.5f);
+	square->setPos(200, 200, 0);
+	_x1 = 200;
+	square->setScale(200, 200, 0.5f);
 	square2->initShape(basicShader);
 	square2->setPos(0, 0, 0);
 	square2->setScale(-0.5f, 0.5f, 0.5f);
@@ -26,7 +27,7 @@ void Game::init() {
 void Game::update() {
 	square->draw(basicShader);
 	square2->draw(basicShader);
-	square->setPos(_x1, 0, 0);
+	square->setPos(_x1, 200, 0);
 	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
 	square2->setPos(_x2, 0, 0);
 }

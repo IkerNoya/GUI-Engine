@@ -20,6 +20,9 @@ protected:
 
 	Input input;
 
+	glm::mat4 view;
+	glm::mat4 proj;
+
 	float _x1;
 	float _x2;
 

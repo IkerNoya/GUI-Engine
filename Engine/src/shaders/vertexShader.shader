@@ -5,9 +5,11 @@ in vec3 color;
 out vec3 customColor;
 
 uniform mat4 transform;
+uniform mat4 view;
+uniform mat4 proj;
 
 void main() 
 {
 	customColor = color;
-	gl_Position = transform * pos;
+	gl_Position = proj * view * transform * pos;
 }

@@ -9,7 +9,7 @@ GuiManager::~GuiManager() {}
 
 void GuiManager::createTestWindow(const char* windowName, float& _x1, float& _x2){
 	ImGui::Text(windowName);                           // Display some text (you can use a format string too)
-	ImGui::SliderFloat("SHAPE A X", &_x1, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
+	ImGui::SliderFloat("SHAPE A X", &_x1, 0, 1280);            // Edit 1 float using a slider from 0.0f to 1.0f    
 	ImGui::SliderFloat("SHAPE B X", &_x2, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
 	ImGui::ColorEdit3("ColorPicker", (float*)&_color); // Edit 3 floats representing a color
 
