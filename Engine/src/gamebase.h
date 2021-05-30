@@ -7,6 +7,7 @@
 #include "shader.h"
 #include "guiManager.h"
 #include "input.h"
+#include "camera.h"
 #include "vld.h"
 
 
@@ -17,11 +18,9 @@ protected:
 	Renderer* renderer;
 	Shader basicShader;
 	GuiManager* gui;
+	Camera* camera;
 
 	Input input;
-
-	glm::mat4 view;
-	glm::mat4 proj;
 
 	float _x1;
 	float _x2;

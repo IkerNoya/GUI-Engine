@@ -4,7 +4,7 @@
 #include "renderer.h"
 #include "entity.h"
 
-enum ENGINE_API Type {
+enum class ENGINE_API Type {
     quad, tri
 };
 

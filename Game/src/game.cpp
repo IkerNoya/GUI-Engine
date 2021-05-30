@@ -2,8 +2,8 @@
 
 
 Game::Game() : Gamebase(){
-	square = new Shape(quad, renderer);
-	square2 = new Shape(quad, renderer);
+	square = new Shape(Type::quad, renderer);
+	square2 = new Shape(Type::quad, renderer);
 }
 
 Game::~Game() {
@@ -18,8 +18,9 @@ void Game::init() {
 	_x1 = 200;
 	square->setScale(200, 200, 0.5f);
 	square2->initShape(basicShader);
-	square2->setPos(0, 0, 0);
-	square2->setScale(-0.5f, 0.5f, 0.5f);
+	square2->setPos(300, 500, 0);
+	_x2 = 300;
+	square2->setScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 0.0f, 1.0f);
 }
 
@@ -29,7 +30,7 @@ void Game::update() {
 	square2->draw(basicShader);
 	square->setPos(_x1, 200, 0);
 	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
-	square2->setPos(_x2, 0, 0);
+	square2->setPos(_x2, 400, 0);
 }
 
 	// free memory

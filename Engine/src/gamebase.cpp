@@ -14,16 +14,16 @@ Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
     gui = new GuiManager();
+    camera = new Camera(renderer, ProjectionType::orthographic);
     _x1 = 0;
     _x2 = 0;
-    view = glm::mat4(1.0f);
-    proj = glm::mat4(1.0f);
 }
 
 Gamebase::~Gamebase() {
 	if (window) delete window;
 	if (renderer) delete renderer;
     if (gui) delete gui;
+    if (camera) delete camera;
 }
 
 int Gamebase::initEngine() {
@@ -40,10 +40,9 @@ int Gamebase::initEngine() {
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
     basicShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//fragmentShader.shader");
-    
-    view = glm::lookAt(glm::vec3(0,0,1.0f), glm::vec3(0, 0, -1.0f), glm::vec3(0, 1.0f, 0));
-    proj = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.1f, 100.0f);
-    //proj = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.01f, 100.0f);
+    camera->setPos(0, 0, 1.0f);
+    camera->setView(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
 
     gui->init(window->getWindow());
 
@@ -63,15 +62,10 @@ void Gamebase::updateEngine() {
 	while (!glfwWindowShouldClose(window->getWindow())) {
 		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
         gui->createFrame();
-        unsigned int viewLoc = glGetUniformLocation(basicShader.getID(), "view");
-        unsigned int projLoc = glGetUniformLocation(basicShader.getID(), "proj");
-        basicShader.useProgram();
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
-
+        camera->draw(basicShader);
+      
 		update();
 
         gui->createTestWindow("BOX", _x1, _x2);

@@ -100,3 +100,12 @@ void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float*
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     unbindBuffers();
 }
+void Renderer::drawCamera(Shader& shader, glm::mat4 model, glm::mat4 view, glm::mat4 proj) {
+    unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
+    unsigned int viewLoc = glGetUniformLocation(shader.getID(), "view");
+    unsigned int projLoc = glGetUniformLocation(shader.getID(), "proj");
+    shader.useProgram();
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+}
