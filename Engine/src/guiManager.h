@@ -2,25 +2,27 @@
 #define GUIMANAGER_H
 #include "export.h"
 #include "gui/imgui.h"
-#include "gui/imgui_impl_glfw_gl3.h""
+#include "gui/imgui_impl_glfw.h"
+#include "gui/imgui_impl_opengl3.h"
+#include "window.h"
 
-struct GLFWwindow;
 
 class ENGINE_API GuiManager {
 	int _width;
 	int _height;
 	bool _buttonPressed;
 	ImVec4 _color;
+	Window* _window;
 public:
-	GuiManager();
+	GuiManager(Window* window);
 	~GuiManager();
-	void init(GLFWwindow* window);
-	void setDarkStyle();
-	void createFrame();
-	void createTestWindow(const char* windowName, float& _x1, float& _x2);
-	void render();
+	void init();
+	void createTestWindow(const char* windowName);
 	void unload();
 	bool getButtonPressed();
+	void begin();
+	void onRender();
+	void end();
 	ImVec4 getColor();
 };
 #endif // !GUIMANAGER_H

@@ -26,11 +26,12 @@
     <ClInclude Include="src\guiManager.h" />
     <ClInclude Include="src\gui\imconfig.h" />
     <ClInclude Include="src\gui\imgui.h" />
-    <ClInclude Include="src\gui\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="src\gui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\gui\imgui_impl_opengl3.h" />
     <ClInclude Include="src\gui\imgui_internal.h" />
-    <ClInclude Include="src\gui\stb_rect_pack.h" />
-    <ClInclude Include="src\gui\stb_textedit.h" />
-    <ClInclude Include="src\gui\stb_truetype.h" />
+    <ClInclude Include="src\gui\imstb_rectpack.h" />
+    <ClInclude Include="src\gui\imstb_textedit.h" />
+    <ClInclude Include="src\gui\imstb_truetype.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shader.h" />
@@ -45,7 +46,9 @@
     <ClCompile Include="src\gui\imgui.cpp" />
     <ClCompile Include="src\gui\imgui_demo.cpp" />
     <ClCompile Include="src\gui\imgui_draw.cpp" />
-    <ClCompile Include="src\gui\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="src\gui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\gui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\gui\imgui_widgets.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />

@@ -19,9 +19,6 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{219bdd42-d197-4d1c-a07a-7e4f71a58b6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\Source">
-      <UniqueIdentifier>{faa3c291-7d5c-48ce-86b3-23826bc40b34}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI\Lib">
       <UniqueIdentifier>{7284401a-2d10-4948-99a1-0ac9962eb2bf}</UniqueIdentifier>
     </Filter>
@@ -54,19 +51,7 @@
     <ClInclude Include="src\gui\imgui.h">
       <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\imgui_impl_glfw_gl3.h">
-      <Filter>GUI\Lib\LibHeaders</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\imgui_internal.h">
-      <Filter>GUI\Lib\LibHeaders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\stb_rect_pack.h">
-      <Filter>GUI\Lib\LibHeaders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\stb_textedit.h">
-      <Filter>GUI\Lib\LibHeaders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\stb_truetype.h">
       <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
     <ClInclude Include="src\entity.h">
@@ -83,6 +68,21 @@
     </ClInclude>
     <ClInclude Include="src\camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\imgui_impl_glfw.h">
+      <Filter>GUI\Lib\LibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\imgui_impl_opengl3.h">
+      <Filter>GUI\Lib\LibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\imstb_rectpack.h">
+      <Filter>GUI\Lib\LibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\imstb_textedit.h">
+      <Filter>GUI\Lib\LibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\imstb_truetype.h">
+      <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +107,6 @@
     <ClCompile Include="src\gui\imgui_draw.cpp">
       <Filter>GUI\Lib\LibSource</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\imgui_impl_glfw_gl3.cpp">
-      <Filter>GUI\Lib\LibSource</Filter>
-    </ClCompile>
     <ClCompile Include="src\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -124,6 +121,15 @@
     </ClCompile>
     <ClCompile Include="src\camera.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\imgui_impl_opengl3.cpp">
+      <Filter>GUI\Lib\LibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\imgui_impl_glfw.cpp">
+      <Filter>GUI\Lib\LibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\imgui_widgets.cpp">
+      <Filter>GUI\Lib\LibSource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

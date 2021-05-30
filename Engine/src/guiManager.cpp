@@ -1,16 +1,20 @@
 #include "guiManager.h"
+#include "GLFW/glfw3.h"
 
-GuiManager::GuiManager() {
+GuiManager::GuiManager(Window* window) {
+	_window = window;
 	_width = 100.0f;
 	_height = 100.0f;
 	_buttonPressed = false;
 }
 GuiManager::~GuiManager() {}
 
-void GuiManager::createTestWindow(const char* windowName, float& _x1, float& _x2){
+void GuiManager::createTestWindow(const char* windowName){
 	ImGui::Text(windowName);                           // Display some text (you can use a format string too)
-	ImGui::SliderFloat("SHAPE A X", &_x1, 0, 1280);            // Edit 1 float using a slider from 0.0f to 1.0f    
-	ImGui::SliderFloat("SHAPE B X", &_x2, 0, 1280);            // Edit 1 float using a slider from 0.0f to 1.0f    
+	float f1;
+	float f2;
+	ImGui::SliderFloat("SHAPE A X", &f1, 0, 1280);            // Edit 1 float using a slider from 0.0f to 1.0f    
+	ImGui::SliderFloat("SHAPE B X", &f2, 0, 1280);            // Edit 1 float using a slider from 0.0f to 1.0f    
 	ImGui::ColorEdit3("ColorPicker", (float*)&_color); // Edit 3 floats representing a color
 
 	if (ImGui::Button("WIREFRAME"))                            // Buttons return true when clicked (NB: most widgets return true when edited/activated)
@@ -20,28 +24,57 @@ void GuiManager::createTestWindow(const char* windowName, float& _x1, float& _x2
 
 }
 
-void GuiManager::init(GLFWwindow* window) {
+void GuiManager::init() {
+	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	ImGui_ImplGlfwGL3_Init(window, true);
-}
 
-void GuiManager::setDarkStyle() {
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	ImGui::StyleColorsDark();
+
+	ImGuiStyle& style = ImGui::GetStyle();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
+
+
+	ImGui_ImplGlfw_InitForOpenGL(_window->getWindow(), true);
+	ImGui_ImplOpenGL3_Init("#version 330");
 }
 
-void GuiManager::createFrame() {
-	ImGui_ImplGlfwGL3_NewFrame();
+void GuiManager::begin() {
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
 }
 
-void GuiManager::render() {
+void GuiManager::onRender() {
+	createTestWindow("BRUH MOMENT");
+}
+
+void GuiManager::end() {
+	ImGuiIO& io = ImGui::GetIO();
+	io.DisplaySize = ImVec2(_window->getWidth(), _window->getHeight());
+
 	ImGui::Render();
-	ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+		GLFWwindow* backup_current_context = glfwGetCurrentContext();
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+		glfwMakeContextCurrent(backup_current_context);
+	}
+
 }
 
 void GuiManager::unload() {
-	ImGui_ImplGlfwGL3_Shutdown();
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
 

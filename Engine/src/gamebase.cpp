@@ -13,7 +13,7 @@
 Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
-    gui = new GuiManager();
+    gui = new GuiManager(window);
     camera = new Camera(renderer, ProjectionType::orthographic);
     _x1 = 0;
     _x2 = 0;
@@ -44,9 +44,8 @@ int Gamebase::initEngine() {
     camera->setView(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 
-    gui->init(window->getWindow());
+    gui->init();
 
-    gui->setDarkStyle();
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -62,13 +61,13 @@ void Gamebase::updateEngine() {
 	while (!glfwWindowShouldClose(window->getWindow())) {
 		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        gui->createFrame();
+        gui->begin();
 
+        gui->onRender();
         camera->draw(basicShader);
       
 		update();
 
-        gui->createTestWindow("BOX", _x1, _x2);
 
         if (gui->getButtonPressed()) {
             renderer->activateWireframeMode();
@@ -77,8 +76,7 @@ void Gamebase::updateEngine() {
             renderer->deactivateWireframeMode();
         }
            
-        gui->render();
-
+        gui->end();
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();
          
