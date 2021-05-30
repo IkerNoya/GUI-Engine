@@ -53,7 +53,9 @@ void GuiManager::begin() {
 }
 
 void GuiManager::onRender() {
-	createTestWindow("BRUH MOMENT");
+	/*createTestWindow("BRUH MOMENT");*/
+	static bool showDemo = true;
+	ImGui::ShowDemoWindow(&showDemo);
 }
 
 void GuiManager::end() {
