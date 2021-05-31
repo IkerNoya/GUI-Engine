@@ -27,6 +27,8 @@ struct ENGINE_API Transform {
 //basic enitity for now
 class ENGINE_API Entity {
 protected:
+	int _id;
+	std::string _name;
 	Renderer* _renderer;
 	Model model;
 	void updateModel();
@@ -41,6 +43,10 @@ public:
 	void setYRot(float angle);
 	void setZRot(float angle);
 	void setScale(float x, float y, float z);
+	void setID(int id);
+	int getID();
+	void setName(std::string name);
+	std::string getName();
 };
 
 #endif // !ENTITY_H

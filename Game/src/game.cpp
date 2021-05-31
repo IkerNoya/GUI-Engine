@@ -1,11 +1,11 @@
 #include "game.h"
-
+#include <windows.data.json.h>
 
 Game::Game() : Gamebase(){
-	square = new Shape(Type::quad, renderer);
-	dataManager->addEntity(square);
-	square2 = new Shape(Type::quad, renderer);
-	dataManager->addEntity(square2);
+	square = new Shape(Type::quad, renderer, "Square1");
+	dataManager->addEntity(square, 0);
+	square2 = new Shape(Type::quad, renderer, "Square2");
+	dataManager->addEntity(square2, 1);
 	dataManager->loadEntities();
 }
 

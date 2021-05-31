@@ -2,8 +2,9 @@
 
 #include <stdlib.h>
 
-Shape::Shape(Type type, Renderer* renderer) : Entity(renderer){
+Shape::Shape(Type type, Renderer* renderer, std::string name) : Entity(renderer){
 	shape = type;
+	_name = name;
 
 	_vao = 0;
 	_vbo = 0;

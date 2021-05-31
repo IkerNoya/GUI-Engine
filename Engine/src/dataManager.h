@@ -6,11 +6,11 @@
 #include <vector>
 
 class ENGINE_API DataManager {
-	std::list<Entity*> levelEntities;
+	std::vector<Entity*> levelEntities;
 public:
 	DataManager();
 	~DataManager();
-	void addEntity(Entity* entity);
+	void addEntity(Entity* entity, int id);
 	void saveEntities();
 	void loadEntities();
 	void clearLevelEntities();

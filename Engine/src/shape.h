@@ -36,7 +36,7 @@ public:
     unsigned int _vbo;
     unsigned int _ebo;
 
-    Shape(Type type, Renderer* renderer);
+    Shape(Type type, Renderer* renderer, std::string name);
     ~Shape();
 
     void initShape(Shader& shader);

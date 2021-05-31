@@ -9,6 +9,7 @@ void Entity::updateModel() {
 }
 
 Entity::Entity(Renderer* renderer) {
+	_id - 1;
 	_renderer = renderer;
 	model.translate = glm::mat4(1.0);
 
@@ -84,4 +85,20 @@ void Entity::setScale(float x, float y, float z) {
 
 	model.scale = glm::scale(glm::mat4(1.0f), transform.scale);
 	updateModel();
+}
+
+void Entity::setID(int id) {
+	_id = id;
+}
+
+int Entity::getID() {
+	return _id;
+}
+
+void Entity::setName(std::string name) {
+	_name = name;
+}
+
+std::string Entity::getName() {
+	return _name;
 }
