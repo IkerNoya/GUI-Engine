@@ -20,10 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\dataManager.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\export.h" />
     <ClInclude Include="src\gamebase.h" />
-    <ClInclude Include="src\guiManager.h" />
+    <ClInclude Include="src\guiLayer.h" />
     <ClInclude Include="src\gui\imconfig.h" />
     <ClInclude Include="src\gui\imgui.h" />
     <ClInclude Include="src\gui\imgui_impl_glfw.h" />
@@ -40,9 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\dataManager.cpp" />
     <ClCompile Include="src\entity.cpp" />
     <ClCompile Include="src\gamebase.cpp" />
-    <ClCompile Include="src\guiManager.cpp" />
+    <ClCompile Include="src\guiLayer.cpp" />
     <ClCompile Include="src\gui\imgui.cpp" />
     <ClCompile Include="src\gui\imgui_demo.cpp" />
     <ClCompile Include="src\gui\imgui_draw.cpp" />

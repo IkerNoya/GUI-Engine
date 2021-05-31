@@ -5,9 +5,10 @@
 #include "renderer.h"
 #include "shape.h"
 #include "shader.h"
-#include "guiManager.h"
+#include "guiLayer.h"
 #include "input.h"
 #include "camera.h"
+#include "dataManager.h"
 #include "vld.h"
 
 
@@ -16,8 +17,9 @@ class ENGINE_API Gamebase {
 protected:
 	Window* window;
 	Renderer* renderer;
+	DataManager* dataManager;
 	Shader basicShader;
-	GuiManager* gui;
+	GuiLayer* gui;
 	Camera* camera;
 
 	Input input;

@@ -13,7 +13,8 @@
 Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
-    gui = new GuiManager(window);
+    dataManager = new DataManager();
+    gui = new GuiLayer(window, dataManager);
     camera = new Camera(renderer, ProjectionType::orthographic);
     _x1 = 0;
     _x2 = 0;
@@ -22,6 +23,7 @@ Gamebase::Gamebase() {
 Gamebase::~Gamebase() {
 	if (window) delete window;
 	if (renderer) delete renderer;
+    if (dataManager) delete dataManager;
     if (gui) delete gui;
     if (camera) delete camera;
 }

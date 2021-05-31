@@ -60,7 +60,7 @@
     <ClInclude Include="src\shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiManager.h">
+    <ClInclude Include="src\guiLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\input.h">
@@ -83,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\imstb_truetype.h">
       <Filter>GUI\Lib\LibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dataManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,7 +116,7 @@
     <ClCompile Include="src\shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiManager.cpp">
+    <ClCompile Include="src\guiLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\input.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="src\gui\imgui_widgets.cpp">
       <Filter>GUI\Lib\LibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dataManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

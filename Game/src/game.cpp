@@ -3,7 +3,10 @@
 
 Game::Game() : Gamebase(){
 	square = new Shape(Type::quad, renderer);
+	dataManager->addEntity(square);
 	square2 = new Shape(Type::quad, renderer);
+	dataManager->addEntity(square2);
+	dataManager->loadEntities();
 }
 
 Game::~Game() {
@@ -37,6 +40,7 @@ void Game::update() {
 void Game::unload() {
 	square->clearBuffers();
 	square2->clearBuffers();
+	dataManager->clearLevelEntities();
 	if (square) {
 		delete square;
 		square = NULL;
