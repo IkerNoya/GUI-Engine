@@ -14,6 +14,7 @@ public:
 	void saveEntities();
 	void loadEntities();
 	void clearLevelEntities();
+	std::vector<Entity*> getLevelEntities();
 };
 
 

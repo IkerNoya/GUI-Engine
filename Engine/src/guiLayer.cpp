@@ -3,7 +3,6 @@
 
 GuiLayer::GuiLayer(Window* window, DataManager* dataManager) {
 	_window = window;
-	_isInspectorOpen = false;
 	_isWorldDataOpen = false;
 
 	_width = 100.0f;
@@ -12,6 +11,10 @@ GuiLayer::GuiLayer(Window* window, DataManager* dataManager) {
 	_dataManager = dataManager;
 }
 GuiLayer::~GuiLayer() {}
+
+void GuiLayer::createWindow() {
+	//create window
+}
 
 void GuiLayer::init() {
 	IMGUI_CHECKVERSION();
@@ -36,39 +39,6 @@ void GuiLayer::init() {
 
 }
 
-void GuiLayer::createInspector(const char* name, bool isActive){
-	ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
-	if (!ImGui::Begin(name, &isActive)) {
-		ImGui::End();
-		return;
-	}
-	
-	ImGui::Text("Transform");
-	ImGui::Spacing();
-	ImGui::Text("X");
-	ImGui::SameLine();
-	ImGui::Text("Y");
-	ImGui::SameLine();
-	ImGui::Text("Z");
-	ImGui::Spacing();
-	ImGui::Text("Rotation");
-	ImGui::Spacing();
-	ImGui::Text("X");
-	ImGui::SameLine();
-	ImGui::Text("Y");
-	ImGui::SameLine();
-	ImGui::Text("Z");
-	ImGui::Spacing();
-	ImGui::Text("Scale");
-	ImGui::Spacing();
-	ImGui::Text("X");
-	ImGui::SameLine();
-	ImGui::Text("Y");
-	ImGui::SameLine();
-	ImGui::Text("Z");
-	ImGui::Spacing();
-	ImGui::End();
-}
 void GuiLayer::createWorldData(const char* name, bool isActive) {
 	ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
 	if (!ImGui::Begin(name, &isActive)) {
@@ -88,7 +58,7 @@ void GuiLayer::begin() {
 	ImGui::NewFrame();
 }
 
-void GuiLayer::onRender() {
+void GuiLayer::onRender(bool &isInspectorOpen, bool &isWdOpen) {
 	/*_isInspectorOpen = true;
 	ImGui::ShowDemoWindow(&_isInspectorOpen);*/
 	ImVec2 main_viewport_pos = ImGui::GetMainViewport()->Pos;
@@ -109,19 +79,16 @@ void GuiLayer::onRender() {
 		{
 			if (ImGui::MenuItem("Inspector"))
 			{
-				_isInspectorOpen = !_isInspectorOpen;
+				isInspectorOpen = !isInspectorOpen;
 			}
 			if (ImGui::MenuItem("World Entities"))
 			{
-				_isWorldDataOpen = !_isWorldDataOpen;
+				isWdOpen = !isWdOpen;
 			}
 			ImGui::EndMenu();
 		}
 		
 		ImGui::EndMainMenuBar();
-	}
-	if (_isInspectorOpen){
-		createInspector("Inspector", _isInspectorOpen);
 	}
 	if (_isWorldDataOpen) {
 		createWorldData("World Data", _isWorldDataOpen);

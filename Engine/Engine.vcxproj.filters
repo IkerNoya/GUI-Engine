@@ -87,6 +87,9 @@
     <ClInclude Include="src\dataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\inspector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp">
@@ -135,6 +138,9 @@
       <Filter>GUI\Lib\LibSource</Filter>
     </ClCompile>
     <ClCompile Include="src\dataManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inspector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

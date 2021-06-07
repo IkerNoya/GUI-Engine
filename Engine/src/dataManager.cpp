@@ -35,3 +35,7 @@ void DataManager::loadEntities() {
 void DataManager::clearLevelEntities() {
 	levelEntities.clear();
 }
+
+std::vector<Entity*> DataManager::getLevelEntities() {
+	return levelEntities;
+}

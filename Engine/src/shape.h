@@ -3,7 +3,7 @@
 #include "export.h"
 #include "renderer.h"
 #include "entity.h"
-#include "dataManager.h"
+
 
 enum class ENGINE_API Type {
     quad, tri

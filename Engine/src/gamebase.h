@@ -6,6 +6,7 @@
 #include "shape.h"
 #include "shader.h"
 #include "guiLayer.h"
+#include "inspector.h"
 #include "input.h"
 #include "camera.h"
 #include "dataManager.h"
@@ -14,13 +15,14 @@
 
 class ENGINE_API Gamebase {
 
+	Inspector* inspector;
 protected:
 	Window* window;
 	Renderer* renderer;
 	DataManager* dataManager;
 	Shader basicShader;
-	GuiLayer* gui;
 	Camera* camera;
+	GuiLayer* gui;
 
 	Input input;
 

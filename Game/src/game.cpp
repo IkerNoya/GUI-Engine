@@ -3,10 +3,9 @@
 
 Game::Game() : Gamebase(){
 	square = new Shape(Type::quad, renderer, "Square1");
-	dataManager->addEntity(square, 0);
 	square2 = new Shape(Type::quad, renderer, "Square2");
+	dataManager->addEntity(square, 0);
 	dataManager->addEntity(square2, 1);
-	dataManager->loadEntities();
 }
 
 Game::~Game() {
@@ -29,19 +28,12 @@ void Game::init() {
 
 	//game update
 void Game::update() {
-	if (input.getKey(keyCode::A)) {
-		_x1 -= 1.0f;
-	}
-	if (input.getKey(keyCode::D)) {
-		_x1 += 1.0f;
-	}
 	if (input.getKey(keyCode::LEFT)) {
 		_x2 -= 1.0f;
 	}
 	if (input.getKey(keyCode::RIGHT)) {
 		_x2 += 1.0f;
 	}
-	square->setPos(_x1, 400, -1.0f);
 	square2->setPos(_x2, 200, -1.0f);
 	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
 

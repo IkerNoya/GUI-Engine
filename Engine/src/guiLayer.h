@@ -12,21 +12,25 @@ class ENGINE_API GuiLayer {
 	int _width;
 	int _height;
 	bool _buttonPressed;
+
 	ImVec4 _color;
+
+	bool _isWorldDataOpen;
+
+protected:
 	Window* _window;
 	DataManager* _dataManager;
 
-	bool _isInspectorOpen;
-	bool _isWorldDataOpen;
+	virtual void createWindow();
+
 public:
 	GuiLayer(Window* window, DataManager* datamanager);
 	~GuiLayer();
 	void init();
 	bool getButtonPressed();
-	void createInspector(const char* name, bool isActive);
 	void createWorldData(const char* name, bool isActive);
 	void begin();
-	void onRender();
+	void onRender(bool& isInspectorOpen, bool& isWdOpen);
 	void end();
 	void unload();
 	ImVec4 getColor();

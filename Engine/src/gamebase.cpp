@@ -15,6 +15,7 @@ Gamebase::Gamebase() {
 	renderer = new Renderer();
     dataManager = new DataManager();
     gui = new GuiLayer(window, dataManager);
+    inspector = new Inspector(window, dataManager);
     camera = new Camera(renderer, ProjectionType::orthographic);
     _x1 = 0;
     _x2 = 0;
@@ -24,6 +25,7 @@ Gamebase::~Gamebase() {
 	if (window) delete window;
 	if (renderer) delete renderer;
     if (dataManager) delete dataManager;
+    if (inspector) delete inspector;
     if (gui) delete gui;
     if (camera) delete camera;
 }
@@ -45,9 +47,7 @@ int Gamebase::initEngine() {
     camera->setPos(0, 0, 1.0f);
     camera->setView(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-
     gui->init();
-
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -60,15 +60,25 @@ void Gamebase::updateEngine() {
     bool show_demo_window = true;
     bool show_another_window = false;
     bool wireMode = false;
+    bool x = false;
+    inspector->getEntity();
 	while (!glfwWindowShouldClose(window->getWindow())) {
 		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gui->begin();
 
-        gui->onRender();
+        gui->onRender(inspector->_isWindowOpen, x);
+
+        if(inspector->_isWindowOpen)
+            inspector->createWindow();
+
         camera->draw(basicShader);
       
 		update();
+
+        if (input.getKey(keyCode::ENTER)) {
+            inspector->getEntity();
+        }
 
 
         if (gui->getButtonPressed()) {
