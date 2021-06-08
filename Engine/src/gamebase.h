@@ -7,6 +7,7 @@
 #include "shader.h"
 #include "guiLayer.h"
 #include "inspector.h"
+#include "worldData.h"
 #include "input.h"
 #include "camera.h"
 #include "dataManager.h"
@@ -16,6 +17,7 @@
 class ENGINE_API Gamebase {
 
 	Inspector* inspector;
+	WorldData* worldData;
 protected:
 	Window* window;
 	Renderer* renderer;

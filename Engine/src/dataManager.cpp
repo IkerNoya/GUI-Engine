@@ -39,3 +39,11 @@ void DataManager::clearLevelEntities() {
 std::vector<Entity*> DataManager::getLevelEntities() {
 	return levelEntities;
 }
+
+void DataManager::setSelectedEntity(Entity* entity) {
+	selectedEntity = entity;
+}
+
+Entity* DataManager::getSelectedEntity() {
+	return selectedEntity;
+}

@@ -16,6 +16,7 @@ Gamebase::Gamebase() {
     dataManager = new DataManager();
     gui = new GuiLayer(window, dataManager);
     inspector = new Inspector(window, dataManager);
+    worldData = new WorldData(window, dataManager);
     camera = new Camera(renderer, ProjectionType::orthographic);
     _x1 = 0;
     _x2 = 0;
@@ -26,6 +27,7 @@ Gamebase::~Gamebase() {
 	if (renderer) delete renderer;
     if (dataManager) delete dataManager;
     if (inspector) delete inspector;
+    if (worldData) delete worldData;
     if (gui) delete gui;
     if (camera) delete camera;
 }
@@ -60,17 +62,19 @@ void Gamebase::updateEngine() {
     bool show_demo_window = true;
     bool show_another_window = false;
     bool wireMode = false;
-    bool x = false;
     inspector->getEntity();
 	while (!glfwWindowShouldClose(window->getWindow())) {
 		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gui->begin();
 
-        gui->onRender(inspector->_isWindowOpen, x);
+        gui->onRender(inspector->_isWindowOpen, worldData->_isWindowOpen);
 
         if(inspector->_isWindowOpen)
             inspector->createWindow();
+
+        if (worldData->_isWindowOpen)
+            worldData->createWindow();
 
         camera->draw(basicShader);
       

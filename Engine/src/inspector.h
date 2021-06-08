@@ -7,6 +7,14 @@ class Inspector : public GuiLayer {
 	float _posX;
 	float _posY;
 	float _posZ;
+
+	float _rotX;
+	float _rotY;
+	float _rotZ;
+
+	float _scaleX;
+	float _scaleY;
+	float _scaleZ	;
 	
 public: 
 	bool _isWindowOpen;

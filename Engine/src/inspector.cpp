@@ -24,30 +24,57 @@ void Inspector::createWindow() {
 		return;
 	}
 
-	ImGui::Text("Transform");
-	ImGui::Spacing();
-	ImGui::SliderFloat("X", &_posX, 0.0f, 1920.0f);
-	ImGui::Spacing();
-	ImGui::SliderFloat("Y", &_posY, 0.0f, 1920.0f);
-	ImGui::Spacing();
-	ImGui::SliderFloat("Z", &_posZ, 0.0f, 1920.0f);
-	ImGui::Spacing();
-	ImGui::Text("Rotation");
-	ImGui::Spacing();
-	ImGui::Text("X");
-	ImGui::SameLine();
-	ImGui::Text("Y");
-	ImGui::SameLine();
-	ImGui::Text("Z");
-	ImGui::Spacing();
-	ImGui::Text("Scale");
-	ImGui::Spacing();
-	ImGui::Text("X");
-	ImGui::SameLine();
-	ImGui::Text("Y");
-	ImGui::SameLine();
-	ImGui::Text("Z");
-	ImGui::Spacing();
+	if (_dataManager->getSelectedEntity() != NULL) {
+
+		_posX = _dataManager->getSelectedEntity()->transform.position.x;
+		_posY = _dataManager->getSelectedEntity()->transform.position.y;
+		_posZ = _dataManager->getSelectedEntity()->transform.position.z;
+
+		_rotX = _dataManager->getSelectedEntity()->transform.rotation.x;
+		_rotY = _dataManager->getSelectedEntity()->transform.rotation.y;
+		_rotZ = _dataManager->getSelectedEntity()->transform.rotation.z;
+
+		_scaleX = _dataManager->getSelectedEntity()->transform.scale.x;
+		_scaleY = _dataManager->getSelectedEntity()->transform.scale.y;
+		_scaleZ = _dataManager->getSelectedEntity()->transform.scale.z;
+
+
+		ImGui::Text("Transform");
+		ImGui::Spacing();
+		ImGui::Text(_dataManager->getSelectedEntity()->getName().c_str());
+		ImGui::Spacing();
+		ImGui::SliderFloat("X Position", &_posX, 0.0f, _window->getWidth());
+		ImGui::Spacing();
+		ImGui::SliderFloat("Y Position", &_posY, 0.0f, _window->getHeight());
+		ImGui::Spacing();
+		ImGui::SliderFloat("Z Position", &_posZ, -10.0f, 10.0f);
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Text("Rotation");
+		ImGui::Spacing();
+		ImGui::SliderFloat("X Rotation", &_rotX, -180.0f, 180.0f);
+		ImGui::Spacing();
+		ImGui::SliderFloat("Y Rotation", &_rotY, -180.0f, 180.0f);
+		ImGui::Spacing();
+		ImGui::SliderFloat("Z Rotation", &_rotZ, -180.0f, 180.0f);
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Text("Scale");
+		ImGui::Spacing();
+		ImGui::SliderFloat("X Scale", &_scaleX, 0.0f, _window->getWidth());
+		ImGui::Spacing();
+		ImGui::SliderFloat("Y Scale", &_scaleY, 0.0f, _window->getHeight());
+		ImGui::Spacing();
+		ImGui::SliderFloat("Z Scale", &_scaleZ, 0.0f, _window->getWidth());
+		ImGui::Spacing();
+
+		_dataManager->getSelectedEntity()->setPos(_posX, _posY, _posZ);
+
+		_dataManager->getSelectedEntity()->setXRot(_rotX);
+		_dataManager->getSelectedEntity()->setYRot(_rotY);
+		_dataManager->getSelectedEntity()->setZRot(_rotZ);
+
+		_dataManager->getSelectedEntity()->setScale(_scaleX, _scaleY, _scaleZ);
+	}
 	ImGui::End();
-	_dataManager->getLevelEntities()[0]->setPos(_posX, _posY, _posZ);
 }

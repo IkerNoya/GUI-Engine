@@ -7,6 +7,7 @@
 
 class ENGINE_API DataManager {
 	std::vector<Entity*> levelEntities;
+	Entity* selectedEntity;
 public:
 	DataManager();
 	~DataManager();
@@ -15,6 +16,8 @@ public:
 	void loadEntities();
 	void clearLevelEntities();
 	std::vector<Entity*> getLevelEntities();
+	Entity* getSelectedEntity();
+	void setSelectedEntity(Entity* entity);
 };
 
 

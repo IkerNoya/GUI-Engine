@@ -30,11 +30,12 @@ void Game::init() {
 void Game::update() {
 	if (input.getKey(keyCode::LEFT)) {
 		_x2 -= 1.0f;
+		square2->setPos(_x2, 200, -1.0f);
 	}
 	if (input.getKey(keyCode::RIGHT)) {
 		_x2 += 1.0f;
+		square2->setPos(_x2, 200, -1.0f);
 	}
-	square2->setPos(_x2, 200, -1.0f);
 	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
 
 	square->draw(basicShader);

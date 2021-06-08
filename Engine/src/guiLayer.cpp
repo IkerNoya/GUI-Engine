@@ -90,9 +90,6 @@ void GuiLayer::onRender(bool &isInspectorOpen, bool &isWdOpen) {
 		
 		ImGui::EndMainMenuBar();
 	}
-	if (_isWorldDataOpen) {
-		createWorldData("World Data", _isWorldDataOpen);
-	}
 
 }
 
