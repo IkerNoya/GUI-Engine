@@ -1,6 +1,7 @@
 #include "worldData.h"
 
 WorldData::WorldData(Window* window, DataManager* dataManager) : GuiLayer(window, dataManager) {
+	_isWindowOpen = true;
 
 }
 WorldData::~WorldData() {

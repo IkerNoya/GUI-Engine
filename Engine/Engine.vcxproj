@@ -38,6 +38,8 @@
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\shape.h" />
+    <ClInclude Include="src\sprite.h" />
+    <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\window.h" />
     <ClInclude Include="src\worldData.h" />
   </ItemGroup>
@@ -58,6 +60,8 @@
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\shape.cpp" />
+    <ClCompile Include="src\sprite.cpp" />
+    <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\window.cpp" />
     <ClCompile Include="src\worldData.cpp" />
   </ItemGroup>

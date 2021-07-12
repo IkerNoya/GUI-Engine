@@ -2,14 +2,24 @@
 #include "GLFW/glfw3.h"
 
 Inspector::Inspector(Window* window, DataManager* dataManager) : GuiLayer(window, dataManager) {
-	_isWindowOpen = false;
+	_isWindowOpen = true;
+
 	_posX = 0;
 	_posY = 0;
 	_posZ = 0;
+
+	_rotX = 0;
+	_rotY = 0;
+	_rotZ = 0;
+
+	_scaleX = 0;
+	_scaleY = 0;
+	_scaleZ = 0;
 }
 Inspector::~Inspector() {
 
 }
+
 void Inspector::getEntity() {
 	if (_dataManager) {
 		_posX = _dataManager->getLevelEntities()[0]->transform.position.x;
@@ -39,9 +49,9 @@ void Inspector::createWindow() {
 		_scaleZ = _dataManager->getSelectedEntity()->transform.scale.z;
 
 
-		ImGui::Text("Transform");
-		ImGui::Spacing();
 		ImGui::Text(_dataManager->getSelectedEntity()->getName().c_str());
+		ImGui::Spacing();
+		ImGui::Text("Transform");
 		ImGui::Spacing();
 		ImGui::SliderFloat("X Position", &_posX, 0.0f, _window->getWidth());
 		ImGui::Spacing();
@@ -52,11 +62,11 @@ void Inspector::createWindow() {
 		ImGui::Spacing();
 		ImGui::Text("Rotation");
 		ImGui::Spacing();
-		ImGui::SliderFloat("X Rotation", &_rotX, -180.0f, 180.0f);
-		ImGui::Spacing();
-		ImGui::SliderFloat("Y Rotation", &_rotY, -180.0f, 180.0f);
-		ImGui::Spacing();
-		ImGui::SliderFloat("Z Rotation", &_rotZ, -180.0f, 180.0f);
+		ImGui::SliderFloat("X Rotation", &_rotX, -360.0f, 360.0f);
+		ImGui::Spacing();						  
+		ImGui::SliderFloat("Y Rotation", &_rotY, -360.0f, 360.0f);
+		ImGui::Spacing();						  
+		ImGui::SliderFloat("Z Rotation", &_rotZ, -360.0f, 360.0f);
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Text("Scale");
