@@ -4,6 +4,7 @@
 #include "window.h"
 #include "renderer.h"
 #include "shape.h"
+#include "sprite.h"
 #include "shader.h"
 #include "guiLayer.h"
 #include "inspector.h"
@@ -23,6 +24,7 @@ protected:
 	Renderer* renderer;
 	DataManager* dataManager;
 	Shader basicShader;
+	Shader textureShader;
 	Camera* camera;
 	GuiLayer* gui;
 

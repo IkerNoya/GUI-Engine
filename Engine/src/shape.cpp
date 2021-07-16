@@ -60,6 +60,23 @@ void Shape::bindEBO() {
 	}
 }
 
+void Shape::bindBuffers(float* quadVertex, float* triVertex, int quadVertexSize, int triVertexSize){
+	generateVAO();
+	switch (shape)
+	{
+	case Type::quad:
+		_renderer->bindVBO(_vbo, quadVertex, quadVertexSize);
+		_renderer->bindEBO(_ebo, quadIndices, 6);
+		break;
+	case Type::tri:
+		_renderer->bindVBO(_vbo, triVertex, triVertexSize);
+		_renderer->bindEBO(_ebo, triangleIndices, 3);
+		break;
+	default:
+		break;
+	}
+}
+
 void Shape::setColor(float r, float g, float b) {
 	switch (shape)
 	{

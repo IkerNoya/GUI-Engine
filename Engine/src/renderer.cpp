@@ -29,6 +29,17 @@ void Renderer::setTintAttribPointer(unsigned int shaderID, const char* attribNam
     createAtribPointers(attribute, 3, 7, 4);
 }
 
+void Renderer::setTexAttribPointer(unsigned int shaderID) {
+    unsigned int posAttrib = glGetAttribLocation(shaderID, "pos");
+    unsigned int colorAttrib = glGetAttribLocation(shaderID, "color");
+    unsigned int texAttrib = glGetAttribLocation(shaderID, "aTexCoord");
+    glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
+    createAtribPointers(posAttrib, 4, 9, 0);
+    createAtribPointers(colorAttrib, 3, 9, 4);
+    createAtribPointers(texAttrib, 2, 9, 7);
+
+}
+
 void Renderer::startProgram(Shader& shader, glm::mat4 model) {
     unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
 	shader.useProgram();
@@ -96,6 +107,14 @@ void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float*
     bindVBO(vbo, vertices, verticesAmmount);
     setPositionAttribPointer(shader.getID(), "pos");
     setTintAttribPointer(shader.getID(), "color");
+    startProgram(shader, model);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    unbindBuffers();
+}
+void Renderer::drawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model){
+    bindVAO(vao);
+    bindVBO(vbo, vertices, verticesAmmount);
+    setTexAttribPointer(shader.getID());
     startProgram(shader, model);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     unbindBuffers();

@@ -46,6 +46,7 @@ int Gamebase::initEngine() {
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
     basicShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//fragmentShader.shader");
+    textureShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//texFragmentShader.shader");
     camera->setPos(0, 0, 1.0f);
     camera->setView(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -77,6 +78,7 @@ void Gamebase::updateEngine() {
             worldData->createWindow();
 
         camera->draw(basicShader);
+        camera->draw(textureShader);
       
 		update();
 

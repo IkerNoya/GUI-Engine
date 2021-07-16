@@ -13,6 +13,7 @@ public:
 																							// dataPosition = position of the begining of data in vertex (xyz rgb -> r = 3 || xyz rgb -> x = 0) 
 	void setPositionAttribPointer(unsigned int shaderID, const char* attribName);
 	void setTintAttribPointer(unsigned int shaderID, const char* attribName);
+	void setTexAttribPointer(unsigned int shaderID);
 
 	void startProgram(Shader &shader, glm::mat4 model);
 
@@ -23,6 +24,7 @@ public:
 	void bindAllBuffersAtOnce(unsigned int& vbo, unsigned int& vao, unsigned int& ebo, float* vertex, unsigned int* indices, int verticesAmmount, int indicesAmmount); // binds verteces to the vbo and vao
 
 	void draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model);
+	void drawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model);
 	void drawCamera(Shader& shader, glm::mat4 model, glm::mat4 view, glm::mat4 proj);
 
 	void activateWireframeMode();

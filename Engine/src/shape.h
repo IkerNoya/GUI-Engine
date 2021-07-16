@@ -47,6 +47,8 @@ public:
     void bindVBO();
     void bindEBO();
 
+    void bindBuffers(float* quadVertex, float* triVertex, int quadVertexSize, int triVertexSize);
+
     void setColor(float r, float g, float b);
 
     void clearBuffers();

@@ -99,6 +99,9 @@
     <ClInclude Include="src\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\texture_importer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp">
@@ -161,12 +164,18 @@
     <ClCompile Include="src\sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\texture_importer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\vertexShader.shader">
       <Filter>Shaders</Filter>
     </None>
     <None Include="src\shaders\fragmentShader.shader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\shaders\texFragmentShader.shader">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
