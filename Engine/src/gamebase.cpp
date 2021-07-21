@@ -13,13 +13,11 @@
 Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
-    dataManager = new DataManager();
+    dataManager = DataManager::Get();
     gui = new GuiLayer(window, dataManager);
     inspector = new Inspector(window, dataManager);
     worldData = new WorldData(window, dataManager);
     camera = new Camera(renderer, ProjectionType::orthographic);
-    _x1 = 0;
-    _x2 = 0;
 }
 
 Gamebase::~Gamebase() {
@@ -60,8 +58,6 @@ int Gamebase::initEngine() {
 }
 
 void Gamebase::updateEngine() {
-    bool show_demo_window = true;
-    bool show_another_window = false;
     bool wireMode = false;
     inspector->getEntity();
 	while (!glfwWindowShouldClose(window->getWindow())) {
@@ -87,7 +83,7 @@ void Gamebase::updateEngine() {
         }
 
 
-        if (gui->getButtonPressed()) {
+        if (gui->getWireFrameMode()) {
             renderer->activateWireframeMode();
         }
         else{

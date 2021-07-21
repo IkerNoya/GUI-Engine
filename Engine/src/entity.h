@@ -2,7 +2,7 @@
 #define ENTITY_H
 #include "export.h"
 #include "renderer.h"
-#include "mat4x4.hpp" own class
+#include "mat4x4.hpp"
 
 // using glm vec3 temporarily, will later use my
 struct ENGINE_API Rotation {
@@ -28,7 +28,8 @@ struct ENGINE_API Transform {
 class ENGINE_API Entity {
 protected:
 	int _id;
-	std::string _name;
+	static int _nextEntityID;
+	std::string _name = "";
 	Renderer* _renderer;
 	Model model;
 	void updateModel();

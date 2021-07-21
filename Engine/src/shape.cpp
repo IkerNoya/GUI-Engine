@@ -10,6 +10,8 @@ Shape::Shape(Type type, Renderer* renderer, std::string name) : Entity(renderer)
 	_vbo = 0;
 	_ebo = 0;
 
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
 }
 	
 Shape::~Shape() {

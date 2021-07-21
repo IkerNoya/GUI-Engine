@@ -6,10 +6,16 @@
 #include <vector>
 
 class ENGINE_API DataManager {
+private: 
 	std::vector<Entity*> levelEntities;
 	Entity* selectedEntity;
+	DataManager() { selectedEntity = nullptr; }
+	static DataManager* ptr;
+
 public:
-	DataManager();
+	DataManager(const DataManager&) = delete;
+	DataManager& operator=(const DataManager&) = delete;
+	static DataManager* Get();
 	~DataManager();
 	void addEntity(Entity* entity, int id);
 	void saveEntities();
@@ -18,7 +24,7 @@ public:
 	std::vector<Entity*> getLevelEntities();
 	Entity* getSelectedEntity();
 	void setSelectedEntity(Entity* entity);
-};
+}; 
 
 
 #endif // !DATAMANAGER_H

@@ -30,9 +30,6 @@ protected:
 
 	Input input;
 
-	float _x1;
-	float _x2;
-
 public: 
 	Gamebase();
 	~Gamebase();

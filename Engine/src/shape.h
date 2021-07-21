@@ -3,6 +3,7 @@
 #include "export.h"
 #include "renderer.h"
 #include "entity.h"
+#include "dataManager.h"
 
 
 enum class ENGINE_API Type {
@@ -11,6 +12,7 @@ enum class ENGINE_API Type {
 
 class ENGINE_API Shape : public Entity{
 protected:
+
     float quadVertices[28] = {
         0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // top right
         0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // bottom right
@@ -29,9 +31,11 @@ protected:
     unsigned int triangleIndices[3] = {
         0, 1, 2
     };
+
     Type shape;
 
 public:
+
     unsigned int _vao;
     unsigned int _vbo;
     unsigned int _ebo;

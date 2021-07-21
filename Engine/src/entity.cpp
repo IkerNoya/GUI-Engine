@@ -3,13 +3,16 @@
 #include "ext/matrix_transform.hpp"
 #include "ext/matrix_clip_space.hpp"
 #include "ext/scalar_constants.hpp"
+#include "dataManager.h"
+
+int Entity::_nextEntityID = 0;
 
 void Entity::updateModel() {
 	model.trs = model.translate * model.rotation.x * model.rotation.y * model.rotation.z * model.scale;
 }
 
 Entity::Entity(Renderer* renderer) {
-	_id - 1;
+
 	_renderer = renderer;
 	model.translate = glm::mat4(1.0);
 
@@ -23,6 +26,8 @@ Entity::Entity(Renderer* renderer) {
 	setYRot(0.0f);
 	setZRot(0.0f);
 	setScale(1.0f, 1.0f, 1.0f);
+
+	_id = _nextEntityID++;
 }
 
 Entity::~Entity() {

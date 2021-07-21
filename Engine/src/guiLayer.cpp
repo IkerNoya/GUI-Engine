@@ -90,6 +90,15 @@ void GuiLayer::onRender(bool &isInspectorOpen, bool &isWdOpen) {
 			}
 			ImGui::EndMenu();
 		}
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		if (ImGui::BeginMenu("Render Mode")) {
+			if (ImGui::MenuItem("WireFrame")) {
+				_wireframeMode = !_wireframeMode;
+			}
+			ImGui::EndMenu();
+		}
 		
 		ImGui::EndMainMenuBar();
 	}
@@ -120,6 +129,10 @@ void GuiLayer::unload() {
 
 bool GuiLayer::getButtonPressed() {
 	return _buttonPressed;
+}
+
+bool GuiLayer::getWireFrameMode() {
+	return _wireframeMode;
 }
 
 ImVec4 GuiLayer::getColor() {

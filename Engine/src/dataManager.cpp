@@ -1,11 +1,18 @@
 #include "dataManager.h"
+#include <iostream>
+#include <mutex>
 
-DataManager::DataManager() {
-	
+DataManager* DataManager::ptr = nullptr;
+
+DataManager* DataManager::Get() {
+	if (ptr == NULL) {
+		ptr = new DataManager();
+	}
+	return ptr;
 }
 
 DataManager::~DataManager() {
-	if (levelEntities.size() > 0) {
+	if (!levelEntities.empty()) {
 		levelEntities.clear();
 	}
 }
@@ -14,7 +21,11 @@ void DataManager::addEntity(Entity* entity, int id) {
 	if (entity != NULL){
 		for (int i = 0; i < levelEntities.size(); i++) {
 			if (levelEntities[i]->getID() == id) {
-				std::cout << entity->getName() << " - has already been saved" << std::endl;
+				if(entity->getName() != "")
+					std::cout << entity->getName() << " - has already been saved" << std::endl;
+				else
+					std::cout << "NULL Entity - has already been saved" << std::endl;
+
 				return;
 			}
 		}

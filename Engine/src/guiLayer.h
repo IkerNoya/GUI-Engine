@@ -11,7 +11,8 @@
 class ENGINE_API GuiLayer {
 	int _width;
 	int _height;
-	bool _buttonPressed;
+	bool _buttonPressed = false;
+	bool _wireframeMode = false;
 
 	ImVec4 _color;
 
@@ -28,6 +29,7 @@ public:
 	~GuiLayer();
 	void init();
 	bool getButtonPressed();
+	bool getWireFrameMode();
 	void createWorldData(const char* name, bool isActive);
 	void begin();
 	void onRender(bool& isInspectorOpen, bool& isWdOpen);
