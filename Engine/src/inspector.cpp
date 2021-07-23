@@ -62,11 +62,11 @@ void Inspector::createWindow() {
 		ImGui::Spacing();
 		ImGui::Text("Rotation");
 		ImGui::Spacing();
-		ImGui::SliderFloat("X Rotation", &_rotX, -360.0f, 360.0f);
+		ImGui::SliderFloat("X Rotation", &_rotX, -10.0f, 10.0f);
 		ImGui::Spacing();						  
-		ImGui::SliderFloat("Y Rotation", &_rotY, -360.0f, 360.0f);
+		ImGui::SliderFloat("Y Rotation", &_rotY, -10.0f, 10.0f);
 		ImGui::Spacing();						  
-		ImGui::SliderFloat("Z Rotation", &_rotZ, -360.0f, 360.0f);
+		ImGui::SliderFloat("Z Rotation", &_rotZ, -10.0f, 10.0f);
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Text("Scale");

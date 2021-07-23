@@ -10,7 +10,7 @@ private:
 	std::vector<Entity*> levelEntities;
 	Entity* selectedEntity;
 	DataManager() { selectedEntity = nullptr; }
-	static DataManager* ptr;
+	static DataManager* _instance;
 
 public:
 	DataManager(const DataManager&) = delete;

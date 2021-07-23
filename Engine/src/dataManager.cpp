@@ -2,13 +2,13 @@
 #include <iostream>
 #include <mutex>
 
-DataManager* DataManager::ptr = nullptr;
+DataManager* DataManager::_instance = nullptr;
 
 DataManager* DataManager::Get() {
-	if (ptr == NULL) {
-		ptr = new DataManager();
+	if (_instance == NULL) {
+		_instance = new DataManager();
 	}
-	return ptr;
+	return _instance;
 }
 
 DataManager::~DataManager() {
