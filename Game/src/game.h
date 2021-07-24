@@ -6,6 +6,7 @@ class Game : public Gamebase{
 	Shape* square;
 	Shape* square2;
 	Sprite* sprite1;
+	float timer = 0;
 public:
 	Game();
 	~Game();

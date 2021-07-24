@@ -28,15 +28,17 @@ void Game::init() {
 	sprite1->setPos(700, 100, 0);
 	sprite1->setScale(200, 200, 0.5f);
 	sprite1->setColor(1.0f, 1.0f, 1.0f);
+	
 }
 
 	//game update
 void Game::update() {
 	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
-
 	square->draw(basicShader);
 	square2->draw(basicShader);
 	sprite1->drawSprite(textureShader);
+	std::cout << "timer: " << timer << "\n";
+	timer += time.getDeltaTime();
 }
 
 	// free memory

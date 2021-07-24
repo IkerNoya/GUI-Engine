@@ -12,6 +12,7 @@
 #include "input.h"
 #include "camera.h"
 #include "dataManager.h"
+#include "time_manager.h"
 #include "vld.h"
 
 
@@ -29,6 +30,7 @@ protected:
 	GuiLayer* gui;
 
 	Input input;
+	Time time;
 
 public: 
 	Gamebase();

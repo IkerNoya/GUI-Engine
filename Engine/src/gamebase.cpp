@@ -51,6 +51,8 @@ int Gamebase::initEngine() {
 
     gui->init();
 
+    time.reset();
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
@@ -94,6 +96,8 @@ void Gamebase::updateEngine() {
         gui->end();
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();
+
+        time.tick();
          
 	}
 }

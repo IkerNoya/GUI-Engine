@@ -102,6 +102,9 @@
     <ClInclude Include="src\texture_importer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\time_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp">
@@ -165,6 +168,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\texture_importer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\time_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
