@@ -42,7 +42,7 @@ void Sprite::LoadSprite() {
 	if (texImporter)
 		texImporter->LoadImage(_width, _height, _transparency);
 	else
-		std::cout << "Couldn't load image" << std::endl;
+		std::cout << "Couldn't find image" << std::endl;
 
 }
 
@@ -50,7 +50,7 @@ void Sprite::LoadSprite(int width, int height) {
 	if (texImporter)
 		texImporter->LoadImage(width, height, _transparency);
 	else
-		std::cout << "Couldn't load image" << std::endl;
+		std::cout << "Couldn't find image" << std::endl;
 }
 
 void Sprite::LoadSprite(int width, int height, const char* path) {
@@ -59,7 +59,7 @@ void Sprite::LoadSprite(int width, int height, const char* path) {
 		texImporter->LoadImage(width, height, _transparency);
 	}
 	else
-		std::cout << "Couldn't load image" << std::endl;
+		std::cout << "Couldn't find image" << std::endl;
 }
 
 void Sprite::bindTexture() {

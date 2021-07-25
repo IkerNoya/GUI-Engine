@@ -4,9 +4,9 @@
 Game::Game() : Gamebase(){
 	square = new Shape(Type::tri, renderer, "Triangle1");
 	square2 = new Shape(Type::quad, renderer, "Square2");
-	sprite1 = new Sprite(false, "res/textures/meme1.jpg", Type::quad, renderer, "Sprite1");
+	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", Type::quad, renderer, "Sprite1");
 }
-
+	
 Game::~Game() {
 	if (square) delete square;
 	if (square2) delete square2;
@@ -33,12 +33,35 @@ void Game::init() {
 
 	//game update
 void Game::update() {
+	//input
+	inputs();
+
+	//update
 	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
+
+	timer += time.getDeltaTime();
+
+	//draw
 	square->draw(basicShader);
 	square2->draw(basicShader);
 	sprite1->drawSprite(textureShader);
-	std::cout << "timer: " << timer << "\n";
-	timer += time.getDeltaTime();
+	
+	//std::cout << "fps: " << time.getFPS() << "\n";
+}
+
+void Game::inputs() {
+	if (input.getKey(D)) {
+		sprite1->setPos(sprite1->transform.position.x + (speed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
+	}
+	if (input.getKey(A)) {
+		sprite1->setPos(sprite1->transform.position.x - (speed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
+	}
+	if (input.getKey(W)) {
+		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y + (speed * time.getDeltaTime()), sprite1->transform.position.z);
+	}
+	if (input.getKey(S)) {
+		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y - (speed * time.getDeltaTime()), sprite1->transform.position.z);
+	}
 }
 
 	// free memory

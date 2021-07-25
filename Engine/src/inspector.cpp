@@ -21,10 +21,10 @@ Inspector::~Inspector() {
 }
 
 void Inspector::getEntity() {
-	if (_dataManager) {
-		_posX = _dataManager->getLevelEntities()[0]->transform.position.x;
-		_posY = _dataManager->getLevelEntities()[0]->transform.position.y;
-		_posZ = _dataManager->getLevelEntities()[0]->transform.position.z;
+	if (_dataManager && _dataManager->getSelectedEntity()) {
+		_posX = _dataManager->getSelectedEntity()->transform.position.x;
+		_posY = _dataManager->getSelectedEntity()->transform.position.y;
+		_posZ = _dataManager->getSelectedEntity()->transform.position.z;
 	}
 }
 void Inspector::createWindow() {

@@ -97,8 +97,8 @@ void Gamebase::updateEngine() {
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();
 
+        time.calculateFPS();
         time.tick();
-         
 	}
 }
 

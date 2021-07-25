@@ -10,6 +10,7 @@ private:
 	std::chrono::duration<float> _deltaTime;
 	float _time;
 	float _fps;
+	float _fpsElapesedTime;
 	int _frames;
 
 public:
@@ -18,6 +19,7 @@ public:
 
 	void tick();
 	void reset();
+	void calculateFPS();
 
 	float getFPS();
 	float getDeltaTime();

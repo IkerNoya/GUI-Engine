@@ -1,7 +1,12 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "texture_importer.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include <iostream>
+#define STBI_FAILURE_USERMSG 
 
 TextureImporter::TextureImporter(){
 	_texture = 0;
@@ -33,22 +38,26 @@ void TextureImporter::LoadImage(int width, int height, bool transparency){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	int nrChannels;
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* _data = stbi_load(_path, &width, &height, &nrChannels, 0);
+
+	if(transparency)
+		_data = stbi_load(_path, &width, &height, &nrChannels, STBI_rgb_alpha);
+	else
+		_data = stbi_load(_path, &width, &height, &nrChannels, STBI_rgb);
+
 
 	if (_data) {
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-		if (transparency)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA8, GL_UNSIGNED_BYTE, _data);
-		else
+		if (!transparency)
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, _data);
+		else
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else {
-		std::cout << "Failed to load texture" << std::endl;
+		std::cout << "Failed to load texture" << " - " << stbi_failure_reason() << std::endl;
 	}
 	stbi_image_free(_data);
 }

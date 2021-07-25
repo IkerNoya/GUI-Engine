@@ -63,7 +63,6 @@
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\shape.cpp" />
     <ClCompile Include="src\sprite.cpp" />
-    <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\texture_importer.cpp" />
     <ClCompile Include="src\time_manager.cpp" />
     <ClCompile Include="src\window.cpp" />
