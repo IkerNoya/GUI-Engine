@@ -3,7 +3,7 @@
 #include "gamebase.h"
 
 class Game : public Gamebase{
-	Shape* square;
+	Shape* triangle;
 	Shape* square2;
 	Sprite* sprite1;
 	float timer = 0;

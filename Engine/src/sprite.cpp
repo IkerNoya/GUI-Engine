@@ -2,24 +2,35 @@
 #include "GLFW/glfw3.h"
 
 #include "sprite.h"
+#include "dataManager.h"
 
-Sprite::Sprite(bool transparency, Type type, Renderer* renderer, Shader& shader, std::string name) : Shape(type, renderer, shader, name)
+Sprite::Sprite(bool transparency, Renderer* renderer, Shader& shader, std::string name) : Entity(renderer)
 {
 	_transparency = transparency;
 	texImporter = new TextureImporter();
-
+	_shader = shader;
 	_width = 0;
 	_height = 0;
+	_name = name;
+
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
 }
 
-Sprite::Sprite(bool transparency, const char* path, Type type, Renderer* renderer, Shader& shader, std::string name) : Shape(type, renderer, shader, name)
+Sprite::Sprite(bool transparency, const char* path, Renderer* renderer, Shader& shader, std::string name) : Entity(renderer)
 {
 	_transparency = transparency;
 	texImporter = new TextureImporter();
 	texImporter->SetPath(path);
+	_shader = shader;
+	_name = name;
+
 
 	_width = 0;
 	_height = 0;
+
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
 }
 
 Sprite::~Sprite()
@@ -29,12 +40,13 @@ Sprite::~Sprite()
 		delete texImporter;
 		texImporter = NULL;
 	}
+	clearBuffers();
 }
 
-void Sprite::init(Shader& shader){
+void Sprite::init(){
 	LoadSprite();
-	_renderer->setTexAttribPointer(shader.getID());
-	bindBuffers(texQuadVertices, texTriVertices, 36, 27);
+	_renderer->setTexAttribPointer(_shader.getID());
+	bindBuffers();
 
 }
 
@@ -62,6 +74,29 @@ void Sprite::LoadSprite(int width, int height, const char* path) {
 		std::cout << "Couldn't find image" << std::endl;
 }
 
+void Sprite::generateVAO() {
+	_renderer->generateVAO(_vao);
+}
+void Sprite::bindVAO(){
+	_renderer->bindVAO(_vao);
+}
+void Sprite::bindVBO(){
+	_renderer->bindVBO(_vbo, _vertices, 36);
+}
+void Sprite::bindEBO() {
+	_renderer->bindEBO(_ebo, _indices, 6);
+}
+
+void Sprite::bindBuffers() {
+	generateVAO();
+	bindVAO();
+	bindVBO();
+	bindEBO();
+	std::cout << "vao: " << _vao << std::endl;
+	std::cout << "vbo: " << _vbo << std::endl;
+	std::cout << "ebo: " << _ebo << std::endl;
+}
+
 void Sprite::bindTexture() {
 	glBindTexture(GL_TEXTURE_2D, texImporter->GetTexture());
 	glActiveTexture(GL_TEXTURE0);
@@ -76,37 +111,29 @@ void Sprite::unblendSprite(){
 	glDisable(GL_BLEND);
 }
 
+void Sprite::clearBuffers() {
+	_renderer->deleteBuffers(_vao, _vbo, _ebo);
+}
+
+void Sprite::setColor(float r, float g, float b) {
+	 _vertices[4] = r;  _vertices[5] = g;  _vertices[6] = b;
+	_vertices[13] = r; _vertices[14] = g; _vertices[15] = b;
+	_vertices[22] = r; _vertices[23] = g; _vertices[24] = b;
+	_vertices[31] = r; _vertices[32] = g; _vertices[33] = b;
+}
+
 void Sprite::drawSprite()
 {
 	if (_transparency) {
 		blendSprite();
 		bindTexture();
-		switch (shape)
-		{
-			case Type::quad:
-				_renderer->drawSprite(_shader, _vao, _vbo, texQuadVertices, 36, getModel());
-				break;			
-
-			case Type::tri:
-				_renderer->drawSprite(_shader, _vao, _vbo, texTriVertices, 27, getModel());
-				break;
-		}
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, getModel());
 		unblendSprite();
 		glDisable(GL_TEXTURE_2D);
 	}
 	else {
 		bindTexture();
-		switch (shape)
-		{
-		case Type::quad:
-			_renderer->drawSprite(_shader, _vao, _vbo, texQuadVertices, 36, getModel());
-			//draw(shader);
-			break;
-
-		case Type::tri:
-			_renderer->drawSprite(_shader, _vao, _vbo, texTriVertices, 27, getModel());
-			break;
-		}
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, getModel());
 		glDisable(GL_TEXTURE_2D);
 	}
 }

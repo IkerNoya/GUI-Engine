@@ -6,27 +6,28 @@ Game::Game() : Gamebase(){
 }
 	
 Game::~Game() {
-	if (square) delete square;
+	if (triangle) delete triangle;
 	if (square2) delete square2;
 	if (sprite1) delete sprite1;
 }
 
 	//initialization of game variables
 void Game::init() {
-	square = new Shape(Type::tri, renderer, basicShader, "Triangle1");
+	triangle = new Shape(Type::tri, renderer, basicShader, "Triangle1");
 	square2 = new Shape(Type::quad, renderer, basicShader,"Square2");
-	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", Type::quad, renderer, textureShader, "Sprite1");
+	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", renderer, textureShader, "Sprite1");
 
-	square->initShape();
-	square->setPos(200, 200, 0);
-	square->setScale(200, 200, 0.5f);
+	triangle->initShape();
+	triangle->setPos(200, 200, 0);
+	triangle->setScale(200, 200, 0.5f);
+	square2->setColor(0.0f, 1.0f, 1.0f);
 
 	square2->initShape();
 	square2->setPos(300, 500, 0);
 	square2->setScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 0.0f, 1.0f);
 
-	sprite1->init(textureShader);
+	sprite1->init();
 	sprite1->setPos(700, 100, 0);
 	sprite1->setScale(200, 200, 0.5f);
 	sprite1->setColor(1.0f, 1.0f, 1.0f);
@@ -39,12 +40,11 @@ void Game::update() {
 	inputs();
 
 	//update
-	square->setColor(gui->getColor().x, gui->getColor().y, gui->getColor().z);
 
 	timer += time.getDeltaTime();
 
 	//draw
-	square->draw();
+	triangle->draw();
 	square2->draw();
 	sprite1->drawSprite();
 	
@@ -74,12 +74,12 @@ void Game::inputs() {
 
 	// free memory
 void Game::unload() {
-	square->clearBuffers();
+	triangle->clearBuffers();
 	square2->clearBuffers();
 	dataManager->clearLevelEntities();
-	if (square) {
-		delete square;
-		square = NULL;
+	if (triangle) {
+		delete triangle;
+		triangle = NULL;
 	}
 	if (square2) {
 		delete square2;

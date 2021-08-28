@@ -114,6 +114,8 @@ void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float*
 void Renderer::drawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model){
     bindVAO(vao);
     bindVBO(vbo, vertices, verticesAmmount);
+    setPositionAttribPointer(shader.getID(), "pos");
+    setTintAttribPointer(shader.getID(), "color");
     setTexAttribPointer(shader.getID());
     startProgram(shader, model);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
