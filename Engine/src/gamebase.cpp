@@ -43,8 +43,10 @@ int Gamebase::initEngine() {
     glGetIntegerv(GL_CONTEXT_COMPATIBILITY_PROFILE_BIT, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
+
     basicShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//fragmentShader.shader");
     textureShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//texFragmentShader.shader");
+
     camera->setPos(0, 0, 1.0f);
     //                     direction                               up                    
     camera->setView(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -63,7 +65,7 @@ int Gamebase::initEngine() {
 void Gamebase::updateEngine() {
     bool wireMode = false;
     inspector->getEntity();
-	while (!glfwWindowShouldClose(window->getWindow())) {
+	while (!window->windowShouldClose()) {
 		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gui->begin();
@@ -80,11 +82,6 @@ void Gamebase::updateEngine() {
         camera->draw(textureShader);
       
 		update();
-
-        if (input.getKey(keyCode::ENTER)) {
-            inspector->getEntity();
-        }
-
 
         if (gui->getWireFrameMode()) {
             renderer->activateWireframeMode();

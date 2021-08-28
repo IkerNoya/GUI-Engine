@@ -2,15 +2,17 @@
 
 #include <stdlib.h>
 
-Shape::Shape(Type type, Renderer* renderer, std::string name) : Entity(renderer){
+Shape::Shape(Type type, Renderer* renderer, Shader &shader, std::string name) : Entity(renderer){
 	shape = type;
 	_name = name;
+	_shader = shader;
 
 	_vao = 0;
 	_vbo = 0;
 	_ebo = 0;
 
 	DataManager* data = DataManager::Get();
+
 	data->addEntity(this, _id);
 }
 	
@@ -18,9 +20,9 @@ Shape::~Shape() {
 	clearBuffers();
 }
 
-void Shape::initShape(Shader& shader) {
-	_renderer->setPositionAttribPointer(shader.getID(), "pos");
-	_renderer->setTintAttribPointer(shader.getID(), "color");
+void Shape::initShape() {
+	_renderer->setPositionAttribPointer(_shader.getID(), "pos");
+	_renderer->setTintAttribPointer(_shader.getID(), "color");
 	generateVAO();
 	bindVBO();
 	bindEBO();
@@ -102,14 +104,14 @@ void Shape::clearBuffers() {
 	_renderer->deleteBuffers(_vao, _vbo, _ebo);
 }
 
-void Shape::draw(Shader& shader) {
+void Shape::draw() {
 	switch (shape)
 	{
 	case Type::quad:
-		_renderer->draw(shader, _vao, _vbo, quadVertices, 28, getModel());
+		_renderer->draw(_shader, _vao, _vbo, quadVertices, 28, getModel());
 		break; 
 	case Type::tri:
-		_renderer->draw(shader, _vao, _vbo, triangleVertices, 22, getModel());
+		_renderer->draw(_shader, _vao, _vbo, triangleVertices, 22, getModel());
 		break;
 	default:
 		break;

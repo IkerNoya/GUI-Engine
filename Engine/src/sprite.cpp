@@ -3,23 +3,23 @@
 
 #include "sprite.h"
 
-Sprite::Sprite(bool transparency, Type type, Renderer* renderer, std::string name) : Shape(type, renderer, name)
+Sprite::Sprite(bool transparency, Type type, Renderer* renderer, Shader& shader, std::string name) : Shape(type, renderer, shader, name)
 {
 	_transparency = transparency;
 	texImporter = new TextureImporter();
+
+	_width = 0;
+	_height = 0;
 }
 
-Sprite::Sprite(bool transparency, const char* path, Type type, Renderer* renderer, std::string name) : Shape(type, renderer, name)
+Sprite::Sprite(bool transparency, const char* path, Type type, Renderer* renderer, Shader& shader, std::string name) : Shape(type, renderer, shader, name)
 {
 	_transparency = transparency;
 	texImporter = new TextureImporter();
 	texImporter->SetPath(path);
-}
 
-Sprite::Sprite(int width, int height, const char* path, bool transparency, Type type, Renderer* renderer, std::string name) : Shape(type, renderer, name)
-{
-	_transparency = transparency;
-	texImporter = new TextureImporter(_width, _height, path, _transparency);
+	_width = 0;
+	_height = 0;
 }
 
 Sprite::~Sprite()
@@ -76,7 +76,7 @@ void Sprite::unblendSprite(){
 	glDisable(GL_BLEND);
 }
 
-void Sprite::drawSprite(Shader& shader)
+void Sprite::drawSprite()
 {
 	if (_transparency) {
 		blendSprite();
@@ -84,11 +84,11 @@ void Sprite::drawSprite(Shader& shader)
 		switch (shape)
 		{
 			case Type::quad:
-				_renderer->drawSprite(shader, _vao, _vbo, texQuadVertices, 36, getModel());
+				_renderer->drawSprite(_shader, _vao, _vbo, texQuadVertices, 36, getModel());
 				break;			
 
 			case Type::tri:
-				_renderer->drawSprite(shader, _vao, _vbo, texTriVertices, 27, getModel());
+				_renderer->drawSprite(_shader, _vao, _vbo, texTriVertices, 27, getModel());
 				break;
 		}
 		unblendSprite();
@@ -99,12 +99,12 @@ void Sprite::drawSprite(Shader& shader)
 		switch (shape)
 		{
 		case Type::quad:
-			_renderer->drawSprite(shader, _vao, _vbo, texQuadVertices, 36, getModel());
+			_renderer->drawSprite(_shader, _vao, _vbo, texQuadVertices, 36, getModel());
 			//draw(shader);
 			break;
 
 		case Type::tri:
-			_renderer->drawSprite(shader, _vao, _vbo, texTriVertices, 27, getModel());
+			_renderer->drawSprite(_shader, _vao, _vbo, texTriVertices, 27, getModel());
 			break;
 		}
 		glDisable(GL_TEXTURE_2D);

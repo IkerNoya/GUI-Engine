@@ -61,3 +61,8 @@ void Window::setHeight(int height) {
 int Window::getHeight() {
 	return _height;
 }
+
+bool Window::windowShouldClose()
+{
+	return glfwWindowShouldClose(_window);
+}

@@ -17,6 +17,7 @@ public:
 	int getWidth();
 	void setHeight(int height);
 	int getHeight();
+	bool windowShouldClose();
 };
 #endif // !WINDOW_H
 

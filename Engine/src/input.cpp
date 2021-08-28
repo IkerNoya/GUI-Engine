@@ -33,6 +33,25 @@ bool Input::getMouseButtonUp(MouseButtons mb) {
 	return glfwGetMouseButton(_window, mb) == GLFW_RELEASE;
 }
 
+glm::vec2 Input::getMousePosition2D() {
+	double xPos, yPos;
+	glfwGetCursorPos(_window, &xPos, &yPos);
+
+	mousePosition = glm::vec3(xPos, yPos, 0.0f);
+
+	return mousePosition;
+}
+
+glm::vec3 Input::getMousePosition3D() {
+	double xPos, yPos, zPos;
+	zPos = 0;
+	glfwGetCursorPos(_window, &xPos, &yPos);
+
+	mousePosition = glm::vec3(xPos, yPos, zPos);
+
+	return mousePosition;
+}
+
 void Input::unloadWindow() {
 	if (_window) _window = NULL;
 }

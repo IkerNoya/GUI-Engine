@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 #include "export.h"
+#include "vec2.hpp"
+#include "vec3.hpp"
 
 enum ENGINE_API keyCode {
     SPACE = 32,
@@ -134,6 +136,8 @@ struct GLFWwindow;
 
 class ENGINE_API Input {
     GLFWwindow* _window;
+    glm::vec3 mousePosition;
+
 public:
     Input();
     Input(GLFWwindow* window);
@@ -143,6 +147,8 @@ public:
     bool getKeyUp(keyCode key);
     bool getMouseButton(MouseButtons mb);
     bool getMouseButtonUp(MouseButtons mb);
+    glm::vec2 getMousePosition2D();
+    glm::vec3 getMousePosition3D();
     void unloadWindow();
 };
 

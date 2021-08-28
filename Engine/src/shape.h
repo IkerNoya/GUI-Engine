@@ -33,6 +33,7 @@ protected:
     };
 
     Type shape;
+    Shader _shader;
 
 public:
 
@@ -40,10 +41,10 @@ public:
     unsigned int _vbo;
     unsigned int _ebo;
 
-    Shape(Type type, Renderer* renderer, std::string name);
+    Shape(Type type, Renderer* renderer, Shader& shader, std::string name);
     ~Shape();
 
-    void initShape(Shader& shader);
+    void initShape();
 
     void generateVAO();
 
@@ -58,7 +59,7 @@ public:
     void clearBuffers();
 
 
-    void draw(Shader& shader);
+    void draw();
 };
 
 

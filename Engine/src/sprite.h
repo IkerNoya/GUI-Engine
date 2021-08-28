@@ -25,9 +25,8 @@ class ENGINE_API Sprite : public Shape {
 	};
 public:
 
-	Sprite(bool transparency, Type type, Renderer* renderer, std::string name);
-	Sprite(bool transparency, const char* path, Type type, Renderer* renderer, std::string name);
-	Sprite(int width, int height, const char* path, bool transparency, Type type, Renderer* renderer, std::string name);
+	Sprite(bool transparency, Type type, Renderer* renderer, Shader& shader, std::string name);
+	Sprite(bool transparency, const char* path, Type type, Renderer* renderer, Shader& shader, std::string name);
 	~Sprite();
 
 	void init(Shader& shader);
@@ -40,7 +39,7 @@ public:
 	void blendSprite();
 	void unblendSprite();
 
-	void drawSprite(Shader& shader);
+	void drawSprite();
 
 	void setWidth(int width);
 	int getWidth();

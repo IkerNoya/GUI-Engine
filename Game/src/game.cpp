@@ -2,9 +2,7 @@
 #include <windows.data.json.h>
 
 Game::Game() : Gamebase(){
-	square = new Shape(Type::tri, renderer, "Triangle1");
-	square2 = new Shape(Type::quad, renderer, "Square2");
-	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", Type::quad, renderer, "Sprite1");
+	newSpeed = speed;
 }
 	
 Game::~Game() {
@@ -15,11 +13,15 @@ Game::~Game() {
 
 	//initialization of game variables
 void Game::init() {
-	square->initShape(basicShader);
+	square = new Shape(Type::tri, renderer, basicShader, "Triangle1");
+	square2 = new Shape(Type::quad, renderer, basicShader,"Square2");
+	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", Type::quad, renderer, textureShader, "Sprite1");
+
+	square->initShape();
 	square->setPos(200, 200, 0);
 	square->setScale(200, 200, 0.5f);
 
-	square2->initShape(basicShader);
+	square2->initShape();
 	square2->setPos(300, 500, 0);
 	square2->setScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 0.0f, 1.0f);
@@ -42,25 +44,31 @@ void Game::update() {
 	timer += time.getDeltaTime();
 
 	//draw
-	square->draw(basicShader);
-	square2->draw(basicShader);
-	sprite1->drawSprite(textureShader);
+	square->draw();
+	square2->draw();
+	sprite1->drawSprite();
 	
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
 void Game::inputs() {
 	if (input.getKey(D)) {
-		sprite1->setPos(sprite1->transform.position.x + (speed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
+		sprite1->setPos(sprite1->transform.position.x + (newSpeed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
 	}
 	if (input.getKey(A)) {
-		sprite1->setPos(sprite1->transform.position.x - (speed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
+		sprite1->setPos(sprite1->transform.position.x - (newSpeed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
 	}
 	if (input.getKey(W)) {
-		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y + (speed * time.getDeltaTime()), sprite1->transform.position.z);
+		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y + (newSpeed * time.getDeltaTime()), sprite1->transform.position.z);
 	}
 	if (input.getKey(S)) {
-		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y - (speed * time.getDeltaTime()), sprite1->transform.position.z);
+		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y - (newSpeed * time.getDeltaTime()), sprite1->transform.position.z);
+	}
+	if (input.getKey(LEFT_SHIFT)) {
+		newSpeed = speed * 2;
+	}
+	else {
+		newSpeed = speed;
 	}
 }
 

@@ -8,6 +8,7 @@ class Game : public Gamebase{
 	Sprite* sprite1;
 	float timer = 0;
 	float speed = 300;
+	float newSpeed;
 public:
 	Game();
 	~Game();
