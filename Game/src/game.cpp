@@ -46,23 +46,23 @@ void Game::update() {
 	//draw
 	triangle->draw();
 	square2->draw();
-	sprite1->drawSprite();
+	sprite1->draw();
 	
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
 void Game::inputs() {
 	if (input.getKey(D)) {
-		sprite1->setPos(sprite1->transform.position.x + (newSpeed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
+		sprite1->transform.position.x +=time.getDeltaTime() * newSpeed;
 	}
 	if (input.getKey(A)) {
-		sprite1->setPos(sprite1->transform.position.x - (newSpeed * time.getDeltaTime()), sprite1->transform.position.y, sprite1->transform.position.z);
+		sprite1->transform.position.x -= time.getDeltaTime() * newSpeed;
 	}
 	if (input.getKey(W)) {
-		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y + (newSpeed * time.getDeltaTime()), sprite1->transform.position.z);
+		sprite1->transform.position.y += time.getDeltaTime() * newSpeed;
 	}
 	if (input.getKey(S)) {
-		sprite1->setPos(sprite1->transform.position.x, sprite1->transform.position.y - (newSpeed * time.getDeltaTime()), sprite1->transform.position.z);
+		sprite1->transform.position.y -= time.getDeltaTime() * newSpeed;
 	}
 	if (input.getKey(LEFT_SHIFT)) {
 		newSpeed = speed * 2;
@@ -74,8 +74,6 @@ void Game::inputs() {
 
 	// free memory
 void Game::unload() {
-	triangle->clearBuffers();
-	square2->clearBuffers();
 	dataManager->clearLevelEntities();
 	if (triangle) {
 		delete triangle;

@@ -11,7 +11,9 @@ enum class ENGINE_API Type {
 };
 
 class ENGINE_API Shape : public Entity{
-protected:
+    unsigned int _vao;
+    unsigned int _vbo;
+    unsigned int _ebo;
 
     float quadVertices[28] = {
         0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // top right
@@ -35,17 +37,6 @@ protected:
     Type shape;
     Shader _shader;
 
-public:
-
-    unsigned int _vao;
-    unsigned int _vbo;
-    unsigned int _ebo;
-
-    Shape(Type type, Renderer* renderer, Shader& shader, std::string name);
-    ~Shape();
-
-    void initShape();
-
     void generateVAO();
 
     void bindVAO();
@@ -54,10 +45,16 @@ public:
 
     void bindBuffers(float* quadVertex, float* triVertex, int quadVertexSize, int triVertexSize);
 
-    void setColor(float r, float g, float b);
-
     void clearBuffers();
 
+public:
+
+    Shape(Type type, Renderer* renderer, Shader& shader, std::string name);
+    ~Shape();
+
+    void initShape();
+
+    void setColor(float r, float g, float b);
 
     void draw();
 };

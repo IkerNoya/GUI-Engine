@@ -71,6 +71,7 @@ void Renderer::bindAllBuffersAtOnce(unsigned int &vbo, unsigned int &vao, unsign
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
     glGenBuffers(1, &ebo);
+
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(vao);
 

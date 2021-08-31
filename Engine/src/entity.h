@@ -39,6 +39,7 @@ public:
 	Transform transform;
 	Renderer* getRenderer();
 	glm::mat4 getModel();
+	void updateMatrices();
 	void setPos(float x, float y, float z);
 	void setXRot(float angle);
 	void setYRot(float angle);

@@ -1,6 +1,6 @@
 #ifndef WORLD_DATA_H
 #define WORLD_DATA_H
-#include "guiLayer.h"
+#include "gui_layer.h"
 
 class WorldData : public GuiLayer {
 

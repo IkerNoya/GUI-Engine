@@ -105,6 +105,7 @@ void Shape::clearBuffers() {
 }
 
 void Shape::draw() {
+	updateMatrices();
 	switch (shape)
 	{
 	case Type::quad:

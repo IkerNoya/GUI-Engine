@@ -1,7 +1,7 @@
 #ifndef INSPECTOR_H
 #define INSPECTOR_H
 
-#include "guiLayer.h"
+#include "gui_layer.h"
 
 class Inspector : public GuiLayer {
 	float _posX;

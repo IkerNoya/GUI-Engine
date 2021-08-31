@@ -60,7 +60,7 @@
     <ClInclude Include="src\shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\guiLayer.h">
+    <ClInclude Include="src\gui_layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\input.h">
@@ -90,7 +90,7 @@
     <ClInclude Include="src\inspector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\worldData.h">
+    <ClInclude Include="src\world_data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\sprite.h">
@@ -134,7 +134,7 @@
     <ClCompile Include="src\shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\guiLayer.cpp">
+    <ClCompile Include="src\gui_layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\input.cpp">
@@ -158,7 +158,7 @@
     <ClCompile Include="src\inspector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\worldData.cpp">
+    <ClCompile Include="src\world_data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\sprite.cpp">

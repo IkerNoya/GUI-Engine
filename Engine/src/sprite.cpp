@@ -92,9 +92,6 @@ void Sprite::bindBuffers() {
 	bindVAO();
 	bindVBO();
 	bindEBO();
-	std::cout << "vao: " << _vao << std::endl;
-	std::cout << "vbo: " << _vbo << std::endl;
-	std::cout << "ebo: " << _ebo << std::endl;
 }
 
 void Sprite::bindTexture() {
@@ -122,8 +119,9 @@ void Sprite::setColor(float r, float g, float b) {
 	_vertices[31] = r; _vertices[32] = g; _vertices[33] = b;
 }
 
-void Sprite::drawSprite()
+void Sprite::draw()
 {
+	updateMatrices();
 	if (_transparency) {
 		blendSprite();
 		bindTexture();

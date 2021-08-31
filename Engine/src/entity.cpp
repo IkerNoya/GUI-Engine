@@ -27,7 +27,7 @@ Entity::Entity(Renderer* renderer) {
 	setZRot(0.0f);
 	setScale(1.0f, 1.0f, 1.0f);
 
-	_id = _nextEntityID++;
+	_id = _nextEntityID++; // assign id and then increase the value so the next entity doesn´t share the same one
 }
 
 Entity::~Entity() {
@@ -47,6 +47,13 @@ void Entity::setPos(float x, float y, float z) {
 	transform.position.z = z;
 	
 	model.translate = glm::translate(glm::mat4(1.0f), transform.position);
+	updateModel();
+}
+
+void Entity::updateMatrices(){
+	model.translate = glm::translate(glm::mat4(1.0f), transform.position);
+	model.scale = glm::scale(glm::mat4(1.0f), transform.scale);
+
 	updateModel();
 }
 

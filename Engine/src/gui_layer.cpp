@@ -1,4 +1,4 @@
-#include "guiLayer.h"
+#include "gui_layer.h"
 #include "GLFW/glfw3.h"
 
 GuiLayer::GuiLayer(Window* window, DataManager* dataManager) {

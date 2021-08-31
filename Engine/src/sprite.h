@@ -58,7 +58,7 @@ public:
 	void LoadSprite(int width, int height);
 	void LoadSprite(int width, int height, const char* path);
 
-	void drawSprite();
+	void draw();
 
 	void setColor(float r, float g, float b);
 	void setWidth(int width);
