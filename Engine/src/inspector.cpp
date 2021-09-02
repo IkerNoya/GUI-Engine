@@ -78,7 +78,7 @@ void Inspector::createWindow() {
 		ImGui::SliderFloat("Z Scale", &_scaleZ, 0.0f, _window->getWidth());
 		ImGui::Spacing();
 
-		_dataManager->getSelectedEntity()->setPos(_posX, _posY, _posZ);
+		_dataManager->getSelectedEntity()->setPosition(_posX, _posY, _posZ);
 
 		_dataManager->getSelectedEntity()->setXRot(_rotX);
 		_dataManager->getSelectedEntity()->setYRot(_rotY);

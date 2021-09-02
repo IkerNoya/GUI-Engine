@@ -30,7 +30,6 @@ public:
 	void init();
 	bool getButtonPressed();
 	bool getWireFrameMode();
-	void createWorldData(const char* name, bool isActive);
 	void begin();
 	void onRender(bool& isInspectorOpen, bool& isWdOpen);
 	void end();

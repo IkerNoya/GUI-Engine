@@ -21,7 +21,7 @@ Entity::Entity(Renderer* renderer) {
 	model.rotation.z = glm::mat4(1.0);
 	model.scale = glm::mat4(1.0);
 
-	setPos(1.0f, 1.0f, 1.0f);
+	setPosition(1.0f, 1.0f, 1.0f);
 	setXRot(0.0f);
 	setYRot(0.0f);
 	setZRot(0.0f);
@@ -41,7 +41,7 @@ glm::mat4 Entity::getModel() {
 	return model.trs;
 }
 
-void Entity::setPos(float x, float y, float z) {
+void Entity::setPosition(float x, float y, float z) {
 	transform.position.x = x;
 	transform.position.y = y;
 	transform.position.z = z;

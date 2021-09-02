@@ -32,15 +32,16 @@ protected:
 	std::string _name = "";
 	Renderer* _renderer;
 	Model model;
+
 	void updateModel();
+	void updateMatrices();
 public:
 	Entity(Renderer* renderer);
 	~Entity();
 	Transform transform;
 	Renderer* getRenderer();
 	glm::mat4 getModel();
-	void updateMatrices();
-	void setPos(float x, float y, float z);
+	void setPosition(float x, float y, float z);
 	void setXRot(float angle);
 	void setYRot(float angle);
 	void setZRot(float angle);

@@ -18,17 +18,17 @@ void Game::init() {
 	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", renderer, textureShader, "Sprite1");
 
 	triangle->initShape();
-	triangle->setPos(200, 200, 0);
+	triangle->setPosition(200, 200, 0);
 	triangle->setScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 1.0f, 1.0f);
 
 	square2->initShape();
-	square2->setPos(300, 500, 0);
+	square2->setPosition(300, 500, 0);
 	square2->setScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 0.0f, 1.0f);
 
 	sprite1->init();
-	sprite1->setPos(700, 100, 0);
+	sprite1->setPosition(700, 100, 0);
 	sprite1->setScale(200, 200, 0.5f);
 	sprite1->setColor(1.0f, 1.0f, 1.0f);
 	
@@ -53,7 +53,7 @@ void Game::update() {
 
 void Game::inputs() {
 	if (input.getKey(D)) {
-		sprite1->transform.position.x +=time.getDeltaTime() * newSpeed;
+		sprite1->transform.position.x += time.getDeltaTime() * newSpeed;
 	}
 	if (input.getKey(A)) {
 		sprite1->transform.position.x -= time.getDeltaTime() * newSpeed;

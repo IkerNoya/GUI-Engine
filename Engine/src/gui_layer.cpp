@@ -40,19 +40,6 @@ void GuiLayer::init() {
 
 }
 
-void GuiLayer::createWorldData(const char* name, bool isActive) {
-	ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
-	if (!ImGui::Begin(name, &isActive)) {
-		ImGui::End();
-		return;
-	}
-
-	ImGui::Text("ENTITY A");
-	ImGui::Spacing();
-	ImGui::Text("ENTITY B");
-	ImGui::End();
-}
-
 void GuiLayer::begin() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
