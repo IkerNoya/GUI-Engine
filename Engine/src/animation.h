@@ -11,6 +11,9 @@ class ENGINE_API Animation {
 private:
 	
 public: 
+	Animation();
+	~Animation();
+	void Update();
 
 };
 

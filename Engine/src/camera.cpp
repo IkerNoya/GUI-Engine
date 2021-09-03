@@ -1,9 +1,19 @@
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
 #include "camera.h"
 #include "gtc/matrix_transform.hpp"
+#include "mat4x4.hpp"
+#include "gtc/type_ptr.hpp"
+#include "dataManager.h"
+
 
 Camera::Camera(Renderer* renderer, ProjectionType type) : Entity(renderer){
 	_view = glm::mat4(1.0f);
-	setProjection(type);
+	_name = "Camera";
+
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
 }
 
 Camera::~Camera() {
@@ -11,7 +21,7 @@ Camera::~Camera() {
 }
 
 void Camera::setView(glm::vec3 direction, glm::vec3 up) {
-	_view = glm::lookAt(glm::vec3(transform.position), direction, up);
+	_view = glm::translate(_view, glm::vec3(0.0f, 0.0f, -1.0f));
 }
 
 void Camera::setProjection(ProjectionType type) {
@@ -22,12 +32,21 @@ void Camera::setProjection(ProjectionType type) {
 		_proj = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.1f, 100.0f);
 		break;
 	case ProjectionType::perspective:
-		_proj = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.01f, 100.0f);
+		_proj = glm::perspective(glm::radians(45.0f), GLfloat(1280.0f) / GLfloat(720.0f), 1.0f, 100.0f);
 		break;
 	default:
 		break;
 	}
 
+}
+
+void Camera::init(Shader& shader) {
+	unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
+	unsigned int viewLoc = glGetUniformLocation(shader.getID(), "view");
+	unsigned int projLoc = glGetUniformLocation(shader.getID(), "proj");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(getModel()));
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(getView()));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(getProjection()));
 }
 
 glm::mat4 Camera::getView() {
@@ -36,6 +55,10 @@ glm::mat4 Camera::getView() {
 
 glm::mat4 Camera::getProjection() {
 	return _proj;
+}
+
+ProjectionType Camera::getProjectionType() {
+	return _type;
 }
 
 void Camera::draw(Shader& shader) {

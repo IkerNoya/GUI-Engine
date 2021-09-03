@@ -17,8 +17,10 @@ public:
 	~Camera();
 	void setView(glm::vec3 direction, glm::vec3 up);
 	void setProjection(ProjectionType type);
+	void init(Shader& shader);
 	glm::mat4 getView();
 	glm::mat4 getProjection();
+	ProjectionType getProjectionType();
 	void draw(Shader& shader);
 };
 

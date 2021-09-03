@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\animation.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\dataManager.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\export.h" />
+    <ClInclude Include="src\frame.h" />
     <ClInclude Include="src\gamebase.h" />
     <ClInclude Include="src\gui_layer.h" />
     <ClInclude Include="src\gui\imconfig.h" />
@@ -46,6 +48,7 @@
     <ClInclude Include="src\world_data.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\animation.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\dataManager.cpp" />
     <ClCompile Include="src\entity.cpp" />
