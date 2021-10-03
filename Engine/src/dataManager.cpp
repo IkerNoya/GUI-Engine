@@ -20,16 +20,16 @@ DataManager::~DataManager() {
 void DataManager::addEntity(Entity* entity, int id) {
 	if (entity != NULL){
 		for (int i = 0; i < levelEntities.size(); i++) {
-			if (levelEntities[i]->getID() == id) {
-				if(entity->getName() != "")
-					std::cout << entity->getName() << " - has already been saved" << std::endl;
+			if (levelEntities[i]->GetID() == id) {
+				if(entity->GetName() != "")
+					std::cout << entity->GetName() << " - has already been saved" << std::endl;
 				else
 					std::cout << "NULL Entity - has already been saved" << std::endl;
 
 				return;
 			}
 		}
-		entity->setID(id);
+		entity->SetID(id);
 		levelEntities.push_back(entity);
 	}
 }

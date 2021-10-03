@@ -21,12 +21,12 @@ void Renderer::createAtribPointers(unsigned int shaderAttribIndex, int dataAmmou
 
 void Renderer::setPositionAttribPointer(unsigned int shaderID, const char* attribName) {
     unsigned int attribute = glGetAttribLocation(shaderID, attribName);
-    createAtribPointers(attribute, 4, 7, 0);
+    createAtribPointers(attribute, 3, 6, 0);
 }
 
 void Renderer::setTintAttribPointer(unsigned int shaderID, const char* attribName) {
     unsigned int attribute = glGetAttribLocation(shaderID, attribName);
-    createAtribPointers(attribute, 3, 7, 4);
+    createAtribPointers(attribute, 3, 6, 3);
 }
 
 void Renderer::setTexAttribPointer(unsigned int shaderID) {
@@ -34,9 +34,9 @@ void Renderer::setTexAttribPointer(unsigned int shaderID) {
     unsigned int colorAttrib = glGetAttribLocation(shaderID, "color");
     unsigned int texAttrib = glGetAttribLocation(shaderID, "aTexCoord");
     glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
-    createAtribPointers(posAttrib, 4, 9, 0);
-    createAtribPointers(colorAttrib, 3, 9, 4);
-    createAtribPointers(texAttrib, 2, 9, 7);
+    createAtribPointers(posAttrib, 3, 8, 0);
+    createAtribPointers(colorAttrib, 3, 8, 3);
+    createAtribPointers(texAttrib, 2, 8, 6);
 
 }
 

@@ -1,6 +1,6 @@
 #version 330 core
 
-in vec4 pos;
+in vec3 pos;
 in vec3 color;
 in vec2 aTexCoord;
 
@@ -15,5 +15,5 @@ void main()
 {
 	customColor = color;
 	texCoord = aTexCoord;
-	gl_Position = proj * view * transform * pos;
+	gl_Position = proj * view * transform * vec4(pos, 1.0);
 }

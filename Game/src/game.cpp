@@ -12,32 +12,32 @@ Game::~Game() {
 }
 
 	//initialization of game variables
-void Game::init() {
+void Game::Init() {
 	triangle = new Shape(Type::tri, renderer, basicShader, "Triangle1");
 	square2 = new Shape(Type::quad, renderer, basicShader,"Square2");
 	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", renderer, textureShader, "Sprite1");
 
 	triangle->initShape();
-	triangle->setPosition(200, 200, 0);
-	triangle->setScale(200, 200, 0.5f);
+	triangle->SetPosition(200, 200, 0);
+	triangle->SetScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 1.0f, 1.0f);
 
 	square2->initShape();
-	square2->setPosition(300, 500, 0);
-	square2->setScale(200, 200, 0.5f);
+	square2->SetPosition(300, 500, 0);
+	square2->SetScale(200, 200, 0.5f);
 	square2->setColor(0.0f, 0.0f, 1.0f);
 
 	sprite1->init();
-	sprite1->setPosition(700, 100, 0);
-	sprite1->setScale(200, 200, 0.5f);
+	sprite1->SetPosition(700, 100, 0);
+	sprite1->SetScale(200, 200, 0.5f);
 	sprite1->setColor(1.0f, 1.0f, 1.0f);
 	
 }
 
 	//game update
-void Game::update() {
+void Game::Update() {
 	//input
-	inputs();
+	Inputs();
 
 	//update
 
@@ -51,7 +51,7 @@ void Game::update() {
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
-void Game::inputs() {
+void Game::Inputs() {
 	if (input.getKey(D)) {
 		sprite1->transform.position.x += time.getDeltaTime() * newSpeed;
 	}
@@ -73,7 +73,7 @@ void Game::inputs() {
 }
 
 	// free memory
-void Game::unload() {
+void Game::Unload() {
 	dataManager->clearLevelEntities();
 	if (triangle) {
 		delete triangle;

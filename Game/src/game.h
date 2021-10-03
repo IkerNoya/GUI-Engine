@@ -12,10 +12,10 @@ class Game : public Gamebase{
 public:
 	Game();
 	~Game();
-	void inputs();
-	void init() override;
-	void update() override;
-	void unload() override;
+	void Inputs();
+	void Init() override;
+	void Update() override;
+	void Unload() override;
 };
 
 #endif // !GAME_H

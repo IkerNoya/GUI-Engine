@@ -15,7 +15,7 @@
 #include "time_manager.h"
 #include "vld.h"
 
-
+class Renderer;
 class ENGINE_API Gamebase {
 
 	Inspector* inspector;
@@ -35,13 +35,13 @@ protected:
 public: 
 	Gamebase();
 	~Gamebase();
-	int initEngine();
-	void updateEngine();
-	void unloadEngine();
+	int InitEngine();
+	void UpdateEngine();
+	void UnloadEngine();
 
-	virtual void init() = 0;
-	virtual void update() = 0;
-	virtual void unload() = 0;
+	virtual void Init() = 0;
+	virtual void Update() = 0;
+	virtual void Unload() = 0;
 
 };
 #endif // !GAMEBASE_H

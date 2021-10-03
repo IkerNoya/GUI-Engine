@@ -85,15 +85,15 @@ void Shape::setColor(float r, float g, float b) {
 	switch (shape)
 	{
 	case Type::quad:
-		quadVertices[4] = r; quadVertices[5] = g; quadVertices[6] = b;
-		quadVertices[11] = r; quadVertices[12] = g; quadVertices[13] = b;
-		quadVertices[18] = r; quadVertices[19] = g; quadVertices[20] = b;
-		quadVertices[25] = r; quadVertices[26] = g; quadVertices[27] = b;
+		quadVertices[3] = r; quadVertices[4] = g; quadVertices[5] = b;
+		quadVertices[9] = r; quadVertices[10] = g; quadVertices[11] = b;
+		quadVertices[15] = r; quadVertices[16] = g; quadVertices[17] = b;
+		quadVertices[21] = r; quadVertices[22] = g; quadVertices[23] = b;
 		break;
 	case Type::tri:
-		triangleVertices[4] = r; triangleVertices[5] = g; triangleVertices[6] = b;
-		triangleVertices[11] = r; triangleVertices[12] = g; triangleVertices[13] = b;
-		triangleVertices[18] = r; triangleVertices[19] = g; triangleVertices[20] = b;
+		triangleVertices[3] = r; triangleVertices[4] = g; triangleVertices[5] = b;
+		triangleVertices[9] = r; triangleVertices[10] = g; triangleVertices[11] = b;
+		triangleVertices[15] = r; triangleVertices[16] = g; triangleVertices[17] = b;
 		break;
 	default:
 		break;
@@ -109,10 +109,10 @@ void Shape::draw() {
 	switch (shape)
 	{
 	case Type::quad:
-		_renderer->draw(_shader, _vao, _vbo, quadVertices, 28, getModel());
+		_renderer->draw(_shader, _vao, _vbo, quadVertices, 28, GetModel());
 		break; 
 	case Type::tri:
-		_renderer->draw(_shader, _vao, _vbo, triangleVertices, 22, getModel());
+		_renderer->draw(_shader, _vao, _vbo, triangleVertices, 22, GetModel());
 		break;
 	default:
 		break;

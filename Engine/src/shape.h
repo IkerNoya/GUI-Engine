@@ -15,20 +15,20 @@ class ENGINE_API Shape : public Entity{
     unsigned int _vbo;
     unsigned int _ebo;
 
-    float quadVertices[28] = {
-        0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // top right
-        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // bottom right
-       -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // bottom left
-       -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f   // top left 
+    float quadVertices[24] = {
+        0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // top right
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom right
+       -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom left
+       -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f   // top left 
     };
     unsigned int quadIndices[6] = {
         0,1,3,
         1,2,3
     };
-    float triangleVertices[21] = {
-        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-        0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-       -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f
+    float triangleVertices[18] = {
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+       -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f
     };
     unsigned int triangleIndices[3] = {
         0, 1, 2

@@ -39,17 +39,17 @@ public:
 	Entity(Renderer* renderer);
 	~Entity();
 	Transform transform;
-	Renderer* getRenderer();
-	glm::mat4 getModel();
-	void setPosition(float x, float y, float z);
-	void setXRot(float angle);
-	void setYRot(float angle);
-	void setZRot(float angle);
-	void setScale(float x, float y, float z);
-	void setID(int id);
-	int getID();
-	void setName(std::string name);
-	std::string getName();
+	Renderer* GetRenderer();
+	glm::mat4 GetModel();
+	void SetPosition(float x, float y, float z);
+	void SetXRot(float angle);
+	void SetYRot(float angle);
+	void SetZRot(float angle);
+	void SetScale(float x, float y, float z);
+	void SetID(int id);
+	int GetID();
+	void SetName(std::string name);
+	std::string GetName();
 };
 
 #endif // !ENTITY_H

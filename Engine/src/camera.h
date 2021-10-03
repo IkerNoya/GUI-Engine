@@ -15,7 +15,7 @@ class ENGINE_API Camera : public Entity {
 public:
 	Camera(Renderer* renderer,ProjectionType type);
 	~Camera();
-	void setView(glm::vec3 direction, glm::vec3 up);
+	void setView(glm::vec3 position);
 	void setProjection(ProjectionType type);
 	void init(Shader& shader);
 	glm::mat4 getView();

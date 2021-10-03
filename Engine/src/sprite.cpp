@@ -113,10 +113,10 @@ void Sprite::clearBuffers() {
 }
 
 void Sprite::setColor(float r, float g, float b) {
-	 _vertices[4] = r;  _vertices[5] = g;  _vertices[6] = b;
-	_vertices[13] = r; _vertices[14] = g; _vertices[15] = b;
-	_vertices[22] = r; _vertices[23] = g; _vertices[24] = b;
-	_vertices[31] = r; _vertices[32] = g; _vertices[33] = b;
+	 _vertices[3] = r;  _vertices[4] = g;  _vertices[5] = b;
+	_vertices[11] = r; _vertices[12] = g; _vertices[13] = b;
+	_vertices[19] = r; _vertices[20] = g; _vertices[21] = b;
+	_vertices[27] = r; _vertices[28] = g; _vertices[29] = b;
 }
 
 void Sprite::draw()
@@ -125,13 +125,13 @@ void Sprite::draw()
 	if (_transparency) {
 		blendSprite();
 		bindTexture();
-		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, getModel());
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 32, GetModel());
 		unblendSprite();
 		glDisable(GL_TEXTURE_2D);
 	}
 	else {
 		bindTexture();
-		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, getModel());
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 32, GetModel());
 		glDisable(GL_TEXTURE_2D);
 	}
 }

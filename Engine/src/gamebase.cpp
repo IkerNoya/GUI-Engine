@@ -10,6 +10,7 @@
 #include "gtc/type_ptr.hpp"
 
 
+
 Gamebase::Gamebase() {
 	window = new Window(1280, 720);
 	renderer = new Renderer();
@@ -17,7 +18,7 @@ Gamebase::Gamebase() {
     gui = new GuiLayer(window, dataManager);
     inspector = new Inspector(window, dataManager);
     worldData = new WorldData(window, dataManager);
-    camera = new Camera(renderer, ProjectionType::perspective);
+    camera = new Camera(renderer, ProjectionType::orthographic);
 }
 
 Gamebase::~Gamebase() {
@@ -30,7 +31,7 @@ Gamebase::~Gamebase() {
     if (camera) delete camera;
 }
 
-int Gamebase::initEngine() {
+int Gamebase::InitEngine() {
     window->createWindow("Engine v0.1");
     glewExperimental = GL_TRUE;
     glewInit();
@@ -44,12 +45,12 @@ int Gamebase::initEngine() {
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
 
-    basicShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//fragmentShader.shader");
-    textureShader.createShader("..//Engine//src//shaders//vertexShader.shader", "..//Engine//src//shaders//texFragmentShader.shader");
+    basicShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//fragmentShader.frag");
+    textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
 
-    camera->setPosition(0, 0, 1.0f);
+    camera->SetPosition(0, 0, 1.0f);
     //                     direction                               up                    
-    camera->setView(glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    camera->setView(glm::vec3(0.0f, 0.0f, -1.0f));
     camera->setProjection(camera->getProjectionType());
 
     camera->init(basicShader);
@@ -66,7 +67,7 @@ int Gamebase::initEngine() {
 	return 0;
 }
 
-void Gamebase::updateEngine() {
+void Gamebase::UpdateEngine() {
     bool wireMode = false;
     inspector->getEntity();
 	while (!window->windowShouldClose()) {
@@ -85,7 +86,7 @@ void Gamebase::updateEngine() {
         camera->draw(basicShader);
         camera->draw(textureShader);
       
-		update();
+		Update();
 
         if (gui->getWireFrameMode()) {
             renderer->activateWireframeMode();
@@ -103,7 +104,7 @@ void Gamebase::updateEngine() {
 	}
 }
 
-void Gamebase::unloadEngine() {
+void Gamebase::UnloadEngine() {
     gui->unload();
     input.unloadWindow();
     glDeleteProgram(basicShader.getID());

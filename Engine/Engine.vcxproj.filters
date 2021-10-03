@@ -54,9 +54,6 @@
     <ClInclude Include="src\gui\imgui_internal.h">
       <Filter>GUI\Lib\LibHeaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -111,6 +108,9 @@
     <ClInclude Include="src\frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp">
@@ -133,9 +133,6 @@
     </ClCompile>
     <ClCompile Include="src\gui\imgui_draw.cpp">
       <Filter>GUI\Lib\LibSource</Filter>
-    </ClCompile>
-    <ClCompile Include="src\entity.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\shape.cpp">
       <Filter>Source Files</Filter>
@@ -179,15 +176,18 @@
     <ClCompile Include="src\animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\vertexShader.shader">
+    <None Include="src\shaders\vertexShader.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="src\shaders\fragmentShader.shader">
+    <None Include="src\shaders\fragmentShader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="src\shaders\texFragmentShader.shader">
+    <None Include="src\shaders\texFragmentShader.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -16,11 +16,11 @@ class ENGINE_API Sprite : public Entity {
 	TextureImporter* texImporter;
 	Shader _shader;
 
-	float _vertices[36] = {
-		1.0f,  1.0f, 0.0f, 1.0f,  1.0f,1.0f,1.0f,  1.0f, 1.0f,
-		1.0f, -1.0f, 0.0f, 1.0f,  1.0f,1.0f,1.0f,  1.0f, 0.0f,
-	   -1.0f, -1.0f, 0.0f, 1.0f,  1.0f,1.0f,1.0f,  0.0f, 0.0f,
-	   -1.0f,  1.0f, 0.0f, 1.0f,  1.0f,1.0f,1.0f,  0.0f, 1.0f
+	float _vertices[32] = {
+		1.0f,  1.0f, 0.0f,  1.0f,1.0f,1.0f,  1.0f, 1.0f,
+		1.0f, -1.0f, 0.0f,  1.0f,1.0f,1.0f,  1.0f, 0.0f,
+	   -1.0f, -1.0f, 0.0f,  1.0f,1.0f,1.0f,  0.0f, 0.0f,
+	   -1.0f,  1.0f, 0.0f,  1.0f,1.0f,1.0f,  0.0f, 1.0f
 	};
 
 	unsigned int _indices[6] = {

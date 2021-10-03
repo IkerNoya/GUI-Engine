@@ -4,11 +4,11 @@
 int main() {
 	Game* game = new Game();
 	if (game != NULL) {
-		game->initEngine();
-		game->init();
-		game->updateEngine();
-		game->unload();
-		game->unloadEngine();
+		game->InitEngine();
+		game->Init();
+		game->UpdateEngine();
+		game->Unload();
+		game->UnloadEngine();
 		delete game;
 	}
 	return 0;
