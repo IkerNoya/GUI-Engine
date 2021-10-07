@@ -40,7 +40,6 @@ int Gamebase::InitEngine() {
         std::cout << glewGetErrorString(glewInit()) << std::endl;
         return 0;
     }
-    glEnable(GL_DEPTH_TEST);
     glGetIntegerv(GL_CONTEXT_COMPATIBILITY_PROFILE_BIT, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
@@ -48,9 +47,12 @@ int Gamebase::InitEngine() {
     basicShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//fragmentShader.frag");
     textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
 
-    camera->SetPosition(0, 0, 1.0f);
-    //                     direction                               up                    
-    camera->setView(glm::vec3(0.0f, 0.0f, -1.0f));
+    glEnable(GL_DEPTH_TEST);
+
+
+    camera->SetPosition(0, 0, -1.0f);
+    //                     position                  
+    camera->setView(camera->transform.position);
     camera->setProjection(camera->getProjectionType());
 
     camera->init(basicShader);
@@ -59,6 +61,7 @@ int Gamebase::InitEngine() {
     gui->init();
 
     time.reset();
+
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 

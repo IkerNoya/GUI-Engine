@@ -11,6 +11,7 @@
 
 Camera::Camera(Renderer* renderer, ProjectionType type) : Entity(renderer){
 	_view = glm::mat4(1.0f);
+	_proj = glm::mat4(1.0f);
 	_name = "Camera";
 	_type = type;
 
@@ -56,10 +57,7 @@ glm::mat4 Camera::getView() {
 }
 
 glm::mat4 Camera::getProjection() {
-	//std::cout << "C1: "<< _proj[0].x << " " << _proj[0].y << " " << _proj[0].z << " " << _proj[0].w << std::endl;
-	//std::cout << "C2: " << _proj[1].x << " " << _proj[1].y << " " << _proj[1].z << " " << _proj[1].w << std::endl;
-	//std::cout << "C3: " << _proj[2].x << " " << _proj[2].y << " " << _proj[2].z << " " << _proj[2].w << std::endl;
-	//std::cout << "C4: " << _proj[3].x << " " << _proj[3].y << " " << _proj[3].z << " " << _proj[3].w << std::endl;
+	
 	return _proj;
 }
 
@@ -70,7 +68,7 @@ ProjectionType Camera::getProjectionType() {
 void Camera::draw(Shader& shader) {
 	updateMatrices();
 	setView(glm::vec3(transform.position));
-	setProjection(ProjectionType::orthographic);
+	setProjection(getProjectionType());
 
 	_renderer->drawCamera(shader, GetModel(), getView(), getProjection());
 }

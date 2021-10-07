@@ -21,11 +21,11 @@ Entity::Entity(Renderer* renderer) {
 	model.rotation.z = glm::mat4(1.0);
 	model.scale = glm::mat4(1.0);
 
-	SetPosition(1.0f, 1.0f, 1.0f);
+	SetScale(1.0f, 1.0f, 1.0f);
+	SetPosition(0.0f, 0.0f, 0.0f);
 	SetXRot(0.0f);
 	SetYRot(0.0f);
 	SetZRot(0.0f);
-	SetScale(1.0f, 1.0f, 1.0f);
 
 	_id = _nextEntityID++; // assign id and then increase the value so the next entity doesn´t share the same one
 }
@@ -58,8 +58,8 @@ void Entity::updateMatrices(){
 }
 
 void Entity::SetXRot(float angle) {
-	transform.rotation.x = angle;
-	glm::vec3 axis = glm::vec3(1.0f);
+	transform.rotation[0] = angle;
+	glm::vec3 axis;
 	axis[0] = 1.0f;
 	axis[1] = 0;
 	axis[2] = 0;
@@ -69,24 +69,24 @@ void Entity::SetXRot(float angle) {
 }
 
 void Entity::SetYRot(float angle) {
-	transform.rotation.y = angle;
-	glm::vec3 axis = glm::vec3(1.0f);
+	transform.rotation[1] = angle;
+	glm::vec3 axis;
 	axis[0] = 0;
 	axis[1] = 1.0f;
 	axis[2] = 0;
 
-	model.rotation.x = glm::rotate(glm::mat4(1.0f), angle, axis);
+	model.rotation.y = glm::rotate(glm::mat4(1.0f), angle, axis);
 	updateModel();
 }
 
 void Entity::SetZRot(float angle) {
-	transform.rotation.z = angle;
-	glm::vec3 axis = glm::vec3(1.0f);
+	transform.rotation[2] = angle;
+	glm::vec3 axis;
 	axis[0] = 0;
 	axis[1] = 0;
 	axis[2] = 1.0f;
 
-	model.rotation.x = glm::rotate(glm::mat4(1.0f), angle, axis);
+	model.rotation.z = glm::rotate(glm::mat4(1.0f), angle, axis);
 	updateModel();
 }
 
