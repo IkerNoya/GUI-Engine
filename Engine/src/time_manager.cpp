@@ -36,3 +36,7 @@ float Time::getFPS(){
 float Time::getDeltaTime(){
 	return _deltaTime.count();
 }
+
+float Time::getTime() {
+	return _time;
+}

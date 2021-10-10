@@ -3,10 +3,18 @@
 #include "entity.h"
 #include "texture_importer.h"
 #include "export.h"
+#include "animation.h"
+
+struct UV {
+	float u;
+	float v;
+};
 
 class ENGINE_API Sprite : public Entity {
 	int _width;
 	int _height;
+	int _previousFrame;
+	int _currentFrame;
 	bool _transparency;
 	unsigned int _vao = 0;
 	unsigned int _vbo = 0;
@@ -15,12 +23,15 @@ class ENGINE_API Sprite : public Entity {
 
 	TextureImporter* texImporter;
 	Shader _shader;
+	Animation* animation;
+	UV uv[4];
 
-	float _vertices[32] = {
-		1.0f,  1.0f, 0.0f,  1.0f,1.0f,1.0f,  1.0f, 1.0f,
-		1.0f, -1.0f, 0.0f,  1.0f,1.0f,1.0f,  1.0f, 0.0f,
-	   -1.0f, -1.0f, 0.0f,  1.0f,1.0f,1.0f,  0.0f, 0.0f,
-	   -1.0f,  1.0f, 0.0f,  1.0f,1.0f,1.0f,  0.0f, 1.0f
+	//   Position                Color             UV
+	float _vertices[36] = {
+		1.0f,  1.0f, 0.0f,  1.0f,1.0f,1.0f,1.0f,  1, 1,
+		1.0f, -1.0f, 0.0f,  1.0f,1.0f,1.0f,1.0f,  1, 0,
+	   -1.0f, -1.0f, 0.0f,  1.0f,1.0f,1.0f,1.0f,  0, 0,
+	   -1.0f,  1.0f, 0.0f,  1.0f,1.0f,1.0f,1.0f,  0, 1
 	};
 
 	unsigned int _indices[6] = {
@@ -57,6 +68,11 @@ public:
 	void LoadSprite();
 	void LoadSprite(int width, int height);
 	void LoadSprite(int width, int height, const char* path);
+
+	void SetAnimation(Animation* anim);
+	void SetAnimationCoords(float u0, float v0, float u1, float v1, float u2, float v2, float u3, float v3);
+	void UpdateAnimation(Time& time);
+	void SetCurrentAnimation(int index);
 
 	void draw();
 

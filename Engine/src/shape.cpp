@@ -105,7 +105,6 @@ void Shape::clearBuffers() {
 }
 
 void Shape::draw() {
-	std::cout << GetName()<< ": " << transform.rotation.x << " | " << transform.rotation.y << " | " << transform.rotation.x << std::endl;
 	updateMatrices();
 	switch (shape)
 	{

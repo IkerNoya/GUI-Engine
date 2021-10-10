@@ -13,6 +13,12 @@ Sprite::Sprite(bool transparency, Renderer* renderer, Shader& shader, std::strin
 	_height = 0;
 	_name = name;
 
+	uv[0].u = 0.0f; uv[0].v = 0.0f;
+	uv[1].u = 0.0f; uv[1].v = 0;
+	uv[2].u = 0;    uv[2].v = 0;
+	uv[3].u = 0;    uv[3].v = 0.0f;
+
+
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 }
@@ -74,6 +80,40 @@ void Sprite::LoadSprite(int width, int height, const char* path) {
 		std::cout << "Couldn't find image" << std::endl;
 }
 
+void Sprite::SetAnimation(Animation* anim){
+	animation = anim;
+	_previousFrame = std::numeric_limits<unsigned int>::max_digits10;
+}
+
+void Sprite::SetAnimationCoords(float u0, float v0, float u1, float v1, float u2, float v2, float u3, float v3){
+	 _vertices[7] = u0;  _vertices[8] = v0;
+	_vertices[16] = u1; _vertices[17] = v1;
+	_vertices[25] = u2; _vertices[26] = v2;
+	_vertices[34] = u3; _vertices[35] = v3;
+}
+
+void Sprite::UpdateAnimation(Time& time){
+	if (animation != NULL) {
+		animation->Update(time);
+		_currentFrame = animation->GetCurrentFrame();
+
+		if (_currentFrame != _previousFrame) {
+			SetAnimationCoords(animation->GetAnimation()[_currentFrame].frameCoords[0].u, animation->GetAnimation()[_currentFrame].frameCoords[0].v,
+							   animation->GetAnimation()[_currentFrame].frameCoords[3].u, animation->GetAnimation()[_currentFrame].frameCoords[3].v, 
+							   animation->GetAnimation()[_currentFrame].frameCoords[2].u, animation->GetAnimation()[_currentFrame].frameCoords[2].v, 
+							   animation->GetAnimation()[_currentFrame].frameCoords[1].u, animation->GetAnimation()[_currentFrame].frameCoords[1].v);
+			_previousFrame = _currentFrame;
+		}
+		SetAnimation(animation);
+	}
+}
+
+void Sprite::SetCurrentAnimation(int index){
+	if (animation != NULL) {
+		animation->SetCurrentAnimation(index);
+	}
+}
+
 void Sprite::generateVAO() {
 	_renderer->generateVAO(_vao);
 }
@@ -114,9 +154,9 @@ void Sprite::clearBuffers() {
 
 void Sprite::setColor(float r, float g, float b) {
 	 _vertices[3] = r;  _vertices[4] = g;  _vertices[5] = b;
-	_vertices[11] = r; _vertices[12] = g; _vertices[13] = b;
-	_vertices[19] = r; _vertices[20] = g; _vertices[21] = b;
-	_vertices[27] = r; _vertices[28] = g; _vertices[29] = b;
+	_vertices[12] = r; _vertices[13] = g; _vertices[14] = b;
+	_vertices[21] = r; _vertices[22] = g; _vertices[23] = b;
+	_vertices[30] = r; _vertices[31] = g; _vertices[32] = b;
 }
 
 void Sprite::draw()
@@ -125,13 +165,13 @@ void Sprite::draw()
 	if (_transparency) {
 		blendSprite();
 		bindTexture();
-		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 32, GetModel());
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, GetModel());
 		unblendSprite();
 		glDisable(GL_TEXTURE_2D);
 	}
 	else {
 		bindTexture();
-		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 32, GetModel());
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, GetModel());
 		glDisable(GL_TEXTURE_2D);
 	}
 }

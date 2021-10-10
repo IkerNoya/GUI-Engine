@@ -6,6 +6,8 @@ class Game : public Gamebase{
 	Shape* triangle;
 	Shape* square2;
 	Sprite* sprite1;
+	Sprite* player;
+	Animation* idle;
 	float timer = 0;
 	float speed = 300;
 	float newSpeed;

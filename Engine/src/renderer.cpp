@@ -31,12 +31,12 @@ void Renderer::setTintAttribPointer(unsigned int shaderID, const char* attribNam
 
 void Renderer::setTexAttribPointer(unsigned int shaderID) {
     unsigned int posAttrib = glGetAttribLocation(shaderID, "pos");
-    unsigned int colorAttrib = glGetAttribLocation(shaderID, "color");
+    unsigned int colorAttrib = glGetAttribLocation(shaderID, "texColor");
     unsigned int texAttrib = glGetAttribLocation(shaderID, "aTexCoord");
     glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
-    createAtribPointers(posAttrib, 3, 8, 0);
-    createAtribPointers(colorAttrib, 3, 8, 3);
-    createAtribPointers(texAttrib, 2, 8, 6);
+    createAtribPointers(posAttrib, 3, 9, 0);
+    createAtribPointers(colorAttrib, 4, 9, 3);
+    createAtribPointers(texAttrib, 2, 9, 7);
 
 }
 
@@ -115,8 +115,6 @@ void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float*
 void Renderer::drawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model){
     bindVAO(vao);
     bindVBO(vbo, vertices, verticesAmmount);
-    setPositionAttribPointer(shader.getID(), "pos");
-    setTintAttribPointer(shader.getID(), "color");
     setTexAttribPointer(shader.getID());
     startProgram(shader, model);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

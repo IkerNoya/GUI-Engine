@@ -23,6 +23,7 @@ public:
 
 	float getFPS();
 	float getDeltaTime();
+	float getTime();
 };
 
 
