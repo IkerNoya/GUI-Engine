@@ -50,33 +50,22 @@ void Inspector::createWindow() {
 
 
 		ImGui::Text(_dataManager->getSelectedEntity()->GetName().c_str());
-		ImGui::Spacing();
+		ImGui::Separator();
 		ImGui::Text("Transform");
-		ImGui::Spacing();
-		ImGui::SliderFloat("X Position", &_posX, -_window->getWidth(), _window->getWidth());
-		ImGui::Spacing();
-		ImGui::SliderFloat("Y Position", &_posY, -_window->getHeight(), _window->getHeight());
-		ImGui::Spacing();
-		ImGui::SliderFloat("Z Position", &_posZ, -1280.0f, 1280.0f);
-		ImGui::Spacing();
-		ImGui::Spacing();
+		ImGui::SliderFloat("X Position", &_posX, _posX-_entityPositionSpeed, _posX + _entityPositionSpeed);
+		ImGui::SliderFloat("Y Position", &_posY, _posY - _entityPositionSpeed, _posY + _entityPositionSpeed);
+		ImGui::SliderFloat("Z Position", &_posZ, _posZ - _entityPositionSpeed, _posZ + _entityPositionSpeed);
+		ImGui::Separator();
 		ImGui::Text("Rotation");
-		ImGui::Spacing();
-		ImGui::SliderFloat("X Rotation", &_rotX, -10.0f, 10.0f);
-		ImGui::Spacing();						  
-		ImGui::SliderFloat("Y Rotation", &_rotY, -10.0f, 10.0f);
-		ImGui::Spacing();						  
-		ImGui::SliderFloat("Z Rotation", &_rotZ, -10.0f, 10.0f);
-		ImGui::Spacing();
-		ImGui::Spacing();
+		ImGui::SliderFloat("X Rotation", &_rotX, _rotX - _entityRotationSpeed, _rotX + _entityRotationSpeed);
+		ImGui::SliderFloat("Y Rotation", &_rotY, _rotY - _entityRotationSpeed, _rotY + _entityRotationSpeed);
+		ImGui::SliderFloat("Z Rotation", &_rotZ, _rotZ - _entityRotationSpeed, _rotZ + _entityRotationSpeed);
+		ImGui::Separator();
 		ImGui::Text("Scale");
-		ImGui::Spacing();
-		ImGui::SliderFloat("X Scale", &_scaleX, 0.0f, _window->getWidth());
-		ImGui::Spacing();
-		ImGui::SliderFloat("Y Scale", &_scaleY, 0.0f, _window->getHeight());
-		ImGui::Spacing();
-		ImGui::SliderFloat("Z Scale", &_scaleZ, 0.0f, _window->getWidth());
-		ImGui::Spacing();
+		ImGui::SliderFloat("X Scale", &_scaleX, 0.0f, _scaleX + _entityScaleSpeed);
+		ImGui::SliderFloat("Y Scale", &_scaleY, 0.0f, _scaleY + _entityScaleSpeed);
+		ImGui::SliderFloat("Z Scale", &_scaleZ, 0.0f, _scaleZ + _entityScaleSpeed);
+		ImGui::Separator();
 
 		_dataManager->getSelectedEntity()->SetPosition(_posX, _posY, _posZ);
 

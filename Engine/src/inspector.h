@@ -14,7 +14,11 @@ class Inspector : public GuiLayer {
 
 	float _scaleX;
 	float _scaleY;
-	float _scaleZ	;
+	float _scaleZ;
+
+	float _entityPositionSpeed = .1f;
+	float _entityRotationSpeed = .1f;
+	float _entityScaleSpeed = .1f;
 	
 public: 
 	bool _isWindowOpen;
