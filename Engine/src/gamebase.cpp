@@ -58,7 +58,7 @@ int Gamebase::InitEngine() {
     camera->init(basicShader);
     camera->init(textureShader);
 
-    gui->init();
+  //  gui->init();
 
     time.reset();
 
@@ -76,29 +76,29 @@ void Gamebase::UpdateEngine() {
 	while (!window->windowShouldClose()) {
 		glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        gui->begin();
+        //gui->begin();
 
-        gui->onRender(inspector->_isWindowOpen, worldData->_isWindowOpen);
+       // gui->onRender(inspector->_isWindowOpen, worldData->_isWindowOpen);
 
-        if(inspector->_isWindowOpen)
-            inspector->createWindow();
+        //if(inspector->_isWindowOpen)
+           // inspector->createWindow();
 
-        if (worldData->_isWindowOpen)
-            worldData->createWindow();
+      //  if (worldData->_isWindowOpen)
+            //worldData->createWindow();
 
         camera->draw(basicShader);
         camera->draw(textureShader);
       
 		Update();
 
-        if (gui->getWireFrameMode()) {
-            renderer->activateWireframeMode();
-        }
-        else{
-            renderer->deactivateWireframeMode();
-        }
+       // if (gui->getWireFrameMode()) {
+        //    renderer->activateWireframeMode();
+      //  }
+       // else{
+       //     renderer->deactivateWireframeMode();
+      //  }
            
-        gui->end();
+       // gui->end();
 		glfwSwapBuffers(window->getWindow());
 		glfwPollEvents();
 
@@ -108,7 +108,7 @@ void Gamebase::UpdateEngine() {
 }
 
 void Gamebase::UnloadEngine() {
-    gui->unload();
+    //gui->unload();
     input.unloadWindow();
     glDeleteProgram(basicShader.getID());
 	glfwTerminate();

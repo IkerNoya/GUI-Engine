@@ -9,7 +9,7 @@ class Game : public Gamebase{
 	Sprite* player;
 	Animation* idle;
 	float timer = 0;
-	float speed = 300;
+	float speed = 1;
 	float newSpeed;
 public:
 	Game();

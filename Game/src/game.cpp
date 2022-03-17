@@ -57,30 +57,24 @@ void Game::Update() {
 
 void Game::Inputs() {
 	// add inputs here
-	if (input.getKey(keyCode::RIGHT)) {
-		sprite1->transform.position.x += speed * time.getDeltaTime();
-	}
-	if (input.getKey(keyCode::LEFT)) {
-		sprite1->transform.position.x -= speed * time.getDeltaTime();
-	}
-	if (input.getKey(keyCode::UP)) {
-		sprite1->transform.position.y += speed * time.getDeltaTime();
-	}
-	if (input.getKey(keyCode::DOWN)) {
-		sprite1->transform.position.y -= speed * time.getDeltaTime();
-	}
 
 	if (input.getKey(keyCode::D)) {
-		triangle->transform.position.x += speed * time.getDeltaTime();
+		camera->transform.position.x -= speed * time.getDeltaTime();
 	}
 	if (input.getKey(keyCode::A)) {
-		triangle->transform.position.x -= speed * time.getDeltaTime();
+		camera->transform.position.x += speed * time.getDeltaTime();
 	}
 	if (input.getKey(keyCode::W)) {
-		triangle->transform.position.y += speed * time.getDeltaTime();
+		camera->transform.position.y -= speed * time.getDeltaTime();
 	}
 	if (input.getKey(keyCode::S)) {
-		triangle->transform.position.y -= speed * time.getDeltaTime();
+		camera->transform.position.y += speed * time.getDeltaTime();
+	}
+	if (input.getKey(keyCode::UP)) {
+		camera->transform.position.z += speed * time.getDeltaTime();
+	}
+	if (input.getKey(keyCode::DOWN)) {
+		camera->transform.position.z -= speed * time.getDeltaTime();
 	}
 }
 
