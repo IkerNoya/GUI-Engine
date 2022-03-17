@@ -7,7 +7,7 @@
 #include "window.h"
 #include "dataManager.h"
 
-
+///Cambiar todo a la mierda - empezar de 0
 class ENGINE_API GuiLayer {
 	int _width;
 	int _height;

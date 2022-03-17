@@ -35,7 +35,8 @@ void Camera::setProjection(ProjectionType type) {
 		_proj = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.1f, 100.0f);
 		break;
 	case ProjectionType::perspective:
-		_proj = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
+													// FOV					      Aspect	     near   far
+		_proj = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 1.f, 100.0f);
 		break;
 	default:
 		break;

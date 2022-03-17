@@ -13,7 +13,6 @@
 #include "camera.h"
 #include "dataManager.h"
 #include "time_manager.h"
-#include "vld.h"
 
 class Renderer;
 class ENGINE_API Gamebase {

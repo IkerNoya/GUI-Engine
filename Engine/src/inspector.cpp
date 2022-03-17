@@ -19,7 +19,7 @@ Inspector::Inspector(Window* window, DataManager* dataManager) : GuiLayer(window
 Inspector::~Inspector() {
 
 }
-
+//Cambiar todo a la mierda
 void Inspector::getEntity() {
 	if (_dataManager && _dataManager->getSelectedEntity()) {
 		_posX = _dataManager->getSelectedEntity()->transform.position.x;

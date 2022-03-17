@@ -18,7 +18,7 @@ Gamebase::Gamebase() {
     gui = new GuiLayer(window, dataManager);
     inspector = new Inspector(window, dataManager);
     worldData = new WorldData(window, dataManager);
-    camera = new Camera(renderer, ProjectionType::orthographic);
+    camera = new Camera(renderer, ProjectionType::perspective);
 }
 
 Gamebase::~Gamebase() {
@@ -50,7 +50,7 @@ int Gamebase::InitEngine() {
     glEnable(GL_DEPTH_TEST);
 
 
-    camera->SetPosition(0, 0, -1.0f);
+    camera->SetPosition(0, 0, -5.0f);
     //                     position                  
     camera->setView(camera->transform.position);
     camera->setProjection(camera->getProjectionType());
