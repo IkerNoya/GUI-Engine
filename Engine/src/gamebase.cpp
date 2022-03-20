@@ -18,17 +18,17 @@ Gamebase::Gamebase() {
     gui = new GuiLayer(window, dataManager);
     inspector = new Inspector(window, dataManager);
     worldData = new WorldData(window, dataManager);
-    camera = new Camera(renderer, ProjectionType::perspective);
+    camera = new Camera(window, renderer, ProjectionType::perspective);
 }
 
 Gamebase::~Gamebase() {
-	if (window) delete window;
-	if (renderer) delete renderer;
-    if (dataManager) delete dataManager;
-    if (inspector) delete inspector;
-    if (worldData) delete worldData;
-    if (gui) delete gui;
-    if (camera) delete camera;
+    if (window) delete window; window = nullptr;
+    if (renderer) delete renderer; renderer = nullptr;
+    if (dataManager) delete dataManager; dataManager = nullptr;
+    if (inspector) delete inspector; inspector = nullptr;
+    if (worldData) delete worldData; worldData = nullptr;
+    if (gui) delete gui; gui = nullptr;
+    if (camera) delete camera; camera = nullptr;
 }
 
 int Gamebase::InitEngine() {
@@ -44,16 +44,17 @@ int Gamebase::InitEngine() {
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
 
+    //glfwSetCursorPosCallback(window->getWindow(), mouse_callback);
+
     basicShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//fragmentShader.frag");
     textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
 
     glEnable(GL_DEPTH_TEST);
 
 
-    camera->SetPosition(0, 0, -5.0f);
-    //                     position                  
-    camera->setView(camera->transform.position);
-    camera->setProjection(camera->getProjectionType());
+    camera->SetPosition(0, 0, 3);
+    camera->SetYRot(-90);
+    camera->setDirection(glm::vec3(0.f, 0.f, 0.f));
 
     camera->init(basicShader);
     camera->init(textureShader);
@@ -112,4 +113,9 @@ void Gamebase::UnloadEngine() {
     input.unloadWindow();
     glDeleteProgram(basicShader.getID());
 	glfwTerminate();
+}
+
+void Gamebase::mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
+{
+
 }

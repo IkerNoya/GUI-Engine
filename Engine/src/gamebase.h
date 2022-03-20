@@ -42,6 +42,8 @@ public:
 	virtual void Update() = 0;
 	virtual void Unload() = 0;
 
+private:
+	 void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn);
 };
 #endif // !GAMEBASE_H
 

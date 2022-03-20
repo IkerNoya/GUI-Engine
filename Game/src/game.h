@@ -10,7 +10,13 @@ class Game : public Gamebase{
 	Animation* idle;
 	float timer = 0;
 	float speed = 1;
-	float newSpeed;
+	float rotationSpeed = 100;
+		
+	float lastX;
+	float lastY;
+	bool firstMouse = true;
+	float xPosIn = 0;
+	float yPosIn = 0;
 public:
 	Game();
 	~Game();

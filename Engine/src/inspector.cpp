@@ -52,8 +52,8 @@ void Inspector::createWindow() {
 		ImGui::Text(_dataManager->getSelectedEntity()->GetName().c_str());
 		ImGui::Separator();
 		ImGui::Text("Transform");
-		ImGui::SliderFloat("X Position", &_posX, _posX-_entityPositionSpeed, _posX + _entityPositionSpeed);
-		ImGui::SliderFloat("Y Position", &_posY, _posY - _entityPositionSpeed, _posY + _entityPositionSpeed);
+		ImGui::SliderFloat("X Position", &_posX, _posX -_entityPositionSpeed, _posX + _entityPositionSpeed);
+		ImGui::SliderFloat("Y Position", &_posY, _posY  - _entityPositionSpeed, _posY + _entityPositionSpeed);
 		ImGui::SliderFloat("Z Position", &_posZ, _posZ - _entityPositionSpeed, _posZ + _entityPositionSpeed);
 		ImGui::Separator();
 		ImGui::Text("Rotation");

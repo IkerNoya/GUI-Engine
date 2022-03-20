@@ -2,7 +2,6 @@
 #include <windows.data.json.h>
 
 Game::Game() : Gamebase(){
-	newSpeed = speed;
 }
 	
 Game::~Game() {
@@ -15,13 +14,15 @@ Game::~Game() {
 
 	//initialization of game variables
 void Game::Init() {
+	lastX = window->getWidth() / 2;
+	lastY = window->getHeight() / 2;
 	triangle = new Shape(Type::tri, renderer, basicShader, "Triangle1");
 	//square2 = new Shape(Type::quad, renderer, basicShader,"Square2");
 	sprite1 = new Sprite(true, "res/textures/granadeIcon.png", renderer, textureShader, "Sprite1");
 	player = new Sprite(true, "res/textures/PlayerShit.png", renderer, textureShader, "Player");
 
 	triangle->initShape();
-	triangle->SetPosition(.5f, .1f, 2.f);
+	triangle->SetPosition(.5f, .1f, -1.f);
 	triangle->SetScale(.5f, .5f, 1.f);
 	//square2->setColor(0.0f, 1.0f, 1.0f);
 
@@ -31,7 +32,7 @@ void Game::Init() {
 	//square2->setColor(0.0f, 0.0f, 1.0f);
 
 	sprite1->init();
-	sprite1->SetPosition(.1f, .5f, 2.f);
+	sprite1->SetPosition(.1f, .5f, -1.f);
 	sprite1->SetScale(.25f, .25f, 0.5f);
 	sprite1->setColor(1.0f, 1.0f, 1.0f);
 
@@ -58,23 +59,33 @@ void Game::Update() {
 void Game::Inputs() {
 	// add inputs here
 
-	if (input.getKey(keyCode::D)) {
-		camera->transform.position.x -= speed * time.getDeltaTime();
-	}
-	if (input.getKey(keyCode::A)) {
-		camera->transform.position.x += speed * time.getDeltaTime();
-	}
 	if (input.getKey(keyCode::W)) {
-		camera->transform.position.y -= speed * time.getDeltaTime();
+		camera->transform.position += camera->getForward() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::S)) {
-		camera->transform.position.y += speed * time.getDeltaTime();
+		camera->transform.position -= camera->getForward() * (speed * time.getDeltaTime());
+	}
+	if (input.getKey(keyCode::A)) {
+		camera->transform.position -= camera->getRight() * (speed * time.getDeltaTime());
+	}
+	if (input.getKey(keyCode::D)) {
+		camera->transform.position += camera->getRight() * (speed * time.getDeltaTime());
+	}
+	if (input.getKey(keyCode::RIGHT)) {
+		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		camera->rotateYaw(camera->rotationSpeed);
+	}
+	if (input.getKey(keyCode::LEFT)) {
+		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		camera->rotateYaw(-camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::UP)) {
-		camera->transform.position.z += speed * time.getDeltaTime();
+		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		camera->rotatePitch(camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::DOWN)) {
-		camera->transform.position.z -= speed * time.getDeltaTime();
+		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		camera->rotatePitch(-camera->rotationSpeed);
 	}
 }
 
@@ -102,3 +113,4 @@ void Game::Unload() {
 		idle = NULL;
 	}
 }
+

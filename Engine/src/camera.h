@@ -9,19 +9,42 @@ enum class ENGINE_API ProjectionType{
 };
 class ENGINE_API Camera : public Entity {
 	ProjectionType _type;
+
 	glm::mat4 _view;
 	glm::mat4 _proj;
+	glm::vec3 _right;
+	glm::vec3 _up;
+	glm::vec3 _worldUp;
+	glm::vec3 _forward;
+	glm::vec3 _inverseDirection;
 
-public:
-	Camera(Renderer* renderer,ProjectionType type);
+	class Window* _window;
+
+	float pitch;
+	float yaw;
+
+public: 
+	float rotationSpeed = 10;
+	float movementSpeed = 0;
+
+	Camera(class Window* window, Renderer* renderer,ProjectionType type);
 	~Camera();
-	void setView(glm::vec3 position);
+	void updateView();
 	void setProjection(ProjectionType type);
 	void init(Shader& shader);
 	glm::mat4 getView();
 	glm::mat4 getProjection();
 	ProjectionType getProjectionType();
 	void draw(Shader& shader);
+	void setDirection(glm::vec3 target);
+	glm::vec3 getForward();
+	glm::vec3 getUp();
+	glm::vec3 getRight();
+	void rotatePitch(float pitch);
+	void rotateYaw(float yaw);
+private:
+	void updateShader(Shader& shader);
+	void updateVectors();
 };
 
 #endif // !CAMERA_H
