@@ -78,9 +78,9 @@ void Camera::draw(Shader& shader) {
 
 void Camera::updateVectors()
 {
-	_forward.x = glm::cos(glm::radians(transform.rotation.y) * glm::cos(glm::radians(transform.rotation.x)));
+	_forward.x = glm::cos(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
 	_forward.y = glm::sin(glm::radians(transform.rotation.x));
-	_forward.z = glm::sin(glm::radians(transform.rotation.y) * glm::cos(glm::radians(transform.rotation.x)));
+	_forward.z = glm::sin(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
 	_forward = glm::normalize(_forward);
 	_right = glm::normalize(glm::cross(_forward, _worldUp));
 	_up = glm::normalize(glm::cross(_right, _forward));
