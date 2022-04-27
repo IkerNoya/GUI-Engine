@@ -24,6 +24,7 @@ void Shape::initShape() {
 	_renderer->setPositionAttribPointer(_shader.getID(), "pos");
 	_renderer->setTintAttribPointer(_shader.getID(), "color");
 	generateVAO();
+	_renderer->generateVBO(_vbo);
 	bindVBO();
 	bindEBO();
 }
@@ -66,6 +67,7 @@ void Shape::bindEBO() {
 
 void Shape::bindBuffers(float* quadVertex, float* triVertex, int quadVertexSize, int triVertexSize){
 	generateVAO();
+	_renderer->generateVBO(_vbo);
 	switch (shape)
 	{
 	case Type::quad:

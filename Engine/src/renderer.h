@@ -18,6 +18,7 @@ public:
 	void startProgram(Shader &shader, glm::mat4 model);
 
 	void generateVAO(unsigned int& vao);
+	void generateVBO(unsigned int& vbo);
 	void bindVAO(unsigned int& vao);
 	void bindVBO(unsigned int& vbo, float* vertices, int verticesAmmount);
 	void bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);

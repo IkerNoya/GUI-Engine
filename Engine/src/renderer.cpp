@@ -51,12 +51,16 @@ void Renderer::generateVAO(unsigned int& vao) {
     glBindVertexArray(vao);
 }
 
+void Renderer::generateVBO(unsigned int& vbo){
+    glGenBuffers(1, &vbo);
+}
+
+
 void Renderer::bindVAO(unsigned int& vao) {
     glBindVertexArray(vao);
 }
 
 void Renderer::bindVBO(unsigned int& vbo, float* vertices, int verticesAmmount) {
-    glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) * verticesAmmount, vertices, GL_STATIC_DRAW);
 }

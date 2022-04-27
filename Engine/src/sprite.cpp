@@ -129,6 +129,7 @@ void Sprite::bindEBO() {
 
 void Sprite::bindBuffers() {
 	generateVAO();
+	_renderer->generateVBO(_vbo);
 	bindVAO();
 	bindVBO();
 	bindEBO();
