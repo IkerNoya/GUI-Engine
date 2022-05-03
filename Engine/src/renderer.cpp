@@ -53,9 +53,8 @@ void Renderer::setCubeAttribPointer(unsigned int shaderID)
 }
 
 void Renderer::startProgram(Shader& shader, glm::mat4 model) {
-    unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
 	shader.useProgram();
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
+    shader.setMat4("transform", model);
 }
 
 void Renderer::generateVAO(unsigned int& vao) {
@@ -137,13 +136,10 @@ void Renderer::drawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, 
     unbindBuffers();
 }
 void Renderer::drawCamera(Shader& shader, glm::mat4 model, glm::mat4 view, glm::mat4 proj) {
-    unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
-    unsigned int viewLoc = glGetUniformLocation(shader.getID(), "view");
-    unsigned int projLoc = glGetUniformLocation(shader.getID(), "proj");
     shader.useProgram();
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+    shader.setMat4("transform", model);
+    shader.setMat4("view", view);
+    shader.setMat4("proj", proj);
 }
 
 void Renderer::drawCube(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model)

@@ -1,10 +1,11 @@
 #include "GL/glew.h"
-#include "GLFW/glfw3.h"
 
 #include "shader.h"
 
 #include <fstream>
 #include <sstream> // to read and write strings in files
+#include <glm.hpp>
+#include	"gtc/type_ptr.hpp"
 
 Shader::Shader() {
 	_id = 0;
@@ -89,4 +90,23 @@ unsigned int Shader::compileShader(unsigned int type, std::string& source) {
 		return 0;
 	}
 	return shaderID;
+}
+
+void Shader::setVec3(const char* name, float x, float y, float z)
+{
+	glm::vec3 value = glm::vec3(x, y, z);
+	GLint attribLocation = glGetUniformLocation(_id, name);
+	glUniform3fv(attribLocation, 1, glm::value_ptr(value));
+}
+
+void Shader::setVec3(const char* name, glm::vec3 value)
+{
+	GLint attribLocation = glGetUniformLocation(_id, name);
+	glUniform3fv(attribLocation, 1, glm::value_ptr(value));
+}
+
+void Shader::setMat4(const char* name, glm::mat4 value)
+{
+	GLint attribLocation = glGetUniformLocation(_id, name);
+	glUniformMatrix4fv(attribLocation, 1, GL_FALSE, glm::value_ptr(value));
 }
