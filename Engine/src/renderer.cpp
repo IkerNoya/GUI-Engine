@@ -42,12 +42,14 @@ void Renderer::setTexAttribPointer(unsigned int shaderID) {
 void Renderer::setCubeAttribPointer(unsigned int shaderID)
 {
     unsigned int posAttrib = glGetAttribLocation(shaderID, "inPosition");
-    unsigned int normalAttrib = glGetAttribLocation(shaderID, "xdValue");
+    unsigned int colorAttrib = glGetAttribLocation(shaderID, "inColor");
+    unsigned int normalAttrib = glGetAttribLocation(shaderID, "inNormal");
     unsigned int texAttrib = glGetAttribLocation(shaderID, "inTexCoord");
     glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
-    createAtribPointers(posAttrib, 3, 8, 0);
-    createAtribPointers(normalAttrib, 3, 8, 3);
-    createAtribPointers(texAttrib, 2, 8, 6);
+    createAtribPointers(posAttrib, 3, 11, 0);
+    createAtribPointers(colorAttrib, 3, 11, 3);
+    createAtribPointers(normalAttrib, 3, 11, 6);
+    createAtribPointers(texAttrib, 2, 11, 9);
 }
 
 void Renderer::startProgram(Shader& shader, glm::mat4 model) {

@@ -17,6 +17,7 @@ void Game::Init() {
 	cube->init();
 	cube->SetPosition(.75f, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
+	cube->SetColor(1,1,1);
 }
 
 	//game update
