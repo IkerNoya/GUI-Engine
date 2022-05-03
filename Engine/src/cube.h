@@ -9,6 +9,7 @@ class ENGINE_API Cube : public Entity {
 	int _width;
 	int _height;
 	bool _transparency;
+	bool _hasTexture = true;
 	unsigned int _vao = 0;
 	unsigned int _vbo = 0;
 	unsigned int _ebo = 0;
@@ -77,6 +78,7 @@ class ENGINE_API Cube : public Entity {
 	void clearBuffers();
 
 public:
+	Cube(Renderer* renderer, Shader& shader, std::string name);
 	Cube(Renderer* renderer, Shader& shader, std::string name, bool transparency);
 	Cube(Renderer* renderer, Shader& shader, std::string name, const char* path, bool transparency);
 	Cube(Renderer* renderer);
@@ -91,6 +93,9 @@ public:
 	void SetColor(glm::vec3 color);
 
 	void draw();
+
+	void setTransparency(bool value);
+	void ShouldHaveTextures(bool value);
 
 	inline int getWidth() { return _width; }
 	inline int getHeight() { return _width; }

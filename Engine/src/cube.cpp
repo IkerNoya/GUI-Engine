@@ -53,6 +53,20 @@ void Cube::clearBuffers()
 	_renderer->deleteBuffers(_vao, _vbo, _ebo);
 }
 
+Cube::Cube(Renderer* renderer, Shader& shader, std::string name) : Entity(renderer)
+{
+	_transparency = false;
+	_texImporter = new TextureImporter();
+	_shader = shader;
+	_width = 0;
+	_height = 0;
+	_name = name;
+	_hasTexture = false;
+
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
+}
+
 Cube::Cube(Renderer* renderer, Shader& shader, std::string name, bool transparency) : Entity(renderer)
 {
 	_transparency = transparency;
@@ -61,7 +75,7 @@ Cube::Cube(Renderer* renderer, Shader& shader, std::string name, bool transparen
 	_width = 0;
 	_height = 0;
 	_name = name;
-	
+
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 }
@@ -109,7 +123,8 @@ void Cube::init()
 
 void Cube::loadSprite(const char* path)
 {
-	if (_texImporter){
+
+	if (_texImporter) {
 		_texImporter->SetPath(path);
 		_texImporter->LoadImage(_width, _height, _transparency);
 	}
@@ -119,30 +134,35 @@ void Cube::loadSprite(const char* path)
 
 void Cube::loadSprite()
 {
-	if (_texImporter)
+
+	if (_texImporter) {
+		if (!_hasTexture) {
+			_texImporter->SetPath("../Engine/res/textures/BlankTexture.jpg");
+		}
 		_texImporter->LoadImage(_width, _height, _transparency);
+	}
 	else
 		std::cout << "Couldn't find image" << std::endl;
 }
 
 void Cube::SetColor(float r, float g, float b)
 {
-	vertices[3]   = r; vertices[4]    = g; vertices[5]  = b;
-	vertices[14] = r; vertices[15] = g; vertices[16] = b ;
-	vertices[25] = r; vertices[26] = g; vertices[27] = b ;
-	vertices[36] = r; vertices[37] = g; vertices[38] = b ;
+	vertices[3] = r; vertices[4] = g; vertices[5] = b;
+	vertices[14] = r; vertices[15] = g; vertices[16] = b;
+	vertices[25] = r; vertices[26] = g; vertices[27] = b;
+	vertices[36] = r; vertices[37] = g; vertices[38] = b;
 
 	vertices[47] = r; vertices[48] = g; vertices[49] = b;
 	vertices[58] = r; vertices[59] = g; vertices[60] = b;
 	vertices[69] = r; vertices[70] = g; vertices[71] = b;
 	vertices[80] = r; vertices[81] = g; vertices[82] = b;
 
-	vertices[91]   = r; vertices[92]   = g; vertices[93]   = b;
+	vertices[91] = r; vertices[92] = g; vertices[93] = b;
 	vertices[102] = r; vertices[103] = g; vertices[104] = b;
 	vertices[113] = r; vertices[114] = g; vertices[115] = b;
 	vertices[124] = r; vertices[125] = g; vertices[126] = b;
 
-	vertices[135]   = r; vertices[136]   = g; vertices[137]   = b;
+	vertices[135] = r; vertices[136] = g; vertices[137] = b;
 	vertices[146] = r; vertices[147] = g; vertices[148] = b;
 	vertices[157] = r; vertices[158] = g; vertices[159] = b;
 	vertices[168] = r; vertices[169] = g; vertices[170] = b;
@@ -170,7 +190,7 @@ void Cube::SetColor(glm::vec3 color)
 	vertices[69] = color.x; vertices[70] = color.y; vertices[71] = color.z;
 	vertices[80] = color.x; vertices[81] = color.y; vertices[82] = color.z;
 
-	vertices[91]   = color.x; vertices[92]   = color.y; vertices[93]   =  color.z;
+	vertices[91] = color.x; vertices[92] = color.y; vertices[93] = color.z;
 	vertices[102] = color.x; vertices[103] = color.y; vertices[104] = color.z;
 	vertices[113] = color.x; vertices[114] = color.y; vertices[115] = color.z;
 	vertices[124] = color.x; vertices[125] = color.y; vertices[126] = color.z;
@@ -194,6 +214,7 @@ void Cube::SetColor(glm::vec3 color)
 void Cube::draw()
 {
 	updateMatrices();
+
 	if (_transparency) {
 		blendSprite();
 		bindTextures();
@@ -206,4 +227,11 @@ void Cube::draw()
 		_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModel());
 		glDisable(GL_TEXTURE_2D);
 	}
+}
+
+void Cube::setTransparency(bool value) {
+	_transparency = value;
+}
+void Cube::ShouldHaveTextures(bool value) {
+	_hasTexture = value;
 }

@@ -13,7 +13,7 @@ void Game::Init() {
 	lastX = window->getWidth() / 2;
 	lastY = window->getHeight() / 2;
 
-	cube = new Cube(renderer, standardShader, "cube", "res/textures/BoxTexture.jpg", false);
+	cube = new Cube(renderer, standardShader, "cube");
 	cube->init();
 	cube->SetPosition(.75f, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
