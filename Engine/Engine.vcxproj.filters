@@ -202,5 +202,6 @@
     <None Include="src\shaders\StandardShader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\shaders\Shader.vert" />
   </ItemGroup>
 </Project>
