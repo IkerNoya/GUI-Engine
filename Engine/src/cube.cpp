@@ -55,7 +55,7 @@ void Cube::clearBuffers()
 
 Cube::Cube(Renderer* renderer, Shader& shader, std::string name) : Entity(renderer)
 {
-	_transparency = false;
+	_transparency = true;
 	_texImporter = new TextureImporter();
 	_shader = shader;
 	_width = 0;
@@ -137,7 +137,7 @@ void Cube::loadSprite()
 
 	if (_texImporter) {
 		if (!_hasTexture) {
-			_texImporter->SetPath("../Engine/res/textures/BlankTexture.jpg");
+			_texImporter->SetPath("../Engine/res/textures/GridTexture.png");
 		}
 		_texImporter->LoadImage(_width, _height, _transparency);
 	}
