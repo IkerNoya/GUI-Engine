@@ -5,6 +5,7 @@
 #include "renderer.h"
 #include "shape.h"
 #include "sprite.h"
+#include "cube.h"
 #include "shader.h"
 #include "gui_layer.h"
 #include "inspector.h"
@@ -25,6 +26,7 @@ protected:
 	DataManager* dataManager;
 	Shader basicShader;
 	Shader textureShader;
+	Shader standardShader;
 	Camera* camera;
 	GuiLayer* gui;
 

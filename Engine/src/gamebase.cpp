@@ -48,6 +48,7 @@ int Gamebase::InitEngine() {
 
     basicShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//fragmentShader.frag");
     textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
+    standardShader.createShader("..//Engine//src//shaders//StandardShader.vert", "..//Engine//src//shaders//StandardShader.frag");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -56,8 +57,7 @@ int Gamebase::InitEngine() {
     camera->SetYRot(-90);
     camera->setDirection(glm::vec3(0.f, 0.f, 0.f));
 
-    camera->init(basicShader);
-    camera->init(textureShader);
+    camera->init(standardShader);
 
     gui->init();
 
@@ -87,8 +87,7 @@ void Gamebase::UpdateEngine() {
         if (worldData->_isWindowOpen)
             worldData->createWindow();
 
-        camera->draw(basicShader);
-        camera->draw(textureShader);
+        camera->draw(standardShader);
       
 		Update();
 

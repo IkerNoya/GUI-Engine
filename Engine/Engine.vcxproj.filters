@@ -196,5 +196,11 @@
     <None Include="src\shaders\texFragmentShader.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\shaders\StandardShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\shaders\StandardShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

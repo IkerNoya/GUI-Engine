@@ -16,8 +16,8 @@ class ENGINE_API Cube : public Entity {
 	TextureImporter* _texImporter;
 	Shader _shader;
 
-	float vertices[288] = {
-		 0.5f,  0.5f, 0.5f,    0.0f, 0.0f, 1.0f,   1.0f, 1.0f,
+	float vertices[216] = {
+		0.5f,  0.5f, 0.5f,    0.0f, 0.0f, 1.0f,   1.0f, 1.0f,
 		 0.5f, -0.5f, 0.5f,    0.0f, 0.0f, 1.0f,   1.0f, 0.0f,
 		-0.5f, -0.5f, 0.5f,    0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
 		-0.5f,  0.5f, 0.5f,    0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
@@ -78,13 +78,14 @@ class ENGINE_API Cube : public Entity {
 
 public:
 	Cube(Renderer* renderer, Shader& shader, std::string name, bool transparency);
-	Cube(Renderer* renderer, Shader& shader, std::string name, const char* path, bool trans);
+	Cube(Renderer* renderer, Shader& shader, std::string name, const char* path, bool transparency);
 	Cube(Renderer* renderer);
 	~Cube();
 
 	void init();
 	
 	void loadSprite(const char* path);
+	void loadSprite();
 
 	void draw();
 

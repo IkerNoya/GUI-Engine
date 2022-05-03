@@ -4,10 +4,8 @@
 
 class Game : public Gamebase{
 	Shape* triangle;
-	Shape* square2;
 	Sprite* sprite1;
-	Sprite* player;
-	Animation* idle;
+	Cube* cube;
 	float timer = 0;
 	float speed = 1;
 	float rotationSpeed = 100;

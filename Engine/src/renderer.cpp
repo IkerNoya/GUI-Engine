@@ -37,7 +37,17 @@ void Renderer::setTexAttribPointer(unsigned int shaderID) {
     createAtribPointers(posAttrib, 3, 9, 0);
     createAtribPointers(colorAttrib, 4, 9, 3);
     createAtribPointers(texAttrib, 2, 9, 7);
+}
 
+void Renderer::setCubeAttribPointer(unsigned int shaderID)
+{
+    unsigned int posAttrib = glGetAttribLocation(shaderID, "inPosition");
+    unsigned int normalAttrib = glGetAttribLocation(shaderID, "inNormal");
+    unsigned int texAttrib = glGetAttribLocation(shaderID, "inTexCoord");
+    glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
+    createAtribPointers(posAttrib, 3, 8, 0);
+    createAtribPointers(normalAttrib, 3, 8, 3);
+    createAtribPointers(texAttrib, 2, 8, 6);
 }
 
 void Renderer::startProgram(Shader& shader, glm::mat4 model) {
@@ -132,4 +142,14 @@ void Renderer::drawCamera(Shader& shader, glm::mat4 model, glm::mat4 view, glm::
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+}
+
+void Renderer::drawCube(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model)
+{
+    bindVAO(vao);
+    bindVBO(vbo, vertices, verticesAmmount);
+    setCubeAttribPointer(shader.getID());
+    startProgram(shader, model);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    unbindBuffers();
 }
