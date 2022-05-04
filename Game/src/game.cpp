@@ -6,6 +6,7 @@ Game::Game() : Gamebase(){
 	
 Game::~Game() {
 	if (cube) delete cube;
+	if (light) delete light;
 }
 
 	//initialization of game variables
@@ -13,11 +14,17 @@ void Game::Init() {
 	lastX = window->getWidth() / 2;
 	lastY = window->getHeight() / 2;
 
-	cube = new Cube(renderer, standardShader, "cube");
+	cube = new Cube(renderer, standardShader, "cube", "res/textures/BoxTexture.jpg", false);
 	cube->init();
 	cube->SetPosition(.75f, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
 	cube->SetColor(1,1,1);
+
+	light = new LightSource(renderer, standardShader, LightType::AmbientLight, "light");
+	light->init();
+	light->SetPosition(.25f, .5f, -1.f);
+	light->SetScale(.25f, .25f, .25f);
+	light->setColor(1, 1, 1);
 }
 
 	//game update
@@ -29,6 +36,7 @@ void Game::Update() {
 	timer += time.getDeltaTime();
 
 	//draw
+	light->draw();
 	cube->draw();
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
@@ -78,6 +86,10 @@ void Game::Unload() {
 	if (cube) {
 		delete cube;
 		cube = NULL;
+	}
+	if (light) {
+		delete light;
+		light = NULL;
 	}
 }
 

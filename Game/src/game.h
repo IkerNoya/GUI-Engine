@@ -3,9 +3,8 @@
 #include "gamebase.h"
 
 class Game : public Gamebase{
-	Shape* triangle;
-	Sprite* sprite1;
 	Cube* cube;
+	LightSource* light;
 	float timer = 0;
 	float speed = 1;
 	float rotationSpeed = 100;

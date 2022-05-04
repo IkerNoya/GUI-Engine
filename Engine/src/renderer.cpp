@@ -151,3 +151,11 @@ void Renderer::drawCube(Shader& shader, unsigned int& vao, unsigned int& vbo, fl
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
     unbindBuffers();
 }
+
+void Renderer::drawLight(Shader& shader, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model)
+{
+    bindVBO(vbo, vertices, verticesAmount);
+    startProgram(shader, model);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    unbindBuffers();
+}
