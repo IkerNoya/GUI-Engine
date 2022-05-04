@@ -16,6 +16,8 @@ public:
 	void setVec3(const char* name, float x, float y, float z);
 	void setVec3(const char* name, glm::vec3 value);
 	void setMat4(const char* name, glm::mat4 value);
+	void setAttribute(const char* name, int dataAmount, int dataSize, int dataPosition);
+	void setSampler2D(const char* name);
 };
 
 #endif // !SHADER_H

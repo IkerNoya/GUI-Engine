@@ -14,7 +14,8 @@ public:
 	void setPositionAttribPointer(unsigned int shaderID, const char* attribName);
 	void setTintAttribPointer(unsigned int shaderID, const char* attribName);
 	void setTexAttribPointer(unsigned int shaderID);
-	void setCubeAttribPointer(unsigned int shaderID);
+	void setCubeAttribPointer(Shader& shader);
+	void setLightAttribPointer(Shader& shader);
 
 	void startProgram(Shader &shader, glm::mat4 model);
 
@@ -29,7 +30,7 @@ public:
 	void drawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model);
 	void drawCamera(Shader& shader, glm::mat4 model, glm::mat4 view, glm::mat4 proj);
 	void drawCube(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model);
-	void drawLight(Shader& shader, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model);
+	void drawLight(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model);
 
 	void activateWireframeMode();
 	void deactivateWireframeMode();

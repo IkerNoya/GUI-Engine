@@ -22,8 +22,8 @@ void Game::Init() {
 
 	light = new LightSource(renderer, standardShader, LightType::AmbientLight, "light");
 	light->init();
-	light->SetPosition(.25f, .5f, -1.f);
-	light->SetScale(.25f, .25f, .25f);
+	light->SetPosition(.5f, .5f, -1.f);
+	light->SetScale(.1f, .1f, .1f);
 	light->setColor(1, 1, 1);
 }
 

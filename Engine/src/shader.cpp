@@ -111,3 +111,15 @@ void Shader::setMat4(const char* name, glm::mat4 value)
 	GLint attribLocation = glGetUniformLocation(_id, name);
 	glUniformMatrix4fv(attribLocation, 1, GL_FALSE, glm::value_ptr(value));
 }
+
+void Shader::setAttribute(const char* name, int dataAmount, int dataSize, int dataPosition)
+{
+	unsigned int attrib = glGetAttribLocation(_id, name);
+	glVertexAttribPointer(attrib, dataAmount, GL_FLOAT, GL_FALSE, sizeof(float) * dataSize, (void*)(sizeof(float) * dataPosition));
+	glEnableVertexAttribArray(attrib);
+}
+
+void Shader::setSampler2D(const char* name)
+{
+	glUniform1i((glGetUniformLocation(_id, name)), 0);
+}

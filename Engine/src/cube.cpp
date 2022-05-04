@@ -117,7 +117,7 @@ Cube::~Cube()
 void Cube::init()
 {
 	loadSprite();
-	_renderer->setCubeAttribPointer(_shader.getID());
+	_renderer->setCubeAttribPointer( _shader);
 	bindBuffers();
 }
 

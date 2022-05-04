@@ -39,17 +39,20 @@ void Renderer::setTexAttribPointer(unsigned int shaderID) {
     createAtribPointers(texAttrib, 2, 9, 7);
 }
 
-void Renderer::setCubeAttribPointer(unsigned int shaderID)
+void Renderer::setCubeAttribPointer(Shader& shader)
 {
-    unsigned int posAttrib = glGetAttribLocation(shaderID, "inPosition");
-    unsigned int colorAttrib = glGetAttribLocation(shaderID, "inColor");
-    unsigned int normalAttrib = glGetAttribLocation(shaderID, "inNormal");
-    unsigned int texAttrib = glGetAttribLocation(shaderID, "inTexCoord");
-    glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
-    createAtribPointers(posAttrib, 3, 11, 0);
-    createAtribPointers(colorAttrib, 3, 11, 3);
-    createAtribPointers(normalAttrib, 3, 11, 6);
-    createAtribPointers(texAttrib, 2, 11, 9);
+    shader.setSampler2D("ourTexture");
+    shader.setAttribute("inPosition", 3, 11, 0);
+    shader.setAttribute("inColor", 3, 11, 3);
+    shader.setAttribute("inNormal", 3, 11, 6);
+    shader.setAttribute("inTexCoord", 2, 11, 9);
+}
+
+void Renderer::setLightAttribPointer(Shader& shader)
+{
+    shader.setSampler2D("ourTexture");
+    shader.setAttribute("inPosition", 3, 11, 0);
+    shader.setAttribute("inTexCoord", 2, 11, 9);
 }
 
 void Renderer::startProgram(Shader& shader, glm::mat4 model) {
@@ -146,15 +149,17 @@ void Renderer::drawCube(Shader& shader, unsigned int& vao, unsigned int& vbo, fl
 {
     bindVAO(vao);
     bindVBO(vbo, vertices, verticesAmmount);
-    setCubeAttribPointer(shader.getID());
+    setCubeAttribPointer(shader);
     startProgram(shader, model);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
     unbindBuffers();
 }
 
-void Renderer::drawLight(Shader& shader, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model)
+void Renderer::drawLight(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model)
 {
+    bindVAO(vao);
     bindVBO(vbo, vertices, verticesAmount);
+    setLightAttribPointer(shader);
     startProgram(shader, model);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
     unbindBuffers();
