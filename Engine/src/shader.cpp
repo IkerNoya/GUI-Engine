@@ -92,11 +92,17 @@ unsigned int Shader::compileShader(unsigned int type, std::string& source) {
 	return shaderID;
 }
 
+void Shader::setFloat(const char* name, float value)
+{
+	GLint attribLocation = glGetUniformLocation(_id, name);
+	// glUniform1f is deprecated
+	glProgramUniform1f(_id, attribLocation, value);
+}
+
 void Shader::setVec3(const char* name, float x, float y, float z)
 {
 	glm::vec3 value = glm::vec3(x, y, z);
 	GLint attribLocation = glGetUniformLocation(_id, name);
-	std::cout << attribLocation;
 	glUniform3fv(attribLocation, 1, glm::value_ptr(value));
 }
 

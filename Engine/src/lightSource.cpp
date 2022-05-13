@@ -34,6 +34,8 @@ LightSource::LightSource(Renderer* renderer, Shader& shader, LightType type, std
 	_name = name;
 	_shader = shader;
 	_texImporter = new TextureImporter();
+	_isLightSource = true;
+	_entityShader = shader;
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 }
@@ -61,6 +63,7 @@ void LightSource::setColor(glm::vec3 color)
 void LightSource::setColor(float r, float g, float b)
 {
 	_color = glm::vec3(r, g, b);
+	_shader.setVec3("lightColor", r, g, b);
 }
 
 void LightSource::draw()

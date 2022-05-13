@@ -32,6 +32,8 @@ protected:
 	std::string _name = "";
 	Renderer* _renderer;
 	Model model;
+	bool _isLightSource = false;
+	Shader _entityShader;
 
 	void updateModel();
 	void updateMatrices();
@@ -50,6 +52,8 @@ public:
 	int GetID();
 	void SetName(std::string name);
 	std::string GetName();
+	inline bool IsLightSource() { return _isLightSource; }
+	inline Shader GetShader() { return _entityShader; }
 };
 
 #endif // !ENTITY_H

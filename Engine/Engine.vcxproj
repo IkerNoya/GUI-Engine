@@ -77,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\fragmentShader.frag" />
-    <None Include="src\shaders\Shader.vert" />
     <None Include="src\shaders\StandardShader.frag" />
     <None Include="src\shaders\StandardShader.vert" />
     <None Include="src\shaders\texFragmentShader.frag" />

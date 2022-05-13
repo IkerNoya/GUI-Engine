@@ -25,6 +25,7 @@ void Game::Init() {
 	light->SetPosition(.5f, .5f, -1.f);
 	light->SetScale(.1f, .1f, .1f);
 	light->setColor(1, 1, 1);
+	standardShader.setVec3("lightColor", 0, 0, 1);
 }
 
 	//game update

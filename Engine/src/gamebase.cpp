@@ -9,7 +9,7 @@
 #include "glm.hpp"
 #include "gtc/type_ptr.hpp"
 
-
+#define DGL_GLEXT_PROTOTYPES
 
 Gamebase::Gamebase() {
 	window = new Window(1280, 720);
@@ -43,10 +43,9 @@ int Gamebase::InitEngine() {
     glGetIntegerv(GL_CONTEXT_COMPATIBILITY_PROFILE_BIT, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
     input.setWindow(window->getWindow());
-
     basicShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//fragmentShader.frag");
     textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
-    standardShader.createShader("..//Engine//src//shaders//Shader.vert", "..//Engine//src//shaders//StandardShader.frag");
+    standardShader.createShader("..//Engine//src//shaders//StandardShader.vert", "..//Engine//src//shaders//StandardShader.frag");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -88,7 +87,7 @@ void Gamebase::UpdateEngine() {
     bool wireMode = false;
     inspector->getEntity();
 	while (!window->windowShouldClose()) {
-		glClearColor(1.0f, 1.0f,1.0f, 1.0f);
+		glClearColor(0.0f, 0.0f,0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gui->begin();
 

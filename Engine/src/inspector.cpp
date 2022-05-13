@@ -74,6 +74,13 @@ void Inspector::createWindow() {
 		_dataManager->getSelectedEntity()->SetZRot(_rotZ);
 
 		_dataManager->getSelectedEntity()->SetScale(_scaleX, _scaleY, _scaleZ);
+
+		if (_dataManager->getSelectedEntity()->IsLightSource()) {
+			ImGui::Text("Light");
+			ImGui::SliderFloat("Intensity", &_lightIntensity, 0.0f, 1.f);
+			ImGui::Separator();
+			_dataManager->getSelectedEntity()->GetShader().setFloat("ambientStrength", _lightIntensity);
+		}
 	}
 	ImGui::End();
 }
