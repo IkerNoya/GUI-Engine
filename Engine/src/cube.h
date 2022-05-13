@@ -101,6 +101,12 @@ public:
 	inline int getHeight() { return _width; }
 	inline const char* getPath() { return _texImporter ? _texImporter->GetPath() : "No path has been added"; }
 
+
+	// Inherited via Entity
+	virtual void setColor(glm::vec3 color) override;
+
+	virtual void setColor(float r, float g, float b) override;
+
 };
 
 

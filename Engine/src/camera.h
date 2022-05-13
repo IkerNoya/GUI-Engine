@@ -45,6 +45,10 @@ public:
 private:
 	void updateShader(Shader& shader);
 	void updateVectors();
+
+	// Inherited via Entity
+	virtual void setColor(glm::vec3 color) override;
+	virtual void setColor(float r, float g, float b) override;
 };
 
 #endif // !CAMERA_H

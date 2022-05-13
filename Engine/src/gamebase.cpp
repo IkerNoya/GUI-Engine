@@ -100,7 +100,8 @@ void Gamebase::UpdateEngine() {
             worldData->createWindow();
 
         camera->draw(standardShader);
-      
+        standardShader.setVec3("viewPos", camera->transform.position);
+
 		Update();
 
         if (gui->getWireFrameMode()) {

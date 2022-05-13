@@ -17,9 +17,9 @@ uniform mat4 proj;
 
 void main()
 {
-	normal = mat3(transpose(inverse(transform))) * inNormal;
 	position = vec3(transform * vec4(inPosition, 1.0));
-	texCoord = inTexCoord;
 	color = inColor;
+	normal = mat3(transpose(inverse(transform))) * inNormal;
+	texCoord = inTexCoord;
 	gl_Position = proj * view * transform * vec4(inPosition, 1.0);
 }

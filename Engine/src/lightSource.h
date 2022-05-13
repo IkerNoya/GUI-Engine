@@ -80,8 +80,8 @@ public:
 	~LightSource();
 
 	void init();
-	void setColor(glm::vec3 color);
-	void setColor(float r, float g, float b);
+	virtual void setColor(glm::vec3 color) override;
+	virtual void setColor(float r, float g, float b) override;
 
 	void draw();
 

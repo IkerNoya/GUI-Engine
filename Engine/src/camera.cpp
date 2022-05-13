@@ -90,6 +90,14 @@ void Camera::updateVectors()
 	if (transform.rotation.x <= -89.9f) transform.rotation.x = -89.9f;
 }
 
+void Camera::setColor(glm::vec3 color)
+{
+}
+
+void Camera::setColor(float r, float g, float b)
+{
+}
+
 void Camera::rotatePitch(float pitch){
 	transform.rotation.x += pitch;
 }

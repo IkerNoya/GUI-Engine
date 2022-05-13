@@ -51,6 +51,9 @@ public:
 	void SetID(int id);
 	int GetID();
 	void SetName(std::string name);
+	void setEntityColor(glm::vec3 color);
+	virtual void setColor(glm::vec3 color) = 0;
+	virtual void setColor(float r, float g, float b) = 0;
 	std::string GetName();
 	inline bool IsLightSource() { return _isLightSource; }
 	inline Shader GetShader() { return _entityShader; }

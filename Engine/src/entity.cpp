@@ -111,6 +111,11 @@ void Entity::SetName(std::string name) {
 	_name = name;
 }
 
+void Entity::setEntityColor(glm::vec3 color)
+{
+	setColor(color);
+}
+
 std::string Entity::GetName() {
 	return _name;
 }

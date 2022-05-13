@@ -235,3 +235,11 @@ void Cube::setTransparency(bool value) {
 void Cube::ShouldHaveTextures(bool value) {
 	_hasTexture = value;
 }
+
+void Cube::setColor(glm::vec3 color)
+{
+}
+
+void Cube::setColor(float r, float g, float b)
+{
+}

@@ -1,5 +1,6 @@
 #include "inspector.h"
 #include "GLFW/glfw3.h"
+#include	"gtc/type_ptr.hpp"
 
 Inspector::Inspector(Window* window, DataManager* dataManager) : GuiLayer(window, dataManager) {
 	_isWindowOpen = true;
@@ -79,7 +80,9 @@ void Inspector::createWindow() {
 			ImGui::Text("Light");
 			ImGui::SliderFloat("Intensity", &_lightIntensity, 0.0f, 1.f);
 			ImGui::Separator();
-			_dataManager->getSelectedEntity()->GetShader().setFloat("ambientStrength", _lightIntensity);
+			ImGui::ColorPicker3("color", glm::value_ptr(_color));
+			_dataManager->getSelectedEntity()->GetShader().setFloat("specularStrength", _lightIntensity);
+			_dataManager->getSelectedEntity()->setEntityColor(_color);
 		}
 	}
 	ImGui::End();

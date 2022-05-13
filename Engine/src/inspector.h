@@ -25,6 +25,8 @@ class Inspector : public GuiLayer {
 
 	bool _isEntityLightSource = false;
 	
+	glm::vec3 _color = glm::vec3(1);
+
 public: 
 	bool _isWindowOpen;
 	Inspector(Window* window, DataManager* dataManager);
