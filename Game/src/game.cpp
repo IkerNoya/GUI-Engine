@@ -18,13 +18,12 @@ void Game::Init() {
 	cube->init();
 	cube->SetPosition(.75f, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
-	cube->SetColor(1,1,1);
 
 	light = new LightSource(renderer, standardShader, LightType::DirectionalLight, "light");
 	light->init();
 	light->SetPosition(.5f, .5f, -1.f);
 	light->SetScale(.1f, .1f, .1f);
-	light->setColor(1, 1, 1);
+	light->setColor(.5f, .5f, .5f);
 }
 
 	//game update

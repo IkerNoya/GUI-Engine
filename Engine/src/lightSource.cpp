@@ -88,7 +88,6 @@ void LightSource::setColor(glm::vec3 color)
 	vertices[234] = color.x; vertices[235] = color.y; vertices[236] = color.z;
 	vertices[245] = color.x; vertices[246] = color.y; vertices[247] = color.z;
 	vertices[256] = color.x; vertices[257] = color.y; vertices[258] = color.z;
-	_shader.setVec3("lightColor", _color);
 }
 
 void LightSource::setColor(float r, float g, float b)
@@ -123,17 +122,15 @@ void LightSource::setColor(float r, float g, float b)
 	vertices[234] = r; vertices[235] = g; vertices[236] = b;
 	vertices[245] = r; vertices[246] = g; vertices[247] = b;
 	vertices[256] = r; vertices[257] = g; vertices[258] = b;
-	_shader.setVec3("lightColor", _color);
 }
 
 void LightSource::draw()
 {
 	updateMatrices();
-	_shader.setVec3("material.ambient", glm::vec3(1.0));
-	_shader.setVec3("material.diffuse", glm::vec3(1.0));
-	_shader.setVec3("material.specular", glm::vec3(1.0));
-	_shader.setFloat("material.shininess", 32.0f);
-	_shader.setVec3("lightPos", transform.position);
+	_shader.setVec3("light.position", transform.position);
+	_shader.setVec3("light.ambient", _color);
+	_shader.setVec3("light.diffuse",_color);
+	_shader.setVec3("light.specular", glm::vec3(1.0));
 	glBindTexture(GL_TEXTURE_2D, _texImporter->GetTexture());
 	glActiveTexture(GL_TEXTURE0);
 	_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModel());
