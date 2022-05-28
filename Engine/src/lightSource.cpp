@@ -36,9 +36,7 @@ LightSource::LightSource(Renderer* renderer, Shader& shader, LightType type, std
 	_texImporter = new TextureImporter();
 	_isLightSource = true;
 	_entityShader = shader;
-	_color = glm::vec3(1, 1, 1);
-	setColor(glm::vec3(1, 1, 1));
-	shader.setVec3("lightColor", _color);
+	_shader.setVec3("lightColor", _color);
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 }
@@ -61,7 +59,7 @@ void LightSource::init()
 void LightSource::setColor(glm::vec3 color)
 {
 	_color = color;
-	vertices[3] = color.x;  vertices[4] = color.y; vertices[5] = color.z;
+	vertices[3] = color.x; vertices[4] = color.y; vertices[5] = color.z;
 	vertices[14] = color.x; vertices[15] = color.y; vertices[16] = color.z;
 	vertices[25] = color.x; vertices[26] = color.y; vertices[27] = color.z;
 	vertices[36] = color.x; vertices[37] = color.y; vertices[38] = color.z;
@@ -131,6 +129,10 @@ void LightSource::setColor(float r, float g, float b)
 void LightSource::draw()
 {
 	updateMatrices();
+	_shader.setVec3("material.ambient", glm::vec3(1.0));
+	_shader.setVec3("material.diffuse", glm::vec3(1.0));
+	_shader.setVec3("material.specular", glm::vec3(1.0));
+	_shader.setFloat("material.shininess", 32.0f);
 	_shader.setVec3("lightPos", transform.position);
 	glBindTexture(GL_TEXTURE_2D, _texImporter->GetTexture());
 	glActiveTexture(GL_TEXTURE0);

@@ -11,7 +11,7 @@ class TextureImporter;
 class Shader; 
 
 enum class LightType {
-	SpotLight, DirectionalLight, PointLight, AmbientLight 
+	SpotLight, DirectionalLight, PointLight 
 };
 class ENGINE_API LightSource : public Entity
 {
@@ -85,7 +85,7 @@ public:
 
 	void draw();
 
-	inline glm::vec3 getColor() const { return _color; }
+	inline virtual glm::vec3 getColor() const override { return _color; std::cout << "Hola"; }
 
 };
 

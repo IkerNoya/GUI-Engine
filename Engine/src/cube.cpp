@@ -214,7 +214,10 @@ void Cube::SetColor(glm::vec3 color)
 void Cube::draw()
 {
 	updateMatrices();
-
+	_shader.setVec3("material.ambient", glm::vec3(1));
+	_shader.setVec3("material.diffuse", glm::vec3(1));
+	_shader.setVec3("material.specular", glm::vec3(1));
+	_shader.setFloat("material.shininess", 32.0f);
 	if (_transparency) {
 		blendSprite();
 		bindTextures();

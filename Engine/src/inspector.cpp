@@ -77,6 +77,7 @@ void Inspector::createWindow() {
 		_dataManager->getSelectedEntity()->SetScale(_scaleX, _scaleY, _scaleZ);
 
 		if (_dataManager->getSelectedEntity()->IsLightSource()) {
+			_color = _dataManager->getSelectedEntity()->getColor();
 			ImGui::Text("Light");
 			ImGui::SliderFloat("Intensity", &_lightIntensity, 0.0f, 1.f);
 			ImGui::Separator();

@@ -55,6 +55,7 @@ public:
 	virtual void setColor(glm::vec3 color) = 0;
 	virtual void setColor(float r, float g, float b) = 0;
 	std::string GetName();
+	inline virtual glm::vec3 getColor() const { return glm::vec3(1); };
 	inline bool IsLightSource() { return _isLightSource; }
 	inline Shader GetShader() { return _entityShader; }
 };
