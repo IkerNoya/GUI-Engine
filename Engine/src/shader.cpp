@@ -103,13 +103,13 @@ void Shader::setVec3(const char* name, float x, float y, float z)
 {
 	glm::vec3 value = glm::vec3(x, y, z);
 	GLint attribLocation = glGetUniformLocation(_id, name);
-	glUniform3fv(attribLocation, 1, glm::value_ptr(value));
+	glProgramUniform3fv(_id, attribLocation, 1, glm::value_ptr(value));
 }
 
 void Shader::setVec3(const char* name, glm::vec3 value)
 {
 	GLint attribLocation = glGetUniformLocation(_id, name);
-	glUniform3fv(attribLocation, 1, glm::value_ptr(value));
+	glProgramUniform3fv(_id, attribLocation, 1, glm::value_ptr(value));
 }
 
 void Shader::setMat4(const char* name, glm::mat4 value)

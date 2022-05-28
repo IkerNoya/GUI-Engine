@@ -6,7 +6,7 @@ in vec3 color;
 in vec3 normal;
 in vec2 texCoord;
 
-uniform vec3 lightColor = vec3(1.0);
+uniform vec3 lightColor;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 
