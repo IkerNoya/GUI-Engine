@@ -4,6 +4,7 @@
 #include "texture_importer.h"
 #include "export.h"
 #include "shader.h"
+#include "materials.h"
 
 class ENGINE_API Cube : public Entity {
 	int _width;
@@ -16,6 +17,7 @@ class ENGINE_API Cube : public Entity {
 
 	TextureImporter* _texImporter;
 	Shader _shader;
+	Material material;
 
 	float vertices[264] = {
 		0.5f,  0.5f, 0.5f,   1.f, 1.f, 1.f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f,
@@ -84,8 +86,9 @@ public:
 	Cube(Renderer* renderer);
 	~Cube();
 
-	void init();
-	
+	void initWithBasicTexture();
+	void init(const char* diffuseTexturePath, const char* specularTexturePath);
+
 	void loadSprite(const char* path);
 	void loadSprite();
 

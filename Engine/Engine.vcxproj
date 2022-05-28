@@ -39,6 +39,7 @@
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\inspector.h" />
     <ClInclude Include="src\lightSource.h" />
+    <ClInclude Include="src\materials.h" />
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\shape.h" />

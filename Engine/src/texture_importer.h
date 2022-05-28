@@ -14,6 +14,7 @@ public:
 	TextureImporter(int width, int height, const char* path, bool transparency);
 	~TextureImporter();
 	void LoadImage(int width, int height, bool transparency);
+	unsigned int loadTexture(const char* path, int width, int height, bool transparency);
 	void SetPath(const char* path);
 	const char* GetPath();
 	unsigned int GetTexture();

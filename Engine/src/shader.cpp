@@ -92,6 +92,12 @@ unsigned int Shader::compileShader(unsigned int type, std::string& source) {
 	return shaderID;
 }
 
+void Shader::setInt(const char* name, int value)
+{
+	GLint attribLocation = glGetUniformLocation(_id, name);
+	glProgramUniform1i(_id, attribLocation, value);
+}
+
 void Shader::setFloat(const char* name, float value)
 {
 	GLint attribLocation = glGetUniformLocation(_id, name);

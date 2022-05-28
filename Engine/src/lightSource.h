@@ -24,6 +24,8 @@ class ENGINE_API LightSource : public Entity
 	unsigned int _vao = 0;
 	unsigned int _ebo = 0;
 
+	unsigned int diffuse;
+	unsigned int specular;
 
 	float vertices[264] = {
 		0.5f,  0.5f, 0.5f,   1.f, 1.f, 1.f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f,

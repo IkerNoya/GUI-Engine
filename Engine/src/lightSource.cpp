@@ -11,8 +11,8 @@ void LightSource::loadBaseSprite()
 	float width = 0;
 	float height = 0;
 	if (_texImporter) {
-		_texImporter->SetPath("../Engine/res/textures/BlankTexture.jpg");
-		_texImporter->LoadImage(width, height, false);
+		diffuse = _texImporter->loadTexture("../Engine/res/textures/BlankTexture.jpg" , width, height, false);
+		specular = _texImporter->loadTexture("../Engine/res/textures/BlankTexture.jpg" , width, height, false);
 	}
 	else
 		std::cout << "Couldn't find image" << std::endl;
@@ -131,8 +131,10 @@ void LightSource::draw()
 	_shader.setVec3("light.ambient", _color);
 	_shader.setVec3("light.diffuse",_color);
 	_shader.setVec3("light.specular", glm::vec3(1.0));
-	glBindTexture(GL_TEXTURE_2D, _texImporter->GetTexture());
 	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, diffuse);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, specular);
 	_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModel());
 	glDisable(GL_TEXTURE_2D);
 }

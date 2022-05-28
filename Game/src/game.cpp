@@ -14,8 +14,8 @@ void Game::Init() {
 	lastX = window->getWidth() / 2;
 	lastY = window->getHeight() / 2;
 
-	cube = new Cube(renderer, standardShader, "cube", "res/textures/BoxTexture.jpg", false);
-	cube->init();
+	cube = new Cube(renderer, standardShader, "cube");
+	cube->init("res/textures/container2.png", "res/textures/container2_specular.png");
 	cube->SetPosition(.75f, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
 

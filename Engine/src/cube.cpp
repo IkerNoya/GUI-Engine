@@ -33,8 +33,12 @@ void Cube::bindBuffers()
 
 void Cube::bindTextures()
 {
-	glBindTexture(GL_TEXTURE_2D, _texImporter->GetTexture());
+	_shader.setInt("material.diffuse", 0);
 	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, material.diffuseTexture);
+	_shader.setInt("material.specular", 1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, material.specularTexture);
 }
 
 void Cube::blendSprite()
@@ -114,11 +118,26 @@ Cube::~Cube()
 	}
 }
 
-void Cube::init()
+void Cube::initWithBasicTexture()
 {
 	loadSprite();
 	_renderer->setCubeAttribPointer( _shader);
 	bindBuffers();
+	material.diffuseTexture = _texImporter->loadTexture("../Engine/res/textures/GridTexture.png", _width, _height, _transparency);
+	material.specularTexture = _texImporter->loadTexture("../Engine/res/textures/GridTexture.png", _width, _height, _transparency);
+	material.shininess = 32.0f;
+}
+
+void Cube::init(const char* diffuseTexturePath, const char* specularTexturePath)
+{
+	_renderer->setCubeAttribPointer(_shader);
+	bindBuffers();
+	if (_texImporter) {
+		material.diffuseTexture = _texImporter->loadTexture(diffuseTexturePath, _width, _height, true);
+
+		material.specularTexture = _texImporter->loadTexture(specularTexturePath, _width, _height, true);
+	}
+	material.shininess = 32.0f;
 }
 
 void Cube::loadSprite(const char* path)
@@ -214,10 +233,7 @@ void Cube::SetColor(glm::vec3 color)
 void Cube::draw()
 {
 	updateMatrices();
-	_shader.setVec3("material.ambient", glm::vec3(1));
-	_shader.setVec3("material.diffuse", glm::vec3(1));
-	_shader.setVec3("material.specular", glm::vec3(1));
-	_shader.setFloat("material.shininess", 32.0f);
+	_shader.setFloat("material.shininess", material.shininess);
 	if (_transparency) {
 		blendSprite();
 		bindTextures();
@@ -230,6 +246,7 @@ void Cube::draw()
 		_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModel());
 		glDisable(GL_TEXTURE_2D);
 	}
+
 }
 
 void Cube::setTransparency(bool value) {
