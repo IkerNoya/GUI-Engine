@@ -127,6 +127,19 @@ void LightSource::setColor(float r, float g, float b)
 void LightSource::draw()
 {
 	updateMatrices();
+	updateVectors();
+	switch (_type) {
+	case LightType::DirectionalLight:
+		break;
+	case LightType::PointLight:
+		break;
+	case LightType::SpotLight:
+		break;
+	default:
+		break;
+	}
+	std::cout << "forward: " << transform.forward.x << " | " << transform.forward.y << " | " << transform.forward.z << std::endl;
+	_shader.setVec3("light.direction", transform.forward);
 	_shader.setVec3("light.position", transform.position);
 	_shader.setVec3("light.ambient", _color);
 	_shader.setVec3("light.diffuse",_color);

@@ -64,7 +64,7 @@ void Entity::SetXRot(float angle) {
 	axis[1] = 0;
 	axis[2] = 0;
 	
-	model.rotation.x = glm::rotate(glm::mat4(1.0f), angle, axis);
+	model.rotation.x = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	updateModel();
 }
 
@@ -75,7 +75,7 @@ void Entity::SetYRot(float angle) {
 	axis[1] = 1.0f;
 	axis[2] = 0;
 
-	model.rotation.y = glm::rotate(glm::mat4(1.0f), angle, axis);
+	model.rotation.y = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	updateModel();
 }
 
@@ -86,7 +86,7 @@ void Entity::SetZRot(float angle) {
 	axis[1] = 0;
 	axis[2] = 1.0f;
 
-	model.rotation.z = glm::rotate(glm::mat4(1.0f), angle, axis);
+	model.rotation.z = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	updateModel();
 }
 
@@ -114,6 +114,31 @@ void Entity::SetName(std::string name) {
 void Entity::setEntityColor(glm::vec3 color)
 {
 	setColor(color);
+}
+
+void Entity::updateForward()
+{
+	transform.forward.x = glm::cos(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
+	transform.forward.y = glm::sin(glm::radians(transform.rotation.x));
+	transform.forward.z = glm::sin(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
+	transform.forward = glm::normalize(transform.forward);
+}
+
+void Entity::updateUp()
+{
+	transform.up = glm::normalize(glm::cross(transform.right, transform.forward));
+}
+
+void Entity::updateRight()
+{
+	transform.right = glm::normalize(glm::cross(transform.forward, glm::vec3(0, 1, 0)));
+}
+
+void Entity::updateVectors()
+{
+	updateForward();
+	updateRight();
+	updateUp();
 }
 
 std::string Entity::GetName() {

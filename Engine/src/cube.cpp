@@ -233,6 +233,7 @@ void Cube::SetColor(glm::vec3 color)
 void Cube::draw()
 {
 	updateMatrices();
+	updateVectors();
 	_shader.setFloat("material.shininess", material.shininess);
 	if (_transparency) {
 		blendSprite();

@@ -22,6 +22,9 @@ struct ENGINE_API Transform {
 	glm::vec3 position;
 	glm::vec3 rotation;
 	glm::vec3 scale;
+	glm::vec3 forward;
+	glm::vec3 up;
+	glm::vec3 right;
 };
 
 //basic enitity for now
@@ -37,6 +40,9 @@ protected:
 
 	void updateModel();
 	void updateMatrices();
+	void updateUp();
+	void updateRight();
+	void updateForward();
 public:
 	Entity(Renderer* renderer);
 	~Entity();
@@ -54,6 +60,7 @@ public:
 	void setEntityColor(glm::vec3 color);
 	virtual void setColor(glm::vec3 color) = 0;
 	virtual void setColor(float r, float g, float b) = 0;
+	void updateVectors();
 	std::string GetName();
 	inline virtual glm::vec3 getColor() const { return glm::vec3(1); };
 	inline bool IsLightSource() { return _isLightSource; }

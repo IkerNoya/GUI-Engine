@@ -22,6 +22,7 @@ void Game::Init() {
 	light = new LightSource(renderer, standardShader, LightType::DirectionalLight, "light");
 	light->init();
 	light->SetPosition(.5f, .5f, -1.f);
+	light->SetYRot(-90);
 	light->SetScale(.1f, .1f, .1f);
 	light->setColor(.5f, .5f, .5f);
 }
