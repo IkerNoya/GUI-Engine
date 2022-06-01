@@ -167,7 +167,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.3.2.bin.WIN32\lib-vc2019;$(ProjectDir)lib\glew-2.1.0\lib\RLibs\Win32;$(ProjectDir)lib\assimp\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.3.2.bin.WIN32\lib-vc2019;$(ProjectDir)lib\glew-2.1.0\lib\RLibs\Win32;$(ProjectDir)lib\assimp\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
