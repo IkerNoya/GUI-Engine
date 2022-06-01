@@ -18,7 +18,6 @@ Inspector::Inspector(Window* window, DataManager* dataManager) : GuiLayer(window
 	_scaleZ = 0;
 }
 Inspector::~Inspector() {
-
 }
 //Cambiar todo a la mierda
 void Inspector::getEntity() {
