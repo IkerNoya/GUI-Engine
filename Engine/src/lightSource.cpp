@@ -130,34 +130,45 @@ void LightSource::draw()
 	updateVectors();
 	switch (_type) {
 	case LightType::DirectionalLight:
-		_shader.setVec3("DirectionalLight.direction", transform.forward);
+		_shader.setVec3("directionalLight.direction", transform.forward);
+		_shader.setVec3("directionalLight.ambient", _color);
+		_shader.setVec3("directionalLight.diffuse", _color);
+		_shader.setVec3("directionalLight.specular", glm::vec3(1.0));
 		break;
 	case LightType::PointLight:
 	{
+		_shader.setVec3("pointLight[0].position", transform.position);
+		_shader.setFloat("pointLight[0].cutoff", glm::cos(glm::radians(12.5f)));
+		_shader.setFloat("pointLight[0].outerCutOff", glm::cos(glm::radians(17.5f)));
 
+		_shader.setFloat("pointLight[0].constant", 1.0f);
+		_shader.setFloat("pointLight[0].linear", 0.09f);
+		_shader.setFloat("pointLight[0].quadratic", 0.032f);
+
+		_shader.setVec3("pointLight[0].ambient", _color);
+		_shader.setVec3("pointLight[0].diffuse", _color);
+		_shader.setVec3("pointLight[0].specular", glm::vec3(1.0));
 	}
 		break;
 	case LightType::SpotLight:	
 	{
-		//_shader.setVec3("light.direction", transform.forward);
-		//_shader.setFloat("light.cutOff", 12.5f);
+	_shader.setVec3("spotLight[0].position", transform.position);
+	_shader.setVec3("spotLight[0].direction", transform.forward);
+	_shader.setFloat("spotLight[0].cutoff", glm::cos(glm::radians(12.5f)));
+	_shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(17.5f)));
+
+	_shader.setFloat("spotLight[0].constant", 1.0f);
+	_shader.setFloat("spotLight[0].linear", 0.09f);
+	_shader.setFloat("spotLight[0].quadratic", 0.032f);
+
+	_shader.setVec3("spotLight[0].ambient", _color);
+	_shader.setVec3("spotLight[0].diffuse", _color);
+	_shader.setVec3("spotLight[0].specular", glm::vec3(1.0));
 	}
 		break;
-	default:
-		break;
 	}
-	_shader.setVec3("light.position", transform.position);
-	_shader.setVec3("light.direction", transform.forward);
-	_shader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-	_shader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
 
-	_shader.setFloat("light.constant", 1.0f);
-	_shader.setFloat("light.linear", 0.09f);
-	_shader.setFloat("light.quadratic", 0.032f);
 
-	_shader.setVec3("light.ambient", _color);
-	_shader.setVec3("light.diffuse",_color);
-	_shader.setVec3("light.specular", glm::vec3(1.0));
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, diffuse);
 	glActiveTexture(GL_TEXTURE1);
