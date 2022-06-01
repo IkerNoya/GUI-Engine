@@ -134,18 +134,27 @@ void LightSource::draw()
 		break;
 	case LightType::PointLight:
 	{
-		_shader.setFloat("light.constant", 1.0f);
-		_shader.setFloat("light.linear", 0.09f);
-		_shader.setFloat("light.quadratic", 0.032f);
+
 	}
 		break;
-	case LightType::SpotLight:
+	case LightType::SpotLight:	
+	{
+		//_shader.setVec3("light.direction", transform.forward);
+		//_shader.setFloat("light.cutOff", 12.5f);
+	}
 		break;
 	default:
 		break;
 	}
-	std::cout << "forward: " << transform.forward.x << " | " << transform.forward.y << " | " << transform.forward.z << std::endl;
 	_shader.setVec3("light.position", transform.position);
+	_shader.setVec3("light.direction", transform.forward);
+	_shader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+	_shader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+
+	_shader.setFloat("light.constant", 1.0f);
+	_shader.setFloat("light.linear", 0.09f);
+	_shader.setFloat("light.quadratic", 0.032f);
+
 	_shader.setVec3("light.ambient", _color);
 	_shader.setVec3("light.diffuse",_color);
 	_shader.setVec3("light.specular", glm::vec3(1.0));

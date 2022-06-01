@@ -19,7 +19,7 @@ void Game::Init() {
 	cube->SetPosition(.75f, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
 
-	light = new LightSource(renderer, standardShader, LightType::PointLight, "light");
+	light = new LightSource(renderer, standardShader, LightType::SpotLight, "light");
 	light->init();
 	light->SetPosition(.5f, .5f, -1.f);
 	light->SetYRot(-90);
