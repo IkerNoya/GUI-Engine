@@ -4,8 +4,6 @@
 
 class Game : public Gamebase{
 	Cube* cube;
-	Cube* cube2;
-	Cube* cube3;
 	LightSource* spot;
 	LightSource* point;
 	float timer = 0;

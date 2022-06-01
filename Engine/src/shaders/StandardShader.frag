@@ -76,7 +76,7 @@ void main(){
 
 	for(int i = 0; i < MAX_LIGHTS; i++){
 		result += CalculatePointLight(pointLight[i], norm, position, viewDir);
-//		result += CalculateSpotLight(spotLight[i], norm, position, viewDir);
+		result += CalculateSpotLight(spotLight[i], norm, position, viewDir);
 	}
 	result *= color;
 	FragColor = vec4(result, 1.0);

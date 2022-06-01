@@ -131,7 +131,7 @@ void LightSource::draw()
 	switch (_type) {
 	case LightType::DirectionalLight:
 		_shader.setVec3("directionalLight.direction", transform.forward);
-		_shader.setVec3("directionalLight.ambient", _color);
+		_shader.setVec3("directionalLight.ambient", glm::vec3(.2f, .2f, .2f));
 		_shader.setVec3("directionalLight.diffuse", _color);
 		_shader.setVec3("directionalLight.specular", glm::vec3(1.0));
 		break;
@@ -145,7 +145,7 @@ void LightSource::draw()
 		_shader.setFloat("pointLight[0].linear", 0.09f);
 		_shader.setFloat("pointLight[0].quadratic", 0.032f);
 
-		_shader.setVec3("pointLight[0].ambient", _color);
+		_shader.setVec3("pointLight[0].ambient", glm::vec3(.2f, .2f, .2f));
 		_shader.setVec3("pointLight[0].diffuse", _color);
 		_shader.setVec3("pointLight[0].specular", glm::vec3(1.0));
 	}
@@ -161,7 +161,7 @@ void LightSource::draw()
 	_shader.setFloat("spotLight[0].linear", 0.09f);
 	_shader.setFloat("spotLight[0].quadratic", 0.032f);
 
-	_shader.setVec3("spotLight[0].ambient", _color);
+	_shader.setVec3("spotLight[0].ambient", glm::vec3(.2f, .2f, .2f));
 	_shader.setVec3("spotLight[0].diffuse", _color);
 	_shader.setVec3("spotLight[0].specular", glm::vec3(1.0));
 	}

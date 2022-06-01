@@ -6,8 +6,6 @@ Game::Game() : Gamebase(){
 	
 Game::~Game() {
 	if (cube) delete cube;
-	if (cube2) delete cube2;
-	if (cube3) delete cube3;
 	if (spot) delete spot;
 	if (point) delete point;
 }
@@ -22,29 +20,19 @@ void Game::Init() {
 	cube->SetPosition(0, .5f, -1.f);
 	cube->SetScale(.25f, .25f, .25f);
 
-	cube2 = new Cube(renderer, standardShader, "cube2");
-	cube2->init("res/textures/container2.png", "res/textures/container2_specular.png");
-	cube2->SetPosition(0, 1, -1.f);
-	cube2->SetScale(.25f, .25f, .25f);
-
-	cube3 = new Cube(renderer, standardShader, "cube3");
-	cube3->init("res/textures/container2.png", "res/textures/container2_specular.png");
-	cube3->SetPosition(0, -1, -1.f);
-	cube3->SetScale(.25f, .25f, .25f);
-
 	spot = new LightSource(renderer, standardShader, LightType::SpotLight, "spot");
 	spot->init();
 	spot->SetPosition(.5f, .5f, -1.f);
 	spot->SetYRot(-90);
 	spot->SetScale(.1f, .1f, .1f);
-	spot->setColor(.5f, .5f, .5f);
+	spot->setColor(1, 1, 1);
 
 	point = new LightSource(renderer, standardShader, LightType::PointLight, "point");
 	point->init();
 	point->SetPosition(-.5f, .5f, -1.f);
 	point->SetYRot(-90);
 	point->SetScale(.1f, .1f, .1f);
-	point->setColor(.5f, .5f, .5f);
+	point->setColor(1, 1, 1);
 }
 
 	//game update
@@ -59,8 +47,6 @@ void Game::Update() {
 	point->draw();
 	spot->draw();
 	cube->draw();
-	cube2->draw();
-	cube3->draw();
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
@@ -109,14 +95,6 @@ void Game::Unload() {
 	if (cube) {
 		delete cube;
 		cube = NULL;
-	}
-	if (cube2) {
-		delete cube2;
-		cube2 = NULL;
-	}
-	if (cube3) {
-		delete cube3;
-		cube3 = NULL;
 	}
 	if (spot) {
 		delete spot;
