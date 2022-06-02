@@ -10,6 +10,8 @@ class Renderer;
 class TextureImporter;
 class Shader; 
 
+// hacer que las luces se puedan apagar
+
 enum class LightType {
 	SpotLight, DirectionalLight, PointLight 
 };
