@@ -36,44 +36,29 @@ void Inspector::createWindow() {
 
 	if (_dataManager->getSelectedEntity() != NULL) {
 
-		_posX = _dataManager->getSelectedEntity()->transform.position.x;
-		_posY = _dataManager->getSelectedEntity()->transform.position.y;
-		_posZ = _dataManager->getSelectedEntity()->transform.position.z;
+		glm::vec3 rotation = _dataManager->getSelectedEntity()->transform.rotation;
 
-		_rotX = _dataManager->getSelectedEntity()->transform.rotation.x;
-		_rotY = _dataManager->getSelectedEntity()->transform.rotation.y;
-		_rotZ = _dataManager->getSelectedEntity()->transform.rotation.z;
-
-		_scaleX = _dataManager->getSelectedEntity()->transform.scale.x;
-		_scaleY = _dataManager->getSelectedEntity()->transform.scale.y;
-		_scaleZ = _dataManager->getSelectedEntity()->transform.scale.z;
-
+		bool shouldDraw = _dataManager->getSelectedEntity()->ShouldDraw();
 
 		ImGui::Text(_dataManager->getSelectedEntity()->GetName().c_str());
 		ImGui::Separator();
+		ImGui::Checkbox("Enable ", &shouldDraw);
+		ImGui::Separator();
 		ImGui::Text("Transform");
-		ImGui::SliderFloat("X Position", &_posX, _posX -_entityPositionSpeed, _posX + _entityPositionSpeed);
-		ImGui::SliderFloat("Y Position", &_posY, _posY  - _entityPositionSpeed, _posY + _entityPositionSpeed);
-		ImGui::SliderFloat("Z Position", &_posZ, _posZ - _entityPositionSpeed, _posZ + _entityPositionSpeed);
+		ImGui::DragFloat3("Position ", (float*)&_dataManager->getSelectedEntity()->transform.position, _entityPositionSpeed, -100,100);
 		ImGui::Separator();
 		ImGui::Text("Rotation");
-		ImGui::SliderFloat("X Rotation", &_rotX, _rotX - _entityRotationSpeed, _rotX + _entityRotationSpeed);
-		ImGui::SliderFloat("Y Rotation", &_rotY, _rotY - _entityRotationSpeed, _rotY + _entityRotationSpeed);
-		ImGui::SliderFloat("Z Rotation", &_rotZ, _rotZ - _entityRotationSpeed, _rotZ + _entityRotationSpeed);
+		ImGui::DragFloat3("rotation ", (float*)&rotation, _entityRotationSpeed, -360, 360);
 		ImGui::Separator();
 		ImGui::Text("Scale");
-		ImGui::SliderFloat("X Scale", &_scaleX, 0.0f, _scaleX + _entityScaleSpeed);
-		ImGui::SliderFloat("Y Scale", &_scaleY, 0.0f, _scaleY + _entityScaleSpeed);
-		ImGui::SliderFloat("Z Scale", &_scaleZ, 0.0f, _scaleZ + _entityScaleSpeed);
+		ImGui::DragFloat3("scale ", (float*)&_dataManager->getSelectedEntity()->transform.scale, _entityScaleSpeed, 0.1f, 100);
 		ImGui::Separator();
 
-		_dataManager->getSelectedEntity()->SetPosition(_posX, _posY, _posZ);
+		_dataManager->getSelectedEntity()->SetXRot(rotation.x);
+		_dataManager->getSelectedEntity()->SetYRot(rotation.y);
+		_dataManager->getSelectedEntity()->SetZRot(rotation.z);
 
-		_dataManager->getSelectedEntity()->SetXRot(_rotX);
-		_dataManager->getSelectedEntity()->SetYRot(_rotY);
-		_dataManager->getSelectedEntity()->SetZRot(_rotZ);
-
-		_dataManager->getSelectedEntity()->SetScale(_scaleX, _scaleY, _scaleZ);
+		_dataManager->getSelectedEntity()->Hide(shouldDraw);
 
 		if (_dataManager->getSelectedEntity()->IsLightSource()) {
 			_color = _dataManager->getSelectedEntity()->getColor();

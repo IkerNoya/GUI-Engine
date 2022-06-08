@@ -17,7 +17,8 @@ struct DirectionalLight {
 
 	vec3 ambient;
 	vec3 diffuse;
-	vec3 specular;
+	vec3 specular; 
+	bool enable;
 };
 
 struct PointLight {
@@ -31,6 +32,8 @@ struct PointLight {
 	float quadratic;
 	float cutoff;
 	float outerCutOff;
+
+	bool enable;
 };
 
 struct SpotLight{
@@ -45,12 +48,14 @@ struct SpotLight{
 	vec3 direction;
 	float cutoff;
 	float outerCutOff;
+
+	bool enable;
 };
 
 uniform Material material;
 
 uniform DirectionalLight directionalLight;
-#define MAX_LIGHTS 1
+#define MAX_LIGHTS 4
 uniform PointLight pointLight[MAX_LIGHTS];
 uniform SpotLight spotLight[MAX_LIGHTS];
 
@@ -82,6 +87,10 @@ void main(){
 	FragColor = vec4(result, 1.0);
 }
 vec3 CalculateDirectionalLight(DirectionalLight dL, vec3 norm, vec3 viewDir){
+	if(!dL.enable){
+		return vec3(0);
+	}
+
 	vec3 lightDir = normalize(-dL.direction);
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 reflectDir = reflect(-lightDir, norm);
@@ -95,6 +104,10 @@ vec3 CalculateDirectionalLight(DirectionalLight dL, vec3 norm, vec3 viewDir){
 
 }
 vec3 CalculatePointLight(PointLight pL, vec3 norm, vec3 fragPos, vec3 viewDir){
+	if(!pL.enable){
+		return vec3(0);
+	}
+
 	vec3 lightDir = normalize(pL.position - fragPos);
     // diffuse shading
     float diff = max(dot(norm, lightDir), 0.0);
@@ -115,6 +128,10 @@ vec3 CalculatePointLight(PointLight pL, vec3 norm, vec3 fragPos, vec3 viewDir){
     return (ambient + diffuse + specular);
 }
 vec3 CalculateSpotLight(SpotLight sL, vec3 norm, vec3 fragPos, vec3 viewDir){
+	if(!sL.enable){
+		return vec3(0);
+	}
+
 	vec3 lightDir = normalize(sL.position - fragPos);
 
 	//ambient

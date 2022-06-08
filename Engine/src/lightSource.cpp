@@ -126,6 +126,26 @@ void LightSource::setColor(float r, float g, float b)
 
 void LightSource::draw()
 {
+	if (!ShouldDraw()) {
+		switch (_type) {
+		case LightType::DirectionalLight:
+			_shader.setInt("directionalLight.enable", 0);
+
+			break;
+		case LightType::PointLight:
+		{
+			_shader.setInt("pointLight[0].enable", 0);
+		}
+		break;
+		case LightType::SpotLight:
+		{
+			_shader.setInt("spotLight[0].enable", 0);
+		}
+		break;
+		}
+		return;
+	}
+		
 	updateMatrices();
 	updateVectors();
 	switch (_type) {
@@ -134,6 +154,8 @@ void LightSource::draw()
 		_shader.setVec3("directionalLight.ambient", glm::vec3(.2f, .2f, .2f));
 		_shader.setVec3("directionalLight.diffuse", _color);
 		_shader.setVec3("directionalLight.specular", glm::vec3(1.0));
+		_shader.setInt("directionalLight.enable", 1);
+
 		break;
 	case LightType::PointLight:
 	{
@@ -148,6 +170,8 @@ void LightSource::draw()
 		_shader.setVec3("pointLight[0].ambient", glm::vec3(.2f, .2f, .2f));
 		_shader.setVec3("pointLight[0].diffuse", _color);
 		_shader.setVec3("pointLight[0].specular", glm::vec3(1.0));
+
+		_shader.setInt("pointLight[0].enable", 1);
 	}
 		break;
 	case LightType::SpotLight:	
@@ -164,6 +188,8 @@ void LightSource::draw()
 	_shader.setVec3("spotLight[0].ambient", glm::vec3(.2f, .2f, .2f));
 	_shader.setVec3("spotLight[0].diffuse", _color);
 	_shader.setVec3("spotLight[0].specular", glm::vec3(1.0));
+
+	_shader.setInt("spotLight[0].enable", 1);
 	}
 		break;
 	}

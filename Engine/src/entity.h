@@ -36,6 +36,7 @@ protected:
 	Renderer* _renderer;
 	ModelMatrix modelMatrix;
 	bool _isLightSource = false;
+	bool _shouldDraw = true;
 	Shader _entityShader;
 
 	void updateModel();
@@ -65,6 +66,8 @@ public:
 	inline virtual glm::vec3 getColor() const { return glm::vec3(1); };
 	inline bool IsLightSource() { return _isLightSource; }
 	inline Shader GetShader() { return _entityShader; }
+	inline virtual bool ShouldDraw() const { return _shouldDraw; }
+	inline virtual void Hide(bool value) { _shouldDraw = value; }
 };
 
 #endif // !ENTITY_H

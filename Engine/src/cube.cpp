@@ -232,6 +232,8 @@ void Cube::SetColor(glm::vec3 color)
 
 void Cube::draw()
 {
+	if (!ShouldDraw()) return;
+
 	updateMatrices();
 	updateVectors();
 	_shader.setFloat("material.shininess", material.shininess);

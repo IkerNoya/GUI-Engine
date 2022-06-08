@@ -135,3 +135,4 @@ void Shader::setSampler2D(const char* name)
 {
 	glUniform1i((glGetUniformLocation(_id, name)), 0);
 }
+
