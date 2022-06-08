@@ -68,3 +68,11 @@ void Mesh::Draw()
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
+
+void Mesh::setColor(glm::vec3 color)
+{
+}
+
+void Mesh::setColor(float r, float g, float b)
+{
+}

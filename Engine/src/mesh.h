@@ -15,11 +15,12 @@ struct Vertex {
 	glm::vec3 position;
 	glm::vec3 color;
 	glm::vec3 normal;
-	glm::vec3 texCoords;
+	glm::vec2 texCoords;
 };
 struct Texture {
 	unsigned int id;
 	std::string type;
+	std::string path;
 };
 class ENGINE_API Mesh : public Entity
 {
@@ -33,6 +34,10 @@ public:
 	Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex>	vertices, std::vector<unsigned int>	indices, std::vector<Texture> textures);
 	~Mesh();
 	void Draw();
+
+	// Inherited via Entity
+	virtual void setColor(glm::vec3 color) override;
+	virtual void setColor(float r, float g, float b) override;
 };
 
 

@@ -6,15 +6,19 @@
 #include "mesh.h"
 #include <vector>
 #include <string>
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
+
 class Shader;
 class Renderer;
 class TextureImporter;
+struct  aiNode;
+struct aiMesh;
+struct aiScene;
+struct aiMaterial;
+enum aiTextureType;
 
 class ENGINE_API ModelMat : public Entity {
 	std::vector<Mesh> meshes;
+	std::vector<Texture> texturesLoaded;
 	std::string directory;
 	Shader _shader;
 	Renderer* renderer;
@@ -27,6 +31,12 @@ class ENGINE_API ModelMat : public Entity {
 
 public:
 	ModelMat(Renderer* renderer, Shader& shader, char* path);
+
+
+	// Inherited via Entity
+	virtual void setColor(glm::vec3 color) override;
+
+	virtual void setColor(float r, float g, float b) override;
 
 };
 

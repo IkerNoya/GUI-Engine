@@ -2,6 +2,7 @@
 #define TEXTURE_IMPORTER_H
 
 #include "export.h"
+#include <string>
 
 class ENGINE_API TextureImporter {
 	const char* _path;
@@ -15,6 +16,8 @@ public:
 	~TextureImporter();
 	void LoadImage(int width, int height, bool transparency);
 	unsigned int loadTexture(const char* path, int width, int height, bool transparency);
+	// for models
+	unsigned int textureFromFile(const char* path, const std::string& directory, bool gamma = false);
 	void SetPath(const char* path);
 	const char* GetPath();
 	unsigned int GetTexture();
