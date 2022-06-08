@@ -185,7 +185,7 @@ void LightSource::draw()
 	_shader.setFloat("spotLight[0].linear", 0.09f);
 	_shader.setFloat("spotLight[0].quadratic", 0.032f);
 
-	_shader.setVec3("spotLight[0].ambient", glm::vec3(.2f, .2f, .2f));
+	_shader.setVec3("spotLight[0].ambient", glm::vec3(0));
 	_shader.setVec3("spotLight[0].diffuse", _color);
 	_shader.setVec3("spotLight[0].specular", glm::vec3(1.0));
 
