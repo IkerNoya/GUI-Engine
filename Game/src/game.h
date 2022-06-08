@@ -4,8 +4,12 @@
 
 class Game : public Gamebase{
 	Cube* cube;
+
+	LightSource* directional;
 	LightSource* spot;
 	LightSource* point;
+	LightSource* point2;
+
 	float timer = 0;
 	float speed = 1;
 	float rotationSpeed = 100;

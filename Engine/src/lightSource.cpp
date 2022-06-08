@@ -4,7 +4,12 @@
 #include "dataManager.h"
 #include "texture_importer.h"
 #include "shader.h"
+#include <string>
 
+#define MAX_LIGHTS 4
+
+int LightSource::nextPointLightId = 0;
+int LightSource::nextspotLightId = 0;
 
 void LightSource::loadBaseSprite()
 {
@@ -39,6 +44,19 @@ LightSource::LightSource(Renderer* renderer, Shader& shader, LightType type, std
 	_shader.setVec3("lightColor", _color);
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
+	switch (type)
+	{
+	case LightType::SpotLight:
+		spotLightId = nextspotLightId++;
+		break;
+	case LightType::DirectionalLight:
+		break;
+	case LightType::PointLight:
+		pointLightId = nextPointLightId++;
+		break;
+	default:
+		break;
+	}
 }
 
 LightSource::~LightSource()
@@ -134,12 +152,16 @@ void LightSource::draw()
 			break;
 		case LightType::PointLight:
 		{
-			_shader.setInt("pointLight[0].enable", 0);
+			std::string id = std::to_string(pointLightId);
+			std::string name = "pointLight[" + id + "].";
+			_shader.setInt(std::string(name + "enable").c_str(), 0);
 		}
 		break;
 		case LightType::SpotLight:
 		{
-			_shader.setInt("spotLight[0].enable", 0);
+			std::string id = std::to_string(pointLightId);
+			std::string name = "spotLight[" + id + "].";
+			_shader.setInt(std::string(name + "enable").c_str(), 1);
 		}
 		break;
 		}
@@ -151,6 +173,7 @@ void LightSource::draw()
 	switch (_type) {
 	case LightType::DirectionalLight:
 		_shader.setVec3("directionalLight.direction", transform.forward);
+		std::cout << transform.forward.x << " | " << transform.forward.y << " | " << transform.forward.z << std::endl;
 		_shader.setVec3("directionalLight.ambient", glm::vec3(.2f, .2f, .2f));
 		_shader.setVec3("directionalLight.diffuse", _color);
 		_shader.setVec3("directionalLight.specular", glm::vec3(1.0));
@@ -159,37 +182,41 @@ void LightSource::draw()
 		break;
 	case LightType::PointLight:
 	{
-		_shader.setVec3("pointLight[0].position", transform.position);
-		_shader.setFloat("pointLight[0].cutoff", glm::cos(glm::radians(12.5f)));
-		_shader.setFloat("pointLight[0].outerCutOff", glm::cos(glm::radians(17.5f)));
+		std::string id = std::to_string(pointLightId);
+		std::string name = "pointLight[" + id + "].";
+		_shader.setVec3(std::string(name + "position").c_str(), transform.position);
+		_shader.setFloat(std::string(name + "cutoff").c_str(), glm::cos(glm::radians(12.5f)));
+		_shader.setFloat(std::string(name + "outerCutOff").c_str(), glm::cos(glm::radians(17.5f)));
 
-		_shader.setFloat("pointLight[0].constant", 1.0f);
-		_shader.setFloat("pointLight[0].linear", 0.09f);
-		_shader.setFloat("pointLight[0].quadratic", 0.032f);
+		_shader.setFloat(std::string(name + "constant").c_str(), 1.0f);
+		_shader.setFloat(std::string(name + "linear").c_str(), 0.09f);
+		_shader.setFloat(std::string(name + "quadratic").c_str(), 0.032f);
 
-		_shader.setVec3("pointLight[0].ambient", glm::vec3(.2f, .2f, .2f));
-		_shader.setVec3("pointLight[0].diffuse", _color);
-		_shader.setVec3("pointLight[0].specular", glm::vec3(1.0));
+		_shader.setVec3(std::string(name + "ambient").c_str(), glm::vec3(.2f, .2f, .2f));
+		_shader.setVec3(std::string(name + "diffuse").c_str(), _color);
+		_shader.setVec3(std::string(name + "specular").c_str(), glm::vec3(1.0));
 
-		_shader.setInt("pointLight[0].enable", 1);
+		_shader.setInt(std::string(name + "enable").c_str(), 1);
 	}
 		break;
 	case LightType::SpotLight:	
 	{
-	_shader.setVec3("spotLight[0].position", transform.position);
-	_shader.setVec3("spotLight[0].direction", transform.forward);
-	_shader.setFloat("spotLight[0].cutoff", glm::cos(glm::radians(12.5f)));
-	_shader.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(17.5f)));
+		std::string id = std::to_string(pointLightId);
+		std::string name = "spotLight[" + id + "].";
+		_shader.setVec3(std::string(name + "position").c_str(), transform.position);
+		_shader.setVec3(std::string(name + "direction").c_str(), transform.forward);
+		_shader.setFloat(std::string(name + "cutoff").c_str(), glm::cos(glm::radians(12.5f)));
+		_shader.setFloat(std::string(name + "outerCutOff").c_str(), glm::cos(glm::radians(17.5f)));
 
-	_shader.setFloat("spotLight[0].constant", 1.0f);
-	_shader.setFloat("spotLight[0].linear", 0.09f);
-	_shader.setFloat("spotLight[0].quadratic", 0.032f);
+		_shader.setFloat(std::string(name + "constant").c_str(), 1.0f);
+		_shader.setFloat(std::string(name + "linear").c_str(), 0.09f);
+		_shader.setFloat(std::string(name + "quadratic").c_str(), 0.032f);
 
-	_shader.setVec3("spotLight[0].ambient", glm::vec3(0));
-	_shader.setVec3("spotLight[0].diffuse", _color);
-	_shader.setVec3("spotLight[0].specular", glm::vec3(1.0));
+		_shader.setVec3(std::string(name + "ambient").c_str(), glm::vec3(.2f, .2f, .2f));
+		_shader.setVec3(std::string(name + "diffuse").c_str(), _color);
+		_shader.setVec3(std::string(name + "specular").c_str(), glm::vec3(1.0));
 
-	_shader.setInt("spotLight[0].enable", 1);
+		_shader.setInt(std::string(name + "enable").c_str(), 1);
 	}
 		break;
 	}

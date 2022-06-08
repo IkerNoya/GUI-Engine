@@ -25,6 +25,10 @@ class ENGINE_API LightSource : public Entity
 	unsigned int _vbo = 0;
 	unsigned int _vao = 0;
 	unsigned int _ebo = 0;
+	int pointLightId;
+	int spotLightId;
+	static int nextPointLightId;
+	static int nextspotLightId;
 
 	unsigned int diffuse;
 	unsigned int specular;
