@@ -5,6 +5,7 @@ Game::Game() : Gamebase(){
 	
 Game::~Game() {
 	if (cube) delete cube;
+	if (model) delete model;
 	if (directional) delete directional;
 	if (spot) delete spot;
 	if (point) delete point;
@@ -20,6 +21,11 @@ void Game::Init() {
 	cube->init("res/textures/wood.png", "res/textures/wood.png");
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
+
+	model = new Model(renderer, standardShader, "res/models/backpack.obj");
+	model->SetPosition(.5f, 1, -3.f);
+	model->SetScale(.1f, .1f, .1f);
+	model->setColor(1.0f,1.0f,1.0f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();
@@ -64,6 +70,7 @@ void Game::Update() {
 	point->draw();
 	point2->draw();
 	cube->draw();
+	model->draw();
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
@@ -112,6 +119,10 @@ void Game::Unload() {
 	if (cube) {
 		delete cube;
 		cube = NULL;
+	}
+	if (model) {
+		delete model;
+		model = NULL;
 	}
 	if (directional) {
 		delete directional;

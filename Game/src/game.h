@@ -5,6 +5,8 @@
 class Game : public Gamebase{
 	Cube* cube;
 
+	Model* model;
+
 	LightSource* directional;
 	LightSource* spot;
 	LightSource* point;

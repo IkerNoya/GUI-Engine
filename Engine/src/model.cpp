@@ -6,22 +6,28 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
-ModelMat::ModelMat(Renderer * renderer, Shader & shader, char* path) : Entity(renderer) {
+Model::Model(Renderer * renderer, Shader & shader, const char* path) : Entity(renderer) {
 	texImporter = new TextureImporter;
 	_renderer = renderer;
 	_shader = shader;
 	LoadModel(path);
 }
 
-void ModelMat::setColor(glm::vec3 color)
+void Model::draw()
+{
+		for (unsigned int i = 0; i < meshes.size(); i++)
+			meshes[i].Draw();
+}
+
+void Model::setColor(glm::vec3 color)
 {
 }
 
-void ModelMat::setColor(float r, float g, float b)
+void Model::setColor(float r, float g, float b)
 {
 }
 
-void ModelMat::LoadModel(std::string path)
+void Model::LoadModel(std::string path)
 {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -34,7 +40,7 @@ void ModelMat::LoadModel(std::string path)
 	processNode(scene->mRootNode, scene);
 }
 
-void ModelMat::processNode(aiNode* node, const aiScene* scene)
+void Model::processNode(aiNode* node, const aiScene* scene)
 {
 	for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -45,7 +51,7 @@ void ModelMat::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-Mesh ModelMat::processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -86,10 +92,10 @@ Mesh ModelMat::processMesh(aiMesh* mesh, const aiScene* scene)
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
 
-	return Mesh(nullptr, _shader, vertices, indices, textures);
+	return Mesh(renderer, _shader, vertices, indices, textures);
 }
 
-std::vector<Texture> ModelMat::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
 	std::vector<Texture> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {

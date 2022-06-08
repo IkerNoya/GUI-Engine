@@ -15,6 +15,7 @@
 #include "dataManager.h"
 #include "time_manager.h"
 #include "lightSource.h"
+#include "model.h"
 
 class Renderer;
 class ENGINE_API Gamebase {

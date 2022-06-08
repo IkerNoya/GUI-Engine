@@ -16,7 +16,7 @@ struct aiScene;
 struct aiMaterial;
 enum aiTextureType;
 
-class ENGINE_API ModelMat : public Entity {
+class ENGINE_API Model : public Entity {
 	std::vector<Mesh> meshes;
 	std::vector<Texture> texturesLoaded;
 	std::string directory;
@@ -30,7 +30,8 @@ class ENGINE_API ModelMat : public Entity {
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
 public:
-	ModelMat(Renderer* renderer, Shader& shader, char* path);
+	Model(Renderer* renderer, Shader& shader,const char* path);
+	void draw();
 
 
 	// Inherited via Entity
