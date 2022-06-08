@@ -173,6 +173,6 @@ void LightSource::draw()
 	glBindTexture(GL_TEXTURE_2D, diffuse);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, specular);
-	_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModel());
+	_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModelMatrix());
 	glDisable(GL_TEXTURE_2D);
 }

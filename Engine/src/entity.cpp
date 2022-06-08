@@ -8,18 +8,18 @@
 int Entity::_nextEntityID = 0;
 
 void Entity::updateModel() {
-	model.trs = model.translate * model.rotation.x * model.rotation.y * model.rotation.z * model.scale;
+	modelMatrix.trs = modelMatrix.translate * modelMatrix.rotation.x * modelMatrix.rotation.y * modelMatrix.rotation.z * modelMatrix.scale;
 }
 
 Entity::Entity(Renderer* renderer) {
 
 	_renderer = renderer;
-	model.translate = glm::mat4(1.0);
+	modelMatrix.translate = glm::mat4(1.0);
 
-	model.rotation.x = glm::mat4(1.0);
-	model.rotation.y = glm::mat4(1.0);
-	model.rotation.z = glm::mat4(1.0);
-	model.scale = glm::mat4(1.0);
+	modelMatrix.rotation.x = glm::mat4(1.0);
+	modelMatrix.rotation.y = glm::mat4(1.0);
+	modelMatrix.rotation.z = glm::mat4(1.0);
+	modelMatrix.scale = glm::mat4(1.0);
 
 	SetScale(1.0f, 1.0f, 1.0f);
 	SetPosition(0.0f, 0.0f, 0.0f);
@@ -37,8 +37,8 @@ Renderer* Entity::GetRenderer() {
 	return _renderer;
 }
 
-glm::mat4 Entity::GetModel() {
-	return model.trs;
+glm::mat4 Entity::GetModelMatrix() {
+	return modelMatrix.trs;
 }
 
 void Entity::SetPosition(float x, float y, float z) {
@@ -46,13 +46,13 @@ void Entity::SetPosition(float x, float y, float z) {
 	transform.position.y = y;
 	transform.position.z = z;
 	
-	model.translate = glm::translate(glm::mat4(1.0f), transform.position);
+	modelMatrix.translate = glm::translate(glm::mat4(1.0f), transform.position);
 	updateModel();
 }
 
 void Entity::updateMatrices(){
-	model.translate = glm::translate(glm::mat4(1.0f), transform.position);
-	model.scale = glm::scale(glm::mat4(1.0f), transform.scale);
+	modelMatrix.translate = glm::translate(glm::mat4(1.0f), transform.position);
+	modelMatrix.scale = glm::scale(glm::mat4(1.0f), transform.scale);
 
 	updateModel();
 }
@@ -64,7 +64,7 @@ void Entity::SetXRot(float angle) {
 	axis[1] = 0;
 	axis[2] = 0;
 	
-	model.rotation.x = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
+	modelMatrix.rotation.x = glm::rotate(glm::mat4(1.0f), glm::radians(-angle), axis);
 	updateModel();
 }
 
@@ -75,7 +75,7 @@ void Entity::SetYRot(float angle) {
 	axis[1] = 1.0f;
 	axis[2] = 0;
 
-	model.rotation.y = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
+	modelMatrix.rotation.y = glm::rotate(glm::mat4(1.0f), glm::radians(-angle), axis);
 	updateModel();
 }
 
@@ -86,7 +86,7 @@ void Entity::SetZRot(float angle) {
 	axis[1] = 0;
 	axis[2] = 1.0f;
 
-	model.rotation.z = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
+	modelMatrix.rotation.z = glm::rotate(glm::mat4(1.0f), glm::radians(-angle), axis);
 	updateModel();
 }
 
@@ -95,7 +95,7 @@ void Entity::SetScale(float x, float y, float z) {
 	transform.scale.y = y;
 	transform.scale.z = z;
 
-	model.scale = glm::scale(glm::mat4(1.0f), transform.scale);
+	modelMatrix.scale = glm::scale(glm::mat4(1.0f), transform.scale);
 	updateModel();
 }
 

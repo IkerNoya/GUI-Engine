@@ -111,10 +111,10 @@ void Shape::draw() {
 	switch (shape)
 	{
 	case Type::quad:
-		_renderer->draw(_shader, _vao, _vbo, quadVertices, 28, GetModel());
+		_renderer->draw(_shader, _vao, _vbo, quadVertices, 28, GetModelMatrix());
 		break; 
 	case Type::tri:
-		_renderer->draw(_shader, _vao, _vbo, triangleVertices, 22, GetModel());
+		_renderer->draw(_shader, _vao, _vbo, triangleVertices, 22, GetModelMatrix());
 		break;
 	default:
 		break;

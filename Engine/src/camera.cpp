@@ -73,7 +73,7 @@ void Camera::draw(Shader& shader) {
 	updateVectors();
 	updateView();
 
-	_renderer->drawCamera(shader, GetModel(), getView(), getProjection());
+	_renderer->drawCamera(shader, GetModelMatrix(), getView(), getProjection());
 }
 
 void Camera::updateVectors()
@@ -121,7 +121,7 @@ void Camera::updateShader(Shader& shader){
 	unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
 	unsigned int viewLoc = glGetUniformLocation(shader.getID(), "view");
 	unsigned int projLoc = glGetUniformLocation(shader.getID(), "proj");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(GetModel()));
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(getView()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(getProjection()));
 }
