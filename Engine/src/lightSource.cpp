@@ -173,7 +173,6 @@ void LightSource::draw()
 	switch (_type) {
 	case LightType::DirectionalLight:
 		_shader.setVec3("directionalLight.direction", transform.forward);
-		std::cout << transform.forward.x << " | " << transform.forward.y << " | " << transform.forward.z << std::endl;
 		_shader.setVec3("directionalLight.ambient", glm::vec3(.2f, .2f, .2f));
 		_shader.setVec3("directionalLight.diffuse", _color);
 		_shader.setVec3("directionalLight.specular", glm::vec3(1.0));
