@@ -22,10 +22,10 @@ void Game::Init() {
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
 
-	model = new Model(renderer, standardShader, "res/models/backpack.obj");
-	model->SetPosition(.5f, 1, -3.f);
-	model->SetScale(.1f, .1f, .1f);
-	model->setColor(1.0f,1.0f,1.0f);
+	//model = new Model(renderer, standardShader, "res/models/backpack.obj");
+	//model->SetPosition(.5f, 1, -3.f);
+	//model->SetScale(.1f, .1f, .1f);
+	//model->setColor(1.0f,1.0f,1.0f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();
@@ -70,7 +70,7 @@ void Game::Update() {
 	point->draw();
 	point2->draw();
 	cube->draw();
-	model->draw();
+	//model->draw();
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
