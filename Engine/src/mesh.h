@@ -34,7 +34,7 @@ public:
 	std::vector<Texture> textures;
 	Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex>	vertices, std::vector<unsigned int>	indices, std::vector<Texture> textures);
 	~Mesh();
-	void Draw();
+	void Draw(glm::mat4 modelMat);
 
 	// Inherited via Entity
 	virtual void setColor(glm::vec3 color) override;

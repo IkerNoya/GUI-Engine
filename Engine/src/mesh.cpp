@@ -36,7 +36,7 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::Draw()
+void Mesh::Draw(glm::mat4 modelMat)
 {
 	updateMatrices();
 	updateVectors();
@@ -63,7 +63,7 @@ void Mesh::Draw()
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 	_renderer->setMeshAttribPointers(shader, sizeof(Vertex), 0, offsetof(Vertex, color), offsetof(Vertex, normal), offsetof(Vertex, texCoords));
 	shader.useProgram();
-	shader.setMat4("transform", GetModelMatrix());
+	shader.setMat4("transform", modelMat);
 	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

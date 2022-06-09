@@ -45,7 +45,7 @@ void Model::draw()
 		return;
 
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i]->Draw();
+		meshes[i]->Draw(GetModelMatrix());
 }
 
 void Model::setColor(glm::vec3 color)
