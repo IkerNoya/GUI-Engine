@@ -67,7 +67,7 @@ public:
 	inline bool IsLightSource() { return _isLightSource; }
 	inline Shader GetShader() { return _entityShader; }
 	inline virtual bool ShouldDraw() const { return _shouldDraw; }
-	inline virtual void Hide(bool value) { _shouldDraw = value; }
+	inline virtual void show(bool value) { _shouldDraw = value; }
 };
 
 #endif // !ENTITY_H

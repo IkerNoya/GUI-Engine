@@ -26,6 +26,7 @@ class ENGINE_API Mesh : public Entity
 {
 	unsigned int vao, vbo, ebo;
 	Shader shader;
+	Renderer* _renderer;
 	void setupMesh();
 public:
 	std::vector<Vertex>	vertices;

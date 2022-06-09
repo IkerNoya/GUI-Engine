@@ -209,6 +209,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)lib\assimp\include;$(ProjectDir)lib\glm;$(ProjectDir)lib\glfw-3.3.2.bin.WIN32\include;$(ProjectDir)lib\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -232,6 +233,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)lib\assimp\include;$(ProjectDir)lib\glm;$(ProjectDir)lib\glfw-3.3.2.bin.WIN32\include;$(ProjectDir)lib\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -243,7 +245,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.3.2.bin.WIN32\lib-vc2019\Win64;$(ProjectDir)lib\glew-2.1.0\lib\RLibs\Win64;$(ProjectDir)lib\assimp\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>"$(SolutionDir)Engine\EngineDLLCopy.bat" "$(SolutionDir)Engine\bin\Debug\Engine.dll" "$(SolutionDir)Engine\lib\glew-2.1.0\lib\RLibs\Win64\glew32.dll" "$(SolutionDir)Game" "$(SolutionDir)Engine\lib\assimp\libs\assimp-vc142-mt.dll" "$(SolutionDir)Engine\lib\assimp\libs\assimp-vc142-mt.dll"</Command>
+      <Command>"$(SolutionDir)Engine\EngineDLLCopy.bat" "$(SolutionDir)Engine\bin\Release\Engine.dll" "$(SolutionDir)Engine\lib\glew-2.1.0\lib\RLibs\Win64\glew32.dll" "$(SolutionDir)Game" "$(SolutionDir)Engine\lib\assimp\libs\assimp-vc142-mt.dll" "$(SolutionDir)Engine\lib\assimp\libs\assimp-vc142-mt.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

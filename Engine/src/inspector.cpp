@@ -58,7 +58,7 @@ void Inspector::createWindow() {
 		_dataManager->getSelectedEntity()->SetYRot(rotation.y);
 		_dataManager->getSelectedEntity()->SetZRot(rotation.z);
 
-		_dataManager->getSelectedEntity()->Hide(shouldDraw);
+		_dataManager->getSelectedEntity()->show(shouldDraw);
 
 		if (_dataManager->getSelectedEntity()->IsLightSource()) {
 			_color = _dataManager->getSelectedEntity()->getColor();

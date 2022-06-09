@@ -12,17 +12,40 @@ Model::Model(Renderer * renderer, Shader & shader, const char* path, const char*
 	_renderer = renderer;
 	_shader = shader;
 	_name = name;
+
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 	
 	LoadModel(path);
 }
 
+Model::~Model()
+{
+	if (!meshes.empty()) {
+		for (int i = 0; i < meshes.size(); i++)
+		{
+			if (meshes[i]) {
+				delete meshes[i];
+			}
+		}
+		meshes.clear();
+	}
+	if (!texturesLoaded.empty()) {
+		texturesLoaded.clear();
+	}
+	if (texImporter) {
+		delete texImporter;
+		texImporter = nullptr;
+	}
+}
+
 void Model::draw()
 {
-	if(!ShouldDraw())
-		for (unsigned int i = 0; i < meshes.size(); i++)
-			meshes[i].Draw();
+	if (!ShouldDraw())
+		return;
+
+	for (unsigned int i = 0; i < meshes.size(); i++)
+		meshes[i]->Draw();
 }
 
 void Model::setColor(glm::vec3 color)
@@ -43,7 +66,8 @@ void Model::LoadModel(std::string path)
 	}
 
 	directory = path.substr(0, path.find_last_of('/'));
-	processNode(scene->mRootNode, scene);
+	if(scene)
+		processNode(scene->mRootNode, scene);
 }
 
 void Model::processNode(aiNode* node, const aiScene* scene)
@@ -57,7 +81,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -67,11 +91,13 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		Vertex vertex;
 
 		glm::vec3 vec = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-		glm::vec3 normals = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-
 		vertex.position = vec;
+		if (mesh->HasNormals()) {
+			glm::vec3 normals = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+			vertex.normal = normals;
+		}
+
 		vertex.color = glm::vec3(1);
-		vertex.normal = normals;
 
 		if (mesh->mTextureCoords[0]) {
 			glm::vec2 texCoord = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
@@ -97,8 +123,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
-
-	return Mesh(renderer, _shader, vertices, indices, textures);
+	return new Mesh(renderer, _shader, vertices, indices, textures);
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)

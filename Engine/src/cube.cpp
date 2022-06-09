@@ -130,8 +130,8 @@ void Cube::initWithBasicTexture()
 
 void Cube::init(const char* diffuseTexturePath, const char* specularTexturePath)
 {
-	_renderer->setCubeAttribPointer(_shader);
 	bindBuffers();
+	_renderer->setCubeAttribPointer(_shader);
 	if (_texImporter) {
 		material.diffuseTexture = _texImporter->loadTexture(diffuseTexturePath, _width, _height, true);
 

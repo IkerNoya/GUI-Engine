@@ -54,6 +54,27 @@ void Renderer::setLightAttribPointer(Shader& shader)
     shader.setAttribute("inTexCoord", 2, 11, 9);
 }
 
+void Renderer::setMeshAttribPointers(Shader& shader, unsigned int sizeOfData, unsigned int posOffset, unsigned int colorOffset, unsigned int normalOffset, unsigned int texCoordsOffset)
+{
+    shader.setSampler2D("ourTexture");
+    unsigned int postAttrib = glGetAttribLocation(shader.getID(), "inPosition");
+    glVertexAttribPointer(postAttrib, 3, GL_FLOAT, GL_FALSE, sizeOfData, (void*)posOffset);
+    glEnableVertexAttribArray(postAttrib);
+
+    unsigned int colorAttrib = glGetAttribLocation(shader.getID(), "inColor");
+    glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, sizeOfData, (void*)colorOffset);
+    glEnableVertexAttribArray(colorAttrib);
+
+    unsigned int normalAttrib = glGetAttribLocation(shader.getID(), "inNormal");
+    glVertexAttribPointer(normalAttrib, 3, GL_FLOAT, GL_FALSE, sizeOfData, (void*)normalOffset);
+    glEnableVertexAttribArray(normalAttrib);
+
+    unsigned int coordsAttrib = glGetAttribLocation(shader.getID(), "inTexCoord");
+    glVertexAttribPointer(coordsAttrib, 2, GL_FLOAT, GL_FALSE, sizeOfData, (void*)texCoordsOffset);
+    glEnableVertexAttribArray(coordsAttrib);
+}
+
+
 void Renderer::startProgram(Shader& shader, glm::mat4 model) {
 	shader.useProgram();
     shader.setMat4("transform", model);
@@ -78,10 +99,22 @@ void Renderer::bindVBO(unsigned int& vbo, float* vertices, int verticesAmmount) 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) * verticesAmmount, vertices, GL_STATIC_DRAW);
 }
 
+void Renderer::bindMeshVBO(unsigned int& vbo, float verticesAmount, const void* data)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, verticesAmount, data, GL_STATIC_DRAW);
+}
+
 void Renderer::bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount) {
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices) * indicesAmmount, indices, GL_STATIC_DRAW);
+}
+
+void Renderer::bindMeshEBO(unsigned int& ebo, const void* data, int indicesAmount)
+{
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesAmount, data, GL_STATIC_DRAW);
 }
 
 void Renderer::bindAllBuffersAtOnce(unsigned int &vbo, unsigned int &vao, unsigned int& ebo, float *vertex, unsigned int *indices, int verticesAmmount, int indicesAmmount) {
@@ -161,5 +194,12 @@ void Renderer::drawLight(Shader& shader, unsigned int& vao, unsigned int& vbo, f
     setLightAttribPointer(shader);
     startProgram(shader, model);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    unbindBuffers();
+}
+
+void Renderer::drawMesh(Shader& shader, unsigned  int indicesSize, glm::mat4 model)
+{
+    startProgram(shader, model);
+    glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     unbindBuffers();
 }

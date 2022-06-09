@@ -16,6 +16,7 @@ public:
 	void setTexAttribPointer(unsigned int shaderID);
 	void setCubeAttribPointer(Shader& shader);
 	void setLightAttribPointer(Shader& shader);
+	void setMeshAttribPointers(Shader& shader, unsigned int sizeOfData, unsigned int posOffset, unsigned int colorOffset, unsigned int normalOffset, unsigned int texCoordsOffset);
 
 	void startProgram(Shader &shader, glm::mat4 model);
 
@@ -23,7 +24,9 @@ public:
 	void generateVBO(unsigned int& vbo);
 	void bindVAO(unsigned int& vao);
 	void bindVBO(unsigned int& vbo, float* vertices, int verticesAmmount);
+	void bindMeshVBO(unsigned int &vbo, float verticesAmount, const void* data);
 	void bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);
+	void bindMeshEBO(unsigned int &ebo, const void* data, int indicesAmount);
 	void bindAllBuffersAtOnce(unsigned int& vbo, unsigned int& vao, unsigned int& ebo, float* vertex, unsigned int* indices, int verticesAmmount, int indicesAmmount); // binds verteces to the vbo and vao
 
 	void draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model);
@@ -31,6 +34,7 @@ public:
 	void drawCamera(Shader& shader, glm::mat4 model, glm::mat4 view, glm::mat4 proj);
 	void drawCube(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmmount, glm::mat4 model);
 	void drawLight(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model);
+	void drawMesh(Shader& shader, unsigned int indicesSize, glm::mat4 model);
 
 	void activateWireframeMode();
 	void deactivateWireframeMode();
