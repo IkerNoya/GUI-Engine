@@ -5,16 +5,22 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include "dataManager.h"
 
-Model::Model(Renderer * renderer, Shader & shader, const char* path) : Entity(renderer) {
+Model::Model(Renderer * renderer, Shader & shader, const char* path, const char* name) : Entity(renderer) {
 	texImporter = new TextureImporter;
 	_renderer = renderer;
 	_shader = shader;
+	_name = name;
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
+	
 	LoadModel(path);
 }
 
 void Model::draw()
 {
+	if(!ShouldDraw())
 		for (unsigned int i = 0; i < meshes.size(); i++)
 			meshes[i].Draw();
 }
@@ -86,9 +92,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->mMaterialIndex >= 0) {
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
 

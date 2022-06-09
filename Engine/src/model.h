@@ -30,7 +30,7 @@ class ENGINE_API Model : public Entity {
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
 public:
-	Model(Renderer* renderer, Shader& shader,const char* path);
+	Model(Renderer* renderer, Shader& shader,const char* path, const char* name);
 	void draw();
 
 
