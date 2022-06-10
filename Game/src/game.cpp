@@ -23,8 +23,8 @@ void Game::Init() {
 	cube->SetScale(5, .1f, 5);
 
 	model = new Model(renderer, standardShader, "res/models/backpack.obj", "backpack");
-	model->SetPosition(.5f, 1, -10.f);
-	model->SetScale(1,1, 1);
+	model->SetPosition(.5f, -0.f, -1);
+	model->SetScale(.2f,.2f, .2f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();

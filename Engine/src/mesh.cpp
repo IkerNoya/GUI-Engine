@@ -7,7 +7,6 @@
 
 void Mesh::setupMesh()
 {
-
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glGenBuffers(1, &vbo);
@@ -18,7 +17,7 @@ void Mesh::setupMesh()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
 	_renderer->setMeshAttribPointers(shader, sizeof(Vertex), 0, offsetof(Vertex, color), offsetof(Vertex, normal), offsetof(Vertex, texCoords));
-
+	glBindVertexArray(0);
 }
 
 Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures) : Entity(renderer)
@@ -56,7 +55,6 @@ void Mesh::Draw(glm::mat4 modelMat)
 		shader.setInt(("material." + name /*+ number*/).c_str(), i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
-	glActiveTexture(GL_TEXTURE0);
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -68,7 +66,7 @@ void Mesh::Draw(glm::mat4 modelMat)
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glUseProgram(0);
+	glActiveTexture(GL_TEXTURE0);
 }
 
 void Mesh::setColor(glm::vec3 color)

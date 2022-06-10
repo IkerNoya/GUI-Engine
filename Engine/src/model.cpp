@@ -22,12 +22,6 @@ Model::Model(Renderer * renderer, Shader & shader, const char* path, const char*
 Model::~Model()
 {
 	if (!meshes.empty()) {
-		for (int i = 0; i < meshes.size(); i++)
-		{
-			if (meshes[i]) {
-				delete meshes[i];
-			}
-		}
 		meshes.clear();
 	}
 	if (!texturesLoaded.empty()) {
@@ -41,11 +35,13 @@ Model::~Model()
 
 void Model::draw()
 {
+	updateMatrices();
+	updateVectors();
 	if (!ShouldDraw())
 		return;
 
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i]->Draw(GetModelMatrix());
+		meshes[i].Draw(GetModelMatrix());
 }
 
 void Model::setColor(glm::vec3 color)
@@ -81,7 +77,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -123,7 +119,7 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
-	return new Mesh(renderer, _shader, vertices, indices, textures);
+	return Mesh(renderer, _shader, vertices, indices, textures);
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
@@ -146,6 +142,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 			texture.type = typeName;
 			texture.path = str.C_Str();
 			textures.push_back(texture);
+			texturesLoaded.push_back(texture);
 		}
 	}
 
