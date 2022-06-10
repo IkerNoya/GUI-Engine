@@ -118,6 +118,12 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+		std::vector<Texture> aoMaps = loadMaterialTextures(material, aiTextureType_AMBIENT_OCCLUSION, "ao");
+		textures.insert(textures.end(), aoMaps.begin(), aoMaps.end());
+		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_NORMALS, "normal");
+		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+		std::vector<Texture> RoughnessMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE_ROUGHNESS, "roughness");
+		textures.insert(textures.end(), RoughnessMaps.begin(), RoughnessMaps.end());
 	}
 	return Mesh(renderer, _shader, vertices, indices, textures);
 }

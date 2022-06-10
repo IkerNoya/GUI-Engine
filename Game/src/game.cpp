@@ -22,7 +22,7 @@ void Game::Init() {
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
 
-	model = new Model(renderer, standardShader, "res/models/backpack.obj", "backpack");
+	model = new Model(renderer, standardShader, "res/models/Backpack.obj", "backpack");
 	model->SetPosition(.5f, -0.f, -1);
 	model->SetScale(.2f,.2f, .2f);
 
@@ -39,7 +39,6 @@ void Game::Init() {
 	spot->init();
 	spot->SetPosition(.5f, .5f, -1.f);
 	spot->SetYRot(90);
-	spot->SetXRot(-45);
 	spot->SetScale(.1f, .1f, .1f);
 	spot->setColor(1, 1, 1);
 
@@ -60,6 +59,7 @@ void Game::Init() {
 void Game::Update() {
 	//input
 	Inputs();
+	//spot->transform.position = glm::vec3(model->transform.position.x, model->transform.position.y, model->transform.position.z + 0.5f);
 
 
 	timer += time.getDeltaTime();

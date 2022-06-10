@@ -9,6 +9,9 @@ in vec2 texCoord;
 struct Material {
 	sampler2D diffuse;
 	sampler2D specular;
+	sampler2D ao;
+	sampler2D normal;
+	sampler2D roughness;
 	float shininess;
 };
 
@@ -142,8 +145,9 @@ vec3 CalculateSpotLight(SpotLight sL, vec3 norm, vec3 fragPos, vec3 viewDir){
 	vec3 diffuse = sL.diffuse * diff * vec3(texture(material.diffuse, texCoord));
 	//specular
 	vec3 view= normalize(viewDir - fragPos);
-	vec3 reflectDir = reflect(-lightDir, normals);
-	float spec = pow(max(dot(view, reflectDir), 0.0), material.shininess);
+	//vec3 reflectDir = reflect(-lightDir, normals);
+	vec3 halfwayDir = normalize(lightDir + viewDir);
+	float spec = pow(max(dot(view, halfwayDir), 0.0), material.shininess);
 	vec3 specular = sL.specular * spec * vec3(texture(material.specular, texCoord));
 
 	//spotlight
