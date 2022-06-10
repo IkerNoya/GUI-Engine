@@ -191,7 +191,7 @@ void LightSource::draw()
 		_shader.setFloat(std::string(name + "linear").c_str(), 0.09f);
 		_shader.setFloat(std::string(name + "quadratic").c_str(), 0.032f);
 
-		_shader.setVec3(std::string(name + "ambient").c_str(), glm::vec3(.2f, .2f, .2f));
+		_shader.setVec3(std::string(name + "ambient").c_str(), glm::vec3(.05f));
 		_shader.setVec3(std::string(name + "diffuse").c_str(), _color);
 		_shader.setVec3(std::string(name + "specular").c_str(), glm::vec3(1.0));
 

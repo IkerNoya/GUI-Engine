@@ -86,9 +86,9 @@ unsigned int TextureImporter::loadTexture(const char* path, int width, int heigh
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 		if (!transparency)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, _data);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, _data);
 		else
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB_ALPHA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
