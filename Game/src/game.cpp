@@ -22,9 +22,10 @@ void Game::Init() {
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
 
-	model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"backpack");
+	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", true,"backpack");
+	model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"backpack");
 	model->SetPosition(.5f, -0.f, -1);
-	model->SetScale(.2f,.2f, .2f);
+	model->SetScale(.02f,.02f, .02f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();

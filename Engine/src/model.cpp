@@ -6,6 +6,11 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 #include "dataManager.h"
+#include "assimp/Logger.hpp"
+#include "assimp/LogStream.hpp"
+#include "assimp/DefaultLogger.hpp"
+#include "assimp/LogAux.h"
+#include <filesystem>
 
 #define FLIPPED_IMPORT_FLAGS (aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals)
 #define IMPORT_FLAGS (aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals)
@@ -18,6 +23,9 @@ Model::Model(Renderer * renderer, Shader & shader, const char* path, bool should
 
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
+	//Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
+	//Assimp::LogStream* stderrStream = Assimp::LogStream::createDefaultStream(aiDefaultLogStream_STDERR);
+	//Assimp::DefaultLogger::get()->attachStream(stderrStream, Assimp::Logger::NORMAL | Assimp::Logger::Debugging | Assimp::Logger::VERBOSE);
 	
 	LoadModel(path, shouldFlipUVs);
 }
@@ -34,6 +42,7 @@ Model::~Model()
 		delete texImporter;
 		texImporter = nullptr;
 	}
+	//Assimp::DefaultLogger::kill();
 }
 
 void Model::draw()
@@ -62,9 +71,13 @@ void Model::LoadModel(std::string path, bool shouldFlipUVs)
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		std::cout << "Error::ASSIMP::" << importer.GetErrorString() << std::endl;
+		return;
 	}
 
-	directory = path.substr(0, path.find_last_of('/'));
+	//directory = path.substr(0, path.find_last_of('/'));
+	directory = std::filesystem::path(path).parent_path().string();
+	//std::string name = directory + "/" + str.C_Str();
+	std::cout << directory << std::endl;
 	if(scene)
 		processNode(scene->mRootNode, scene);
 }
@@ -95,7 +108,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 			glm::vec3 normals = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 			vertex.normal = normals;
 		}
-
 		vertex.color = glm::vec3(1);
 
 		if (mesh->mTextureCoords[0]) {
@@ -117,6 +129,8 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->mMaterialIndex >= 0) {
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		std::vector<Texture> baseColorMaps = loadMaterialTextures(material, aiTextureType_BASE_COLOR, "baseColor");
+		textures.insert(textures.end(), baseColorMaps.begin(), baseColorMaps.end());
 		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
