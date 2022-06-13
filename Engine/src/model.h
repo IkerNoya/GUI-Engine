@@ -24,13 +24,13 @@ class ENGINE_API Model : public Entity {
 	Renderer* renderer;
 	TextureImporter* texImporter;
 
-	void LoadModel(std::string path);
+	void LoadModel(std::string path, bool shouldFlipUVs);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh  processMesh(aiMesh* mesh, const aiScene* scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
 public:
-	Model(Renderer* renderer, Shader& shader,const char* path, const char* name);
+	Model(Renderer* renderer, Shader& shader,const char* path, bool shouldFlipUVs, const char* name);
 	~Model();
 	void draw();
 

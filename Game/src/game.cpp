@@ -22,7 +22,7 @@ void Game::Init() {
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
 
-	model = new Model(renderer, standardShader, "res/models/Backpack.obj", "backpack");
+	model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"backpack");
 	model->SetPosition(.5f, -0.f, -1);
 	model->SetScale(.2f,.2f, .2f);
 

@@ -7,7 +7,10 @@
 #include "assimp/postprocess.h"
 #include "dataManager.h"
 
-Model::Model(Renderer * renderer, Shader & shader, const char* path, const char* name) : Entity(renderer) {
+#define FLIPPED_IMPORT_FLAGS (aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals)
+#define IMPORT_FLAGS (aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals)
+
+Model::Model(Renderer * renderer, Shader & shader, const char* path, bool shouldFlipUVs, const char* name) : Entity(renderer) {
 	texImporter = new TextureImporter;
 	_renderer = renderer;
 	_shader = shader;
@@ -16,7 +19,7 @@ Model::Model(Renderer * renderer, Shader & shader, const char* path, const char*
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 	
-	LoadModel(path);
+	LoadModel(path, shouldFlipUVs);
 }
 
 Model::~Model()
@@ -52,10 +55,10 @@ void Model::setColor(float r, float g, float b)
 {
 }
 
-void Model::LoadModel(std::string path)
+void Model::LoadModel(std::string path, bool shouldFlipUVs)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene* scene = importer.ReadFile(path, shouldFlipUVs ? FLIPPED_IMPORT_FLAGS : IMPORT_FLAGS);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		std::cout << "Error::ASSIMP::" << importer.GetErrorString() << std::endl;
