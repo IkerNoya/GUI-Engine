@@ -9,7 +9,6 @@
 #include "dataManager.h"
 #include "window.h"
 
-
 Camera::Camera(Window* window, Renderer* renderer, ProjectionType type) : Entity(renderer) {
 	_window = window;
 	_view = glm::mat4(1.0f);

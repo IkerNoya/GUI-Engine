@@ -1,11 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
 #include "gamebase.h"
+#include "player.h"
 
 class Game : public Gamebase{
 	Cube* cube;
 
 	Model* model;
+
+	Player* player;
 
 	LightSource* directional;
 	LightSource* spot;

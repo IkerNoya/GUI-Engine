@@ -10,6 +10,7 @@ Game::~Game() {
 	if (spot) delete spot;
 	if (point) delete point;
 	if (point2) delete point2;
+	if (player) delete player;
 }
 
 	//initialization of game variables
@@ -22,10 +23,10 @@ void Game::Init() {
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
 
-	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", true,"backpack");
-	model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"backpack");
+	model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"Claire");
+	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"backpack");
 	model->SetPosition(.5f, -0.f, -1);
-	model->SetScale(.02f,.02f, .02f);
+	model->SetScale(.2f,.2f, .2f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();
@@ -54,6 +55,9 @@ void Game::Init() {
 	point2->SetPosition(-1, .5f, -1.f);
 	point2->SetScale(.1f, .1f, .1f);
 	point2->setColor(1, 1, 1);
+
+	player = new Player(camera, standardShader, renderer, 0, true);
+	player->SetPosition(cube->transform.position + glm::vec3(0, 0.5f, 0));
 }
 
 	//game update
@@ -79,38 +83,46 @@ void Game::Inputs() {
 	// add inputs here
 
 	if (input.getKey(keyCode::W)) {
-		camera->transform.position += camera->getForward() * (speed * time.getDeltaTime());
+		player->MoveForward(speed * time.getDeltaTime());
+		//camera->transform.position += camera->getForward() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::S)) {
-		camera->transform.position -= camera->getForward() * (speed * time.getDeltaTime());
+		player->MoveForward(-speed * time.getDeltaTime());
+		//camera->transform.position -= camera->getForward() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::A)) {
-		camera->transform.position -= camera->getRight() * (speed * time.getDeltaTime());
+		player->MoveRight(-speed * time.getDeltaTime());
+		//camera->transform.position -= camera->getRight() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::D)) {
-		camera->transform.position += camera->getRight() * (speed * time.getDeltaTime());
+		player->MoveRight(speed * time.getDeltaTime());
+			//camera->transform.position += camera->getRight() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::Q)) {
-		camera->transform.position -= camera->getUp() * (speed * time.getDeltaTime());
+		//camera->transform.position -= camera->getUp() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::E)) {
-		camera->transform.position += camera->getUp() * (speed * time.getDeltaTime());
+		//camera->transform.position += camera->getUp() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::RIGHT)) {
-		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		camera->rotateYaw(camera->rotationSpeed);
+		player->LookRight(rotationSpeed * time.getDeltaTime());
+		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		//camera->rotateYaw(camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::LEFT)) {
-		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		camera->rotateYaw(-camera->rotationSpeed);
+		player->LookRight(-rotationSpeed * time.getDeltaTime());
+		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		//camera->rotateYaw(-camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::UP)) {
-		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		camera->rotatePitch(camera->rotationSpeed);
+		player->LookUp(rotationSpeed * time.getDeltaTime());
+		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		//camera->rotatePitch(camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::DOWN)) {
-		camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		camera->rotatePitch(-camera->rotationSpeed);
+		player->LookUp(-rotationSpeed * time.getDeltaTime());
+		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
+		//camera->rotatePitch(-camera->rotationSpeed);
 	}
 }
 
@@ -140,6 +152,10 @@ void Game::Unload() {
 	if (point2) {
 		delete point;
 		point = NULL;
+	}
+	if (player) {
+		delete player;
+		player = NULL;
 	}
 }
 

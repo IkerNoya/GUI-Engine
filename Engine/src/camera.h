@@ -7,6 +7,10 @@
 enum class ENGINE_API ProjectionType{
 	orthographic, perspective
 };
+
+enum class ENGINE_API CameraType {
+	fps, tps
+};
 class ENGINE_API Camera : public Entity {
 	ProjectionType _type;
 
