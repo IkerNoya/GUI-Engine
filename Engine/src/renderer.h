@@ -24,7 +24,7 @@ public:
 	void generateVBO(unsigned int& vbo);
 	void bindVAO(unsigned int& vao);
 	void bindVBO(unsigned int& vbo, float* vertices, int verticesAmmount);
-	void bindMeshVBO(unsigned int &vbo, float verticesAmount, const void* data);
+	void bindMeshVBO(unsigned int &vbo, int verticesAmount, const void* data);
 	void bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);
 	void bindMeshEBO(unsigned int &ebo, const void* data, int indicesAmount);
 	void bindAllBuffersAtOnce(unsigned int& vbo, unsigned int& vao, unsigned int& ebo, float* vertex, unsigned int* indices, int verticesAmmount, int indicesAmmount); // binds verteces to the vbo and vao

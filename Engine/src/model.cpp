@@ -23,9 +23,6 @@ Model::Model(Renderer * renderer, Shader & shader, const char* path, bool should
 
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
-	//Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
-	//Assimp::LogStream* stderrStream = Assimp::LogStream::createDefaultStream(aiDefaultLogStream_STDERR);
-	//Assimp::DefaultLogger::get()->attachStream(stderrStream, Assimp::Logger::NORMAL | Assimp::Logger::Debugging | Assimp::Logger::VERBOSE);
 	
 	LoadModel(path, shouldFlipUVs);
 }
@@ -74,10 +71,7 @@ void Model::LoadModel(std::string path, bool shouldFlipUVs)
 		return;
 	}
 
-	//directory = path.substr(0, path.find_last_of('/'));
 	directory = std::filesystem::path(path).parent_path().string();
-	//std::string name = directory + "/" + str.C_Str();
-	std::cout << directory << std::endl;
 	if(scene)
 		processNode(scene->mRootNode, scene);
 }

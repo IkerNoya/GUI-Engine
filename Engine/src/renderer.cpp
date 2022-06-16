@@ -99,7 +99,7 @@ void Renderer::bindVBO(unsigned int& vbo, float* vertices, int verticesAmmount) 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) * verticesAmmount, vertices, GL_STATIC_DRAW);
 }
 
-void Renderer::bindMeshVBO(unsigned int& vbo, float verticesAmount, const void* data)
+void Renderer::bindMeshVBO(unsigned int& vbo, int verticesAmount, const void* data)
 {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, verticesAmount, data, GL_STATIC_DRAW);
@@ -113,6 +113,7 @@ void Renderer::bindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmo
 
 void Renderer::bindMeshEBO(unsigned int& ebo, const void* data, int indicesAmount)
 {
+    glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesAmount, data, GL_STATIC_DRAW);
 }

@@ -7,16 +7,18 @@
 
 void Mesh::setupMesh()
 {
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	_renderer->generateVAO(vao);
+
+	_renderer->bindVAO(vao);
+
+	_renderer->generateVBO(vbo);
+
+	_renderer->bindMeshVBO(vbo, vertices.size() * sizeof(Vertex), &vertices[0]);
+
+	_renderer->bindMeshEBO(ebo, &indices[0], indices.size() * sizeof(unsigned int));
 
 	_renderer->setMeshAttribPointers(shader, sizeof(Vertex), 0, offsetof(Vertex, color), offsetof(Vertex, normal), offsetof(Vertex, texCoords));
+
 	glBindVertexArray(0);
 }
 
@@ -55,18 +57,13 @@ void Mesh::Draw(glm::mat4 modelMat)
 		shader.setInt(("material." + name /*+ number*/).c_str(), i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
-
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	_renderer->bindVAO(vao);
+	_renderer->bindMeshVBO(vbo, vertices.size() * sizeof(Vertex), &vertices[0]);
 	_renderer->setMeshAttribPointers(shader, sizeof(Vertex), 0, offsetof(Vertex, color), offsetof(Vertex, normal), offsetof(Vertex, texCoords));
 	shader.useProgram();
 	shader.setMat4("transform", modelMat);
 	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glActiveTexture(GL_TEXTURE0);
+	_renderer->unbindBuffers();
 }
 
 void Mesh::setColor(glm::vec3 color)
