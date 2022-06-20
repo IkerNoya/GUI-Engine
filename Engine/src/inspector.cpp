@@ -35,9 +35,6 @@ void Inspector::createWindow() {
 	}
 
 	if (_dataManager->getSelectedEntity() != NULL) {
-
-		glm::vec3 rotation = _dataManager->getSelectedEntity()->transform.rotation;
-
 		bool shouldDraw = _dataManager->getSelectedEntity()->ShouldDraw();
 
 		ImGui::Text(_dataManager->getSelectedEntity()->GetName().c_str());
@@ -48,15 +45,11 @@ void Inspector::createWindow() {
 		ImGui::DragFloat3("Position ", (float*)&_dataManager->getSelectedEntity()->transform.position, _entityPositionSpeed, -100,100);
 		ImGui::Separator();
 		ImGui::Text("Rotation");
-		ImGui::DragFloat3("rotation ", (float*)&rotation, _entityRotationSpeed, -360, 360);
+		ImGui::DragFloat3("rotation ", (float*)&_dataManager->getSelectedEntity()->transform.rotation, _entityRotationSpeed, -360, 360);
 		ImGui::Separator();
 		ImGui::Text("Scale");
 		ImGui::DragFloat3("scale ", (float*)&_dataManager->getSelectedEntity()->transform.scale, _entityScaleSpeed, 0.1f, 100);
 		ImGui::Separator();
-
-		_dataManager->getSelectedEntity()->SetXRot(rotation.x);
-		_dataManager->getSelectedEntity()->SetYRot(rotation.y);
-		_dataManager->getSelectedEntity()->SetZRot(rotation.z);
 
 		_dataManager->getSelectedEntity()->show(shouldDraw);
 

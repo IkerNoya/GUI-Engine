@@ -50,7 +50,7 @@ int Gamebase::InitEngine() {
     glEnable(GL_DEPTH_TEST);
 
     camera->SetPosition(0, 0, 3);
-    camera->SetYRot(-90);
+    camera->transform.rotation.y = -90;
     camera->setDirection(glm::vec3(0.f, 0.f, 0.f));
 
     camera->init(standardShader);

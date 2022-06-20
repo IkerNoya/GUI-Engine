@@ -32,15 +32,15 @@ void Game::Init() {
 	directional->init();
 	directional->show(false);
 	directional->SetPosition(.5f, .5f, -3.f);
-	directional->SetYRot(90);
-	directional->SetXRot(-45);
+	directional->transform.rotation.y = 90; 
+	directional->transform.rotation.x = -45;
 	directional->SetScale(.1f, .1f, .1f);
 	directional->setColor(1, 1, 1);
 
 	spot = new LightSource(renderer, standardShader, LightType::SpotLight, "spot");
 	spot->init();
 	spot->SetPosition(.5f, .5f, -1.f);
-	spot->SetYRot(90);
+	spot->transform.rotation.y = 90;
 	spot->SetScale(.1f, .1f, .1f);
 	spot->setColor(1, 1, 1);
 
@@ -84,45 +84,27 @@ void Game::Inputs() {
 
 	if (input.getKey(keyCode::W)) {
 		player->MoveForward(speed * time.getDeltaTime());
-		//camera->transform.position += camera->getForward() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::S)) {
 		player->MoveForward(-speed * time.getDeltaTime());
-		//camera->transform.position -= camera->getForward() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::A)) {
 		player->MoveRight(-speed * time.getDeltaTime());
-		//camera->transform.position -= camera->getRight() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::D)) {
 		player->MoveRight(speed * time.getDeltaTime());
-			//camera->transform.position += camera->getRight() * (speed * time.getDeltaTime());
-	}
-	if (input.getKey(keyCode::Q)) {
-		//camera->transform.position -= camera->getUp() * (speed * time.getDeltaTime());
-	}
-	if (input.getKey(keyCode::E)) {
-		//camera->transform.position += camera->getUp() * (speed * time.getDeltaTime());
 	}
 	if (input.getKey(keyCode::RIGHT)) {
 		player->LookRight(rotationSpeed * time.getDeltaTime());
-		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		//camera->rotateYaw(camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::LEFT)) {
 		player->LookRight(-rotationSpeed * time.getDeltaTime());
-		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		//camera->rotateYaw(-camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::UP)) {
 		player->LookUp(rotationSpeed * time.getDeltaTime());
-		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		//camera->rotatePitch(camera->rotationSpeed);
 	}
 	if (input.getKey(keyCode::DOWN)) {
 		player->LookUp(-rotationSpeed * time.getDeltaTime());
-		//camera->rotationSpeed = rotationSpeed * time.getDeltaTime();
-		//camera->rotatePitch(-camera->rotationSpeed);
 	}
 }
 
