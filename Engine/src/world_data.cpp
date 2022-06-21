@@ -15,11 +15,18 @@ void WorldData::createWindow() {
 		return;
 	}
 	for (int i = 0; i < _dataManager->getLevelEntities().size(); i++) {
-		if (ImGui::TreeNode(_dataManager->getLevelEntities()[i]->GetName().c_str())) {
-			_dataManager->setSelectedEntity(_dataManager->getLevelEntities()[i]);
-			ImGui::TreePop();
+		if (!_dataManager->getLevelEntities()[i]->getParent()) {
+			if (ImGui::TreeNode(_dataManager->getLevelEntities()[i]->GetName().c_str())) {
+				_dataManager->setSelectedEntity(_dataManager->getLevelEntities()[i]);
+				for (auto* child : _dataManager->getLevelEntities()[i]->getChildren()) {
+					if (ImGui::TreeNode(child->GetName().c_str())) {
+						_dataManager->setSelectedEntity(child);
+						ImGui::TreePop();
+					}
+				}
+				ImGui::TreePop();
+			}
 		}
-		ImGui::Spacing();
 	}
 	ImGui::End();
 }

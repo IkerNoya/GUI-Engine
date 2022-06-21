@@ -4,6 +4,8 @@
 #include "ext/matrix_clip_space.hpp"
 #include "ext/scalar_constants.hpp"
 #include "dataManager.h"
+#include <iostream>
+#include <forward_list>
 
 int Entity::_nextEntityID = 0;
 
@@ -35,8 +37,18 @@ Renderer* Entity::GetRenderer() {
 	return _renderer;
 }
 
-glm::mat4 Entity::GetModelMatrix() {
+glm::mat4 Entity::getModelMatrix() {
 	return modelMatrix.trs;
+}
+
+glm::mat4 Entity::getLocalModelMatrix(){
+
+	const glm::mat4 transformX = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.x), glm::vec3(1, 0, 0));
+	const glm::mat4 transformY = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.y), glm::vec3(0, 1, 0));
+	const glm::mat4 transformZ = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
+
+	const glm::mat4 rotationMatrix = transformX * transformY * transformZ;
+	return glm::translate(glm::mat4(1.0f), transform.position) * rotationMatrix * glm::scale(glm::mat4(1.0f), transform.scale);
 }
 
 void Entity::SetPosition(float x, float y, float z) {
@@ -104,6 +116,28 @@ void Entity::updateRight()
 	transform.right = glm::normalize(glm::cross(transform.forward, glm::vec3(0, 1, 0)));
 }
 
+void Entity::ComputeModelMatrix()
+{
+	modelMatrix.trs = getLocalModelMatrix();
+}
+
+void Entity::ComputeModelMatrix(const glm::mat4& parentModelMatrix)
+{
+	modelMatrix.trs = parentModelMatrix * getLocalModelMatrix();
+}
+
+void Entity::updateSelfAndChild()
+{
+	if (parent)
+		ComputeModelMatrix(parent->getModelMatrix());
+	else
+		ComputeModelMatrix();
+
+	for (auto&& child : children) {
+		child->updateSelfAndChild();
+	}
+}
+
 void Entity::updateVectors()
 {
 	updateForward();
@@ -113,4 +147,11 @@ void Entity::updateVectors()
 
 std::string Entity::GetName() {
 	return _name;
+}
+
+
+void Entity::addChild(Entity* entity)
+{
+	children.emplace_back(entity);
+	children.back()->parent = this;
 }

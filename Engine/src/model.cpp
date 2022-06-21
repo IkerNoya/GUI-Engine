@@ -30,6 +30,12 @@ Model::Model(Renderer * renderer, Shader & shader, const char* path, bool should
 Model::~Model()
 {
 	if (!meshes.empty()) {
+		for (auto* mesh : meshes) {
+			if (mesh) {
+				delete mesh;
+				mesh = nullptr;
+			}
+		}
 		meshes.clear();
 	}
 	if (!texturesLoaded.empty()) {
@@ -44,13 +50,13 @@ Model::~Model()
 
 void Model::draw()
 {
-	updateMatrices();
+	updateSelfAndChild();
 	updateVectors();
 	if (!ShouldDraw())
 		return;
 
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(GetModelMatrix());
+		meshes[i]->Draw(getModelMatrix());
 }
 
 void Model::setColor(glm::vec3 color)
@@ -80,14 +86,16 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 {
 	for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh(mesh, scene));
+		Mesh* newMesh = processMesh(mesh, scene);
+		addChild(newMesh);
+		meshes.push_back(newMesh);
 	}
 	for (unsigned int i = 0; i < node->mNumChildren; i++) {
 		processNode(node->mChildren[i], scene);
 	}
 }
 
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -136,7 +144,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		std::vector<Texture> RoughnessMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE_ROUGHNESS, "roughness");
 		textures.insert(textures.end(), RoughnessMaps.begin(), RoughnessMaps.end());
 	}
-	return Mesh(renderer, _shader, vertices, indices, textures);
+	return new Mesh(renderer, _shader, vertices, indices, textures, mesh->mName.C_Str());
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)

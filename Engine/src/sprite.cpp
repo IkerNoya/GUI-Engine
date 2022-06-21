@@ -166,13 +166,13 @@ void Sprite::draw()
 	if (_transparency) {
 		blendSprite();
 		bindTexture();
-		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, GetModelMatrix());
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, getModelMatrix());
 		unblendSprite();
 		glDisable(GL_TEXTURE_2D);
 	}
 	else {
 		bindTexture();
-		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, GetModelMatrix());
+		_renderer->drawSprite(_shader, _vao, _vbo, _vertices, 36, getModelMatrix());
 		glDisable(GL_TEXTURE_2D);
 	}
 }

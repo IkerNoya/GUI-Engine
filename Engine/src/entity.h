@@ -3,6 +3,7 @@
 #include "export.h"
 #include "renderer.h"
 #include "mat4x4.hpp"
+#include <vector>
 
 // using glm vec3 temporarily, will later use my
 struct ENGINE_API Rotation {
@@ -39,6 +40,9 @@ protected:
 	bool _shouldDraw = true;
 	Shader _entityShader;
 
+	std::vector<Entity*> children;
+	Entity* parent;
+
 	void updateModel();
 	void updateMatrices();
 	void updateUp();
@@ -49,11 +53,8 @@ public:
 	~Entity();
 	Transform transform;
 	Renderer* GetRenderer();
-	glm::mat4 GetModelMatrix();
+	glm::mat4 getModelMatrix();
 	void SetPosition(float x, float y, float z);
-	void SetXRot(float angle);
-	void SetYRot(float angle);
-	void SetZRot(float angle);
 	void SetScale(float x, float y, float z);
 	void SetID(int id);
 	int GetID();
@@ -61,14 +62,26 @@ public:
 	void setEntityColor(glm::vec3 color);
 	virtual void setColor(glm::vec3 color) = 0;
 	virtual void setColor(float r, float g, float b) = 0;
+	void addChild(Entity* entity);
+
+protected:
+	void ComputeModelMatrix();
+	void ComputeModelMatrix(const glm::mat4& parentModelMatrix);
+	void updateSelfAndChild();
 	void updateVectors();
+
+public:
 	std::string GetName();
 	inline virtual glm::vec3 getColor() const { return glm::vec3(1); };
 	inline bool IsLightSource() { return _isLightSource; }
 	inline Shader GetShader() { return _entityShader; }
 	inline virtual bool ShouldDraw() const { return _shouldDraw; }
 	inline virtual void show(bool value) { _shouldDraw = value; }
+	inline std::vector<Entity*> getChildren() { return children; }
+	inline Entity* getParent() { return parent; }
+
+private:
+	glm::mat4 getLocalModelMatrix();
 };
 
 #endif // !ENTITY_H
-

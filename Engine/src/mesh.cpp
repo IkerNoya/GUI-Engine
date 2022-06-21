@@ -5,6 +5,8 @@
 #include "shader.h"
 #include <string>
 
+#include "dataManager.h"
+
 void Mesh::setupMesh()
 {
 	_renderer->generateVAO(vao);
@@ -22,13 +24,17 @@ void Mesh::setupMesh()
 	glBindVertexArray(0);
 }
 
-Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures) : Entity(renderer)
+Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, const char* name) : Entity(renderer)
 {
 	this->shader = shader;
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textures = textures;
 	_renderer = renderer;
+	_name = name;
+
+	DataManager* data = DataManager::Get();
+	data->addEntity(this, _id);
 
 	setupMesh();
 }
@@ -39,7 +45,7 @@ Mesh::~Mesh()
 
 void Mesh::Draw(glm::mat4 modelMat)
 {
-	updateMatrices();
+	updateSelfAndChild();
 	updateVectors();
 
 	unsigned int diffuseNr = 1;
@@ -61,7 +67,7 @@ void Mesh::Draw(glm::mat4 modelMat)
 	_renderer->bindMeshVBO(vbo, vertices.size() * sizeof(Vertex), &vertices[0]);
 	_renderer->setMeshAttribPointers(shader, sizeof(Vertex), 0, offsetof(Vertex, color), offsetof(Vertex, normal), offsetof(Vertex, texCoords));
 	shader.useProgram();
-	shader.setMat4("transform", modelMat);
+	shader.setMat4("transform", getModelMatrix());
 	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
 	_renderer->unbindBuffers();
 }

@@ -17,7 +17,7 @@ struct aiMaterial;
 enum aiTextureType;
 
 class ENGINE_API Model : public Entity {
-	std::vector<Mesh> meshes;
+	std::vector<Mesh*> meshes;
 	std::vector<Texture> texturesLoaded;
 	std::string directory;
 	Shader _shader;
@@ -26,7 +26,7 @@ class ENGINE_API Model : public Entity {
 
 	void LoadModel(std::string path, bool shouldFlipUVs);
 	void processNode(aiNode* node, const aiScene* scene);
-	Mesh  processMesh(aiMesh* mesh, const aiScene* scene);
+	Mesh*  processMesh(aiMesh* mesh, const aiScene* scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
 public:

@@ -234,19 +234,19 @@ void Cube::draw()
 {
 	if (!ShouldDraw()) return;
 
-	updateMatrices();
+	updateSelfAndChild();
 	updateVectors();
 	_shader.setFloat("material.shininess", material.shininess);
 	if (_transparency) {
 		blendSprite();
 		bindTextures();
-		_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModelMatrix());
+		_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, getModelMatrix());
 		unblendSprite();
 		glDisable(GL_TEXTURE_2D);
 	}
 	else {
 		bindTextures();
-		_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, GetModelMatrix());
+		_renderer->drawCube(_shader, _vao, _vbo, vertices, 264, getModelMatrix());
 		glDisable(GL_TEXTURE_2D);
 	}
 
