@@ -9,6 +9,7 @@ public:
 	WorldData(Window* window, DataManager* dataManager);
 	~WorldData();
 	virtual void createWindow() override;
+	void showChildren(Entity* entity);
 };
 
 
