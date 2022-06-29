@@ -133,26 +133,21 @@ Mesh* SceneNode::processMesh(aiMesh* mesh, const aiScene* scene, std::vector<Tex
 void SceneNode::processNode(aiNode* node, const aiScene* scene, std::vector<Texture>& loadedTextures)
 {
 	_rootNode = node;
-	//if (node != scene->mRootNode) {
-		for (unsigned short i = 0; i < node->mNumMeshes; i++) {
-			if (node->mMeshes[i]) {
+	if (node != scene->mRootNode) {
+		for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 				Mesh* newMesh = processMesh(mesh, scene, loadedTextures);
 				addChild(newMesh);
 				meshes.push_back(newMesh);
-			}
 		}
-		std::cout  << node->mName.C_Str() << " has " << meshes.size() << " meshes" << std::endl;
-	//}
-	for (unsigned short i = 0; i < node->mNumChildren; i++) {
+	}
+	for (unsigned int i = 0; i < node->mNumChildren; i++) {
 		if (node->mChildren[i]) {
 			auto* sceneNode = new SceneNode(_renderer, _shader, _directory, node->mChildren[i], scene, loadedTextures);
 			addChild(sceneNode);
 			nodes.push_back(sceneNode);
 		}
-		std::cout  << nodes.back()->_name << " has " << nodes.back()->nodes.size() << " nodes" << std::endl;
 	}
-		std::cout  << _name << " has " << children.size() << " chidren" << std::endl;
 }
 
 std::vector<Texture> SceneNode::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName, std::vector<Texture>& loadedTextures)
