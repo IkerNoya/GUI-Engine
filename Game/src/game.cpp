@@ -26,9 +26,9 @@ void Game::Init() {
 	//model = new Model(renderer, standardShader, "res/models/nanosuit/nanosuit.obj", false,"nanosuit");
 	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"vamp");
 	//model = new Model(renderer, standardShader, "res/models/backpack/backpack.obj", true,"backpack");
-	model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"bob");
-	model->SetPosition(.5f, -0.f, -1);
-	model->SetScale(.1f,.1f, .1f);
+	model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"mansion");
+	model->SetPosition(.5f, -0.440f, -1);
+	model->SetScale(.3f,.3f, .3f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();
