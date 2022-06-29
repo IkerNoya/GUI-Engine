@@ -10,6 +10,8 @@
 class Shader;
 class Renderer;
 class TextureImporter;
+class SceneNode;
+
 struct  aiNode;
 struct aiMesh;
 struct aiScene;
@@ -19,15 +21,16 @@ enum aiTextureType;
 class ENGINE_API Model : public Entity {
 	std::vector<Mesh*> meshes;
 	std::vector<Texture> texturesLoaded;
+	SceneNode* _root;
+	std::vector<SceneNode*> _rootChildren;
 	std::string directory;
 	Shader _shader;
 	Renderer* renderer;
 	TextureImporter* texImporter;
 
+
 	void LoadModel(std::string path, bool shouldFlipUVs);
 	void processNode(aiNode* node, const aiScene* scene);
-	Mesh*  processMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
 public:
 	Model(Renderer* renderer, Shader& shader,const char* path, bool shouldFlipUVs, const char* name);

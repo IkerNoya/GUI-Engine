@@ -31,7 +31,10 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 	this->indices = indices;
 	this->textures = textures;
 	_renderer = renderer;
-	_name = name;
+
+	std::string sufix = " - mesh";
+	std::string newName = name + sufix;
+	_name = newName;
 
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);

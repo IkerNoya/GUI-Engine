@@ -23,10 +23,11 @@ void Game::Init() {
 	cube->SetPosition(0, -0.5f, -1.f);
 	cube->SetScale(5, .1f, 5);
 
-	model = new Model(renderer, standardShader, "res/models/nanosuit/nanosuit.obj", false,"backpack");
-	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"backpack");
-	model->SetPosition(.5f, -0.f, -1);
-	model->SetScale(.1f,.1f, .1f);
+	//model = new Model(renderer, standardShader, "res/models/nanosuit/nanosuit.obj", false,"nanosuit");
+	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"vamp");
+	model = new Model(renderer, standardShader, "res/models/backpack/backpack.obj", true,"backpack");
+	//model->SetPosition(.5f, -0.f, -1);
+	//model->SetScale(.01f,.01f, .01f);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();

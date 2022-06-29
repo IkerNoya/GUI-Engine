@@ -24,6 +24,7 @@ class Game : public Gamebase{
 	bool firstMouse = true;
 	float xPosIn = 0;
 	float yPosIn = 0;
+
 public:
 	Game();
 	~Game();
