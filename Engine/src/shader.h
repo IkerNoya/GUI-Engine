@@ -9,7 +9,7 @@ class ENGINE_API Shader {
 public:
 	Shader();
 	~Shader();
-	void createShader(const char* vertexPath, const char* fragmentPath);
+	void createShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 	unsigned int getID();
 	void useProgram();
 	unsigned int compileShader(unsigned int type, std::string& source);

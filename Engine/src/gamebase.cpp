@@ -46,6 +46,8 @@ int Gamebase::InitEngine() {
     basicShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//fragmentShader.frag");
     textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
     standardShader.createShader("..//Engine//src//shaders//StandardShader.vert", "..//Engine//src//shaders//StandardShader.frag");
+    
+    DebuggingShader.createShader("..//Engine//src//shaders//Debugging//DebugLines.vert", "..//Engine//src//shaders//Debugging//DebugLines.frag", "..//Engine//src//shaders//Debugging//DebugLines.geom");
 
     glEnable(GL_DEPTH_TEST);
 

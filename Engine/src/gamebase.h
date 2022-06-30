@@ -29,6 +29,7 @@ protected:
 	Shader basicShader;
 	Shader textureShader;
 	Shader standardShader;
+	Shader DebuggingShader;
 	Camera* camera;
 	GuiLayer* gui;
 

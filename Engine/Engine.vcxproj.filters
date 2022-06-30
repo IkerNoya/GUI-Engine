@@ -129,6 +129,9 @@
     <ClInclude Include="src\Math\plane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp">
@@ -209,6 +212,9 @@
     <ClCompile Include="src\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math\plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\vertexShader.vert">
@@ -226,5 +232,8 @@
     <None Include="src\shaders\StandardShader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\shaders\Debugging\DebugLines.frag" />
+    <None Include="src\shaders\Debugging\DebugLines.vert" />
+    <None Include="src\shaders\Debugging\DebugLines.geom" />
   </ItemGroup>
 </Project>

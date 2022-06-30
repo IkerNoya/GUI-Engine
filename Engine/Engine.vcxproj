@@ -23,6 +23,7 @@
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\cube.h" />
     <ClInclude Include="src\dataManager.h" />
+    <ClInclude Include="src\debug.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\export.h" />
     <ClInclude Include="src\frame.h" />
@@ -70,6 +71,7 @@
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\inspector.cpp" />
     <ClCompile Include="src\lightSource.cpp" />
+    <ClCompile Include="src\Math\plane.cpp" />
     <ClCompile Include="src\mesh.cpp" />
     <ClCompile Include="src\model.cpp" />
     <ClCompile Include="src\renderer.cpp" />
@@ -82,6 +84,9 @@
     <ClCompile Include="src\world_data.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\shaders\Debugging\DebugLines.frag" />
+    <None Include="src\shaders\Debugging\DebugLines.geom" />
+    <None Include="src\shaders\Debugging\DebugLines.vert" />
     <None Include="src\shaders\fragmentShader.frag" />
     <None Include="src\shaders\StandardShader.frag" />
     <None Include="src\shaders\StandardShader.vert" />

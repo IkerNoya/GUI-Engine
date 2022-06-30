@@ -15,16 +15,19 @@ Shader::~Shader() {
 
 }
 
-void Shader::createShader(const char* vertexPath, const char* fragmentPath) {
+void Shader::createShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
 	// ------------------Find Shader-----------------
 	std::string vertex;
 	std::string fragment;
+	std::string geometry;
 
 	std::ifstream vertexFile;
 	std::ifstream fragmentFile;
+	std::ifstream geometryFile;
 
 	std::stringstream vertexBuffer;
 	std::stringstream fragmentBuffer;
+	std::stringstream geometryBuffer;
 
 	vertexFile.open(vertexPath);
 	if (vertexFile.is_open()) {
@@ -44,6 +47,18 @@ void Shader::createShader(const char* vertexPath, const char* fragmentPath) {
 		std::cout << "Couldn't open fragment file" << std::endl;
 	}
 
+	if (geometryPath != nullptr) {
+		geometryFile.open(geometryPath);
+		if (geometryFile.is_open()) {
+			geometryBuffer << geometryFile.rdbuf();
+			geometryFile.close();
+		}
+		else {
+			std::cout << "Couldn't open fragment file" << std::endl;
+		}
+		geometry = geometryBuffer.str();
+	}
+
 	vertex = vertexBuffer.str();
 	fragment = fragmentBuffer.str();
 
@@ -52,14 +67,22 @@ void Shader::createShader(const char* vertexPath, const char* fragmentPath) {
 	_id = glCreateProgram();
 	unsigned int vertexID = compileShader(GL_VERTEX_SHADER, vertex);
 	unsigned int fragmentID = compileShader(GL_FRAGMENT_SHADER, fragment);
+	unsigned int geometryId = 0;
+	if(geometryPath!=nullptr)
+		geometryId = compileShader(GL_GEOMETRY_SHADER, geometry);
+	
 	glAttachShader(_id, vertexID);
 	glAttachShader(_id, fragmentID);
+	if (geometryPath != nullptr)
+		glAttachShader(_id, geometryId);
 
 	glLinkProgram(_id);
 	glValidateProgram(_id);
 
 	glDeleteShader(vertexID);
 	glDeleteShader(fragmentID);
+	if (geometryPath != nullptr)
+		glDeleteShader(geometryId);
 }
 
 unsigned int Shader::getID() {
