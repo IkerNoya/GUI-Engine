@@ -28,7 +28,7 @@ void Game::Init() {
 	//model = new Model(renderer, standardShader, "res/models/backpack/backpack.obj", true,"backpack");
 	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"claire");
 	//model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"mansion");
-	model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"SceneGraph Test");
+	model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
 	model->SetPosition(.5f, -0.440f, -1);
 	model->SetScale(.3f,.3f, .3f);
 

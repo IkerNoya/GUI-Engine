@@ -126,6 +126,7 @@ void Model::processNode(aiNode* node, const aiScene* scene, Entity* parent)
 	else {
 		thisNode = new Entity(renderer);
 		thisNode->SetName(node->mName.C_Str());
+
 		parent->addChild(thisNode);
 		_rootChildren.push_back(thisNode);
 	}
