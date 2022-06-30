@@ -60,8 +60,8 @@ public:
 	int GetID();
 	void SetName(std::string name);
 	void setEntityColor(glm::vec3 color);
-	virtual void setColor(glm::vec3 color) = 0;
-	virtual void setColor(float r, float g, float b) = 0;
+	virtual void setColor(glm::vec3 color);
+	virtual void setColor(float r, float g, float b);
 	void addChild(Entity* entity);
 
 protected:

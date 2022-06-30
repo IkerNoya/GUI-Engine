@@ -98,6 +98,14 @@ void Entity::setEntityColor(glm::vec3 color)
 	setColor(color);
 }
 
+void Entity::setColor(glm::vec3 color)
+{
+}
+
+void Entity::setColor(float r, float g, float b)
+{
+}
+
 void Entity::updateForward()
 {
 	transform.forward.x = glm::cos(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
