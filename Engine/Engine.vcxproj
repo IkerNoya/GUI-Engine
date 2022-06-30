@@ -40,6 +40,7 @@
     <ClInclude Include="src\inspector.h" />
     <ClInclude Include="src\lightSource.h" />
     <ClInclude Include="src\materials.h" />
+    <ClInclude Include="src\Math\plane.h" />
     <ClInclude Include="src\mesh.h" />
     <ClInclude Include="src\model.h" />
     <ClInclude Include="src\renderer.h" />

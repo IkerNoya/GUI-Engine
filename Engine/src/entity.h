@@ -49,6 +49,7 @@ protected:
 	void updateRight();
 	void updateForward();
 public:
+	Entity();
 	Entity(Renderer* renderer);
 	~Entity();
 	Transform transform;
@@ -63,6 +64,7 @@ public:
 	virtual void setColor(glm::vec3 color);
 	virtual void setColor(float r, float g, float b);
 	void addChild(Entity* entity);
+	void setRenderer(Renderer* renderer);
 
 protected:
 	void ComputeModelMatrix();

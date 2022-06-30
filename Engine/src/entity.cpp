@@ -13,6 +13,23 @@ void Entity::updateModel() {
 	modelMatrix.trs = modelMatrix.translate * modelMatrix.rotation.x * modelMatrix.rotation.y * modelMatrix.rotation.z * modelMatrix.scale;
 }
 
+Entity::Entity()
+{
+	_renderer = nullptr;
+	modelMatrix.translate = glm::mat4(1.0);
+
+	modelMatrix.rotation.x = glm::mat4(1.0);
+	modelMatrix.rotation.y = glm::mat4(1.0);
+	modelMatrix.rotation.z = glm::mat4(1.0);
+	modelMatrix.scale = glm::mat4(1.0);
+
+	SetScale(1.0f, 1.0f, 1.0f);
+	SetPosition(0.0f, 0.0f, 0.0f);
+	transform.rotation = glm::vec3(0);
+
+	_id = _nextEntityID++;
+}
+
 Entity::Entity(Renderer* renderer) {
 
 	_renderer = renderer;
@@ -162,4 +179,8 @@ void Entity::addChild(Entity* entity)
 {
 	children.emplace_back(entity);
 	children.back()->parent = this;
+}
+
+void Entity::setRenderer(Renderer* renderer){
+	_renderer = renderer;
 }
