@@ -81,6 +81,10 @@ void Model::draw()
 
 	if (_root)
 		_root->draw();
+	if (!_rootChildren.empty())
+		for (auto* node : _rootChildren)
+			if (node)
+				node->draw();
 
 }
 
@@ -103,20 +107,26 @@ void Model::LoadModel(std::string path, bool shouldFlipUVs)
 	}
 	directory = std::filesystem::path(path).parent_path().string();
 	if(scene)
-		processNode(scene->mRootNode, scene);
+		processNode(scene->mRootNode, scene, nullptr);
+
+	std::cout << _rootChildren.size() << std::endl;
+
 }
 
-void Model::processNode(aiNode* node, const aiScene* scene)
+void Model::processNode(aiNode* node, const aiScene* scene, Entity* parent)
 {
-	if (node == scene->mRootNode) {
-		_root = new SceneNode(renderer, _shader,directory, node, scene, texturesLoaded);
+	SceneNode* thisNode = nullptr;
+	if (parent == nullptr) {
+		_root = new SceneNode(renderer, _shader, directory, node, scene, texturesLoaded);
+		thisNode = _root;
 		addChild(_root);
 	}
-
-	//for (unsigned int i = 0; i < node->mNumChildren; i++) {
-	//	auto* sceneNode = new SceneNode(renderer, _shader, directory, node->mChildren[i], scene);
-	//	_root->addChild(sceneNode);
-	//	_rootChildren.push_back(sceneNode);
-	//	//processNode(node->mChildren[i], scene);
-	//}
+	else {
+		thisNode = new SceneNode(renderer, _shader, directory, node, scene, texturesLoaded);
+		parent->addChild(thisNode);
+		_rootChildren.push_back(thisNode);
+	}
+	for (unsigned int i = 0; i < node->mNumChildren; i++) {
+		processNode(node->mChildren[i], scene, thisNode);
+	}
 }

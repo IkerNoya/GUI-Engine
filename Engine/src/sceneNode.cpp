@@ -39,16 +39,6 @@ SceneNode::~SceneNode(){
 		meshes.clear();
 	}
 
-	if (!nodes.empty()) {
-		for (auto* child : nodes) {
-			if (child) {
-				delete child;
-				child = nullptr;
-			}
-		}
-		nodes.clear();
-	}
-
 	if (texImporter) {
 		delete texImporter;
 		texImporter = nullptr;
@@ -64,9 +54,6 @@ void SceneNode::draw()
 
 	for (unsigned int i = 0; i < meshes.size(); i++)
 		meshes[i]->Draw(getModelMatrix());
-	for (auto* node : nodes)
-		if (node)
-			node->draw();
 }
 
 void SceneNode::setColor(glm::vec3 color)
@@ -76,8 +63,6 @@ void SceneNode::setColor(glm::vec3 color)
 void SceneNode::setColor(float r, float g, float b)
 {
 }
-
-
 
 Mesh* SceneNode::processMesh(aiMesh* mesh, const aiScene* scene, std::vector<Texture>& loadedTextures){
 	std::vector<Vertex> vertices;
@@ -139,13 +124,6 @@ void SceneNode::processNode(aiNode* node, const aiScene* scene, std::vector<Text
 				Mesh* newMesh = processMesh(mesh, scene, loadedTextures);
 				addChild(newMesh);
 				meshes.push_back(newMesh);
-		}
-	}
-	for (unsigned int i = 0; i < node->mNumChildren; i++) {
-		if (node->mChildren[i]) {
-			auto* sceneNode = new SceneNode(_renderer, _shader, _directory, node->mChildren[i], scene, loadedTextures);
-			addChild(sceneNode);
-			nodes.push_back(sceneNode);
 		}
 	}
 }

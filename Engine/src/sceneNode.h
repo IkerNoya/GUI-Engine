@@ -19,7 +19,6 @@ struct aiMaterial;
 
 class ENGINE_API SceneNode : public Entity{
 	std::vector<Mesh*> meshes;
-	std::vector<SceneNode*> nodes;
 	aiNode* _rootNode;
 	std::string _directory;
 

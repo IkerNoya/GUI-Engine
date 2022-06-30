@@ -30,7 +30,7 @@ class ENGINE_API Model : public Entity {
 
 
 	void LoadModel(std::string path, bool shouldFlipUVs);
-	void processNode(aiNode* node, const aiScene* scene);
+	void processNode(aiNode* node, const aiScene* scene, Entity* parent);
 
 public:
 	Model(Renderer* renderer, Shader& shader,const char* path, bool shouldFlipUVs, const char* name);
