@@ -1,6 +1,9 @@
 #version 460 core
-layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec3 aNormal;
+layout (location = 0) in vec3 aPointA;
+layout (location = 1) in vec3 aPointB;
+layout (location = 2) in vec3 color;
+
+out vec3 outColor;
 
 out VS_OUT {
 	vec3 normal;
@@ -10,7 +13,6 @@ uniform mat4 view;
 uniform mat4 model;
 
 void main(){
-	mat3 normalMatrix = mat3(transpose(inverse(view * model)));
-	vs_out.normal = vec3(vec4(normalMatrix * aNormal, 0.0));
-	gl_Position = view * model * vec4(aPos,1.0);
+	
+//	gl_Position = view * model * vec4(aPos,1.0);
 }

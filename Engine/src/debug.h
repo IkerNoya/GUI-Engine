@@ -4,6 +4,7 @@
 #include "entity.h"
 
 class ENGINE_API Debug : public Entity {
+
 public:
 	static void DrawLine(float x, float y);
 	static void DrawSphere(float radius, float center);
