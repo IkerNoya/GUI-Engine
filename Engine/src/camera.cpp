@@ -27,15 +27,14 @@ Camera::~Camera() {
 }
 
 void Camera::updateView() {
-	_view = glm::lookAt(transform.position, transform.position +  _forward, _up);
+	_view = glm::lookAt(transform.position, transform.position + _forward, _up);
 }
 
 void Camera::setProjection(ProjectionType type) {
 	_type = type;
 	float windowWidth = static_cast<float>(_window->getWidth());
 	float windowHeight = static_cast<float>(_window->getHeight());
-	switch (_type)
-	{
+	switch (_type) {
 	case ProjectionType::orthographic:
 		_proj = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.1f, 100.0f);
 		break;
@@ -49,11 +48,18 @@ void Camera::setProjection(ProjectionType type) {
 
 }
 
-void Camera::init(Shader& shader) {
-	setProjection(_type);
-	updateVectors();
-	updateView();
-	updateShader(shader);
+void Camera::init() {
+	for (auto& shader : shaders) {
+		setProjection(_type);
+		updateVectors();
+		updateView();
+		updateShader(shader);
+	}
+}
+
+void Camera::addShader(Shader& shader) {
+	shaders.push_back(shader);
+	init();
 }
 
 glm::mat4 Camera::getView() {
@@ -68,15 +74,16 @@ ProjectionType Camera::getProjectionType() {
 	return _type;
 }
 
-void Camera::draw(Shader& shader) {
-	updateVectors();
-	updateView();
+void Camera::draw() {
+	for (auto& shader : shaders) {
+		updateVectors();
+		updateView();
 
-	_renderer->drawCamera(shader, getModelMatrix(), getView(), getProjection());
+		_renderer->drawCamera(shader, getModelMatrix(), getView(), getProjection());
+	}
 }
 
-void Camera::updateVectors()
-{
+void Camera::updateVectors() {
 	_forward.x = glm::cos(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
 	_forward.y = glm::sin(glm::radians(transform.rotation.x));
 	_forward.z = glm::sin(glm::radians(transform.rotation.y)) * glm::cos(glm::radians(transform.rotation.x));
@@ -89,15 +96,13 @@ void Camera::updateVectors()
 	if (transform.rotation.x <= -89.9f) transform.rotation.x = -89.9f;
 }
 
-void Camera::setColor(glm::vec3 color)
-{
+void Camera::setColor(glm::vec3 color) {
 }
 
-void Camera::setColor(float r, float g, float b)
-{
+void Camera::setColor(float r, float g, float b) {
 }
 
-void Camera::rotatePitch(float pitch){
+void Camera::rotatePitch(float pitch) {
 	transform.rotation.x += pitch;
 }
 
@@ -106,7 +111,7 @@ void Camera::rotateYaw(float yaw) {
 }
 
 
-glm::vec3 Camera::getForward(){
+glm::vec3 Camera::getForward() {
 	return _forward;
 }
 glm::vec3 Camera::getUp() {
@@ -116,7 +121,7 @@ glm::vec3 Camera::getRight() {
 	return _right;
 }
 
-void Camera::updateShader(Shader& shader){
+void Camera::updateShader(Shader& shader) {
 	unsigned int transformLoc = glGetUniformLocation(shader.getID(), "transform");
 	unsigned int viewLoc = glGetUniformLocation(shader.getID(), "view");
 	unsigned int projLoc = glGetUniformLocation(shader.getID(), "proj");
@@ -125,6 +130,6 @@ void Camera::updateShader(Shader& shader){
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(getProjection()));
 }
 
-void Camera::setDirection(glm::vec3 target){
+void Camera::setDirection(glm::vec3 target) {
 	_inverseDirection = glm::normalize(transform.position - target);
 }

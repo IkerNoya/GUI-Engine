@@ -67,6 +67,10 @@ void Plane::setNormalAndPosition(glm::vec3 normal, glm::vec3 position) {
 	_distance = glm::abs(((_normal.x * position.x) + (_normal.y * position.y) + (_normal.z * position.z))) / magnitude;
 }
 
+void Plane::setShader(Shader& shader) {
+	_shader = shader;
+}
+
 std::string Plane::toString() {
 	std::string normal = "(" + std::to_string(_normal.x) + ", " + std::to_string(_normal.y) + ", " + std::to_string(_normal.z) + ")";
 	return std::string("normal: " + normal) + std::string("distance: " + std::to_string(_distance));

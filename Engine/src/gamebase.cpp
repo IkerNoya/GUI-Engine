@@ -19,6 +19,7 @@ Gamebase::Gamebase() {
     inspector = new Inspector(window, dataManager);
     worldData = new WorldData(window, dataManager);
     camera = new Camera(window, renderer, ProjectionType::perspective);
+
 }
 
 Gamebase::~Gamebase() {
@@ -34,6 +35,7 @@ Gamebase::~Gamebase() {
 int Gamebase::InitEngine() {
     window->createWindow("Engine v0.1");
     glewExperimental = GL_TRUE;
+
     glewInit();
     if (glewInit() != GLEW_OK) {
         std::cout << "Error in GLEW INIT" << std::endl;
@@ -47,7 +49,7 @@ int Gamebase::InitEngine() {
     textureShader.createShader("..//Engine//src//shaders//vertexShader.vert", "..//Engine//src//shaders//texFragmentShader.frag");
     standardShader.createShader("..//Engine//src//shaders//StandardShader.vert", "..//Engine//src//shaders//StandardShader.frag");
     
-    DebuggingShader.createShader("..//Engine//src//shaders//Debugging//DebugLines.vert", "..//Engine//src//shaders//Debugging//DebugLines.frag", "..//Engine//src//shaders//Debugging//DebugLines.geom");
+    DebuggingShader.createShader("..//Engine//src//shaders//Debugging//DebugLines.vert", "..//Engine//src//shaders//Debugging//DebugLines.frag");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -55,9 +57,13 @@ int Gamebase::InitEngine() {
     camera->transform.rotation.y = -90;
     camera->setDirection(glm::vec3(0.f, 0.f, 0.f));
 
-    camera->init(standardShader);
+    camera->addShader(standardShader);
+    camera->addShader(DebuggingShader);
+
 
     gui->init();
+
+    line = Line(DebuggingShader);
 
     time.reset();
 
@@ -65,22 +71,6 @@ int Gamebase::InitEngine() {
 
     glBindVertexArray(0);
 
-    GLint i;
-    GLint count;
-
-    GLint size; // size of the variable
-    GLenum type; // type of the variable (float, vec3 or mat4, etc)
-
-    const GLsizei bufSize = 16; // maximum name length
-    GLchar name[bufSize]; // variable name in GLSL
-    GLsizei length;
-    glGetProgramiv(standardShader.getID(), GL_ACTIVE_ATTRIBUTES, &count);
-    for (int i = 0; i < count; i++)
-    {
-        glGetActiveAttrib(standardShader.getID(), (GLuint)i, bufSize, &length, &size, &type, name);
-
-        printf("Attribute #%d Type: %u Name: %s\n", i, type, name);
-    }
 
 	return 0;
 }
@@ -95,14 +85,15 @@ void Gamebase::UpdateEngine() {
 
         gui->onRender(inspector->_isWindowOpen, worldData->_isWindowOpen);
 
+
         if(inspector->_isWindowOpen)
             inspector->createWindow();
 
         if (worldData->_isWindowOpen)
             worldData->createWindow();
 
-        camera->draw(standardShader);
         standardShader.setVec3("viewPos", camera->transform.position);
+        camera->draw();
 
 		Update();
 

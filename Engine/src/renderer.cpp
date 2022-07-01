@@ -204,3 +204,10 @@ void Renderer::drawMesh(Shader& shader, unsigned  int indicesSize, glm::mat4 mod
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     unbindBuffers();
 }
+
+void Renderer::drawLines(Shader& shader, unsigned int& vao, unsigned int& vbo,  float* vertices, int vertexCount) {
+    bindVAO(vao);
+    bindVBO(vbo, vertices, vertexCount);
+    glUseProgram(shader.getID());
+    glDrawArrays(GL_LINES, 0, vertexCount); 
+}

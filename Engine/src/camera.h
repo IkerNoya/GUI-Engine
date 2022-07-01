@@ -3,6 +3,7 @@
 #include "export.h"
 #include "entity.h"
 #include "glm.hpp"
+#include <vector>
 
 enum class ENGINE_API ProjectionType{
 	orthographic, perspective
@@ -22,6 +23,8 @@ class ENGINE_API Camera : public Entity {
 	glm::vec3 _forward;
 	glm::vec3 _inverseDirection;
 
+	std::vector<Shader> shaders;
+
 	class Window* _window;
 
 	float pitch;
@@ -35,11 +38,12 @@ public:
 	~Camera();
 	void updateView();
 	void setProjection(ProjectionType type);
-	void init(Shader& shader);
+	void init();
+	void addShader(Shader& shader);
 	glm::mat4 getView();
 	glm::mat4 getProjection();
 	ProjectionType getProjectionType();
-	void draw(Shader& shader);
+	void draw();
 	void setDirection(glm::vec3 target);
 	glm::vec3 getForward();
 	glm::vec3 getUp();

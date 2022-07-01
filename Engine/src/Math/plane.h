@@ -10,6 +10,7 @@ struct ENGINE_API Plane : public Entity{
 private: 
 	glm::vec3 _normal;
 	float _distance;
+	Shader _shader;
 
 public:
 	Plane(glm::vec3 inNormal, glm::vec3 inPoint);
@@ -23,6 +24,8 @@ public:
 	void set3Points(glm::vec3 a, glm::vec3 b, glm::vec3 c);
 
 	void setNormalAndPosition(glm::vec3 normal, glm::vec3 position);
+
+	virtual void setShader(Shader& shader) override;
 
 	std::string toString();
 

@@ -36,6 +36,8 @@ public:
 	void drawLight(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount, glm::mat4 model);
 	void drawMesh(Shader& shader, unsigned int indicesSize, glm::mat4 model);
 
+	void drawLines(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int vertexCount);
+
 	void activateWireframeMode();
 	void deactivateWireframeMode();
 

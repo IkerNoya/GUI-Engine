@@ -24,7 +24,7 @@ Entity::Entity()
 	modelMatrix.scale = glm::mat4(1.0);
 
 	SetScale(1.0f, 1.0f, 1.0f);
-	SetPosition(0.0f, 0.0f, 0.0f);
+	modelMatrix.trs = glm::mat4(1);
 	transform.rotation = glm::vec3(0);
 
 	_id = _nextEntityID++;
@@ -41,7 +41,8 @@ Entity::Entity(Renderer* renderer) {
 	modelMatrix.scale = glm::mat4(1.0);
 
 	SetScale(1.0f, 1.0f, 1.0f);
-	SetPosition(0.0f, 0.0f, 0.0f);
+	//SetPosition(0.0f, 0.0f, 0.0f);
+	modelMatrix.trs = glm::mat4(1);
 	transform.rotation = glm::vec3(0);
 
 	_id = _nextEntityID++; // assign id and then increase the value so the next entity doesn´t share the same one
@@ -183,4 +184,7 @@ void Entity::addChild(Entity* entity)
 
 void Entity::setRenderer(Renderer* renderer){
 	_renderer = renderer;
+}
+
+void Entity::setShader(Shader& shader) {
 }

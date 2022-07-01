@@ -1,31 +1,34 @@
 #version 460 core
 out vec4 fragColor;
-in vec3 outColor;
 
-uniform float thiccness;
+uniform vec3 outColor;
+uniform float thickness;
 uniform float marker_radius;
-uniform vec2 PointA;
-uniform vec2 PointB;
+uniform vec3 PointA;
+uniform vec3 PointB;
+
+in vec4 coords;
 
 vec3 finalColor;
 
-void marker(vec2 point){
-	if(length(gl_FragCoord.xy - point) < marker_radius){
+void marker(vec3 point){
+	if(length(coords.xyz - point) < marker_radius){
 			finalColor += outColor;
 		}	
+		
 }
 
-void drawLine(vec2 point1, vec2 point2){
-	vec2 coord = gl_FragCoord.xy;
+void drawLine(vec3 point1, vec3 point2){
+	vec3 coord = coords.xyz;
 	
-	vec2 p1result = vec2(point2-point1);
-	vec2 p2result = vec2(coord-point1);
+	vec3 p1result = vec3(point2-point1);
+	vec3 p2result = vec3(coord-point1);
 	
 	float dotResult = dot(p1result, p2result) / length(p1result); 
 	
-	vec2 p4 = point1 + normalize(p1result) * dotResult;
+	vec3 p4 = point1 + normalize(p1result) * dotResult;
 	
-	if(length(p4 - coord) < thiccness && length(p4 - point1) <= length(p1result) && length(p4 - point2) <= length(p1result)){
+	if(length(p4 - coord) < thickness && length(p4 - point1) <= length(p1result) && length(p4 - point2) <= length(p1result)){
 		finalColor += outColor;	
 	}
 	marker(point1);
@@ -38,4 +41,6 @@ void main(){
 	drawLine(PointA, PointB);
 
 	fragColor = vec4(finalColor, 1.0);
+
+
 }

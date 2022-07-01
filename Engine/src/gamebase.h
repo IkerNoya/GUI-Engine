@@ -16,6 +16,7 @@
 #include "time_manager.h"
 #include "lightSource.h"
 #include "model.h"
+#include "debug.h"
 
 class Renderer;
 class ENGINE_API Gamebase {
@@ -32,6 +33,7 @@ protected:
 	Shader DebuggingShader;
 	Camera* camera;
 	GuiLayer* gui;
+	Line line;
 
 	Input input;
 	Time time;

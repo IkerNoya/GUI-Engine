@@ -65,6 +65,7 @@ public:
 	virtual void setColor(float r, float g, float b);
 	void addChild(Entity* entity);
 	void setRenderer(Renderer* renderer);
+	virtual void setShader(Shader& shader);
 
 protected:
 	void ComputeModelMatrix();
