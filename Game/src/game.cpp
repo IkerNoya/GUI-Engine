@@ -31,6 +31,7 @@ void Game::Init() {
 	model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
 	model->SetPosition(.5f, -0.440f, -1);
 	model->SetScale(.3f,.3f, .3f);
+	model->show(false);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();
@@ -71,7 +72,6 @@ void Game::Init() {
 void Game::Update() {
 	//input
 	Inputs();
-	//spot->transform.position = glm::vec3(model->transform.position.x, model->transform.position.y, model->transform.position.z + 0.5f);
 
 
 	timer += time.getDeltaTime();
@@ -84,7 +84,6 @@ void Game::Update() {
 	model->draw();
 	cube->draw();
 	line.draw(point2->transform.position, spot->transform.position, glm::vec3(0.f, 1.f, 0.f));
-	//line.draw(point2->transform.position, spot->transform.position, glm::vec3(1.0f));
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
@@ -114,6 +113,12 @@ void Game::Inputs() {
 	}
 	if (input.getKey(keyCode::DOWN)) {
 		player->LookUp(-rotationSpeed * time.getDeltaTime());
+	}
+	if (input.getKey(keyCode::E)) {
+		player->SpectatorCameraInputs(speed * time.getDeltaTime());
+	}
+	if (input.getKey(keyCode::Q)) {
+		player->SpectatorCameraInputs(-speed * time.getDeltaTime());
 	}
 }
 

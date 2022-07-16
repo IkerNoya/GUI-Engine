@@ -22,6 +22,7 @@ public:
 	void MoveRight(float value);
 	void LookRight(float value);
 	void LookUp(float value);
+	void SpectatorCameraInputs(float value);
 
 	glm::vec3 movement;
 };

@@ -205,9 +205,12 @@ void Renderer::drawMesh(Shader& shader, unsigned  int indicesSize, glm::mat4 mod
     unbindBuffers();
 }
 
-void Renderer::drawLines(Shader& shader, unsigned int& vao, unsigned int& vbo,  float* vertices, int vertexCount) {
+void Renderer::drawLines(Shader& shader, unsigned int& vao, unsigned int& vbo,  float* vertices, int vertexCount, glm::mat4 mvp) {
     bindVAO(vao);
     bindVBO(vbo, vertices, vertexCount);
+    createAtribPointers(0, 3, 3, 0);
+    shader.setMat4("transform", mvp);
     glUseProgram(shader.getID());
-    glDrawArrays(GL_LINES, 0, vertexCount); 
+    glDrawArrays(GL_LINES, 0, 2);
+    unbindBuffers();
 }
