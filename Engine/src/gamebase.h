@@ -17,6 +17,7 @@
 #include "lightSource.h"
 #include "model.h"
 #include "debug.h"
+#include "Math/plane.h"
 
 class Renderer;
 class ENGINE_API Gamebase {

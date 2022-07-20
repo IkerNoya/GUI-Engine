@@ -64,6 +64,9 @@ void Game::Init() {
 	player = new Player(camera, standardShader, renderer, 0, true);
 	player->SetPosition(cube->transform.position + glm::vec3(0, 0.5f, 0));
 
+	plane = Plane(glm::vec3(1,0,-1), glm::vec3(1, 1, -1.5f), glm::vec3(1, -1, -2));
+	plane.setShader(DebuggingShader);
+
 
 }
 
@@ -83,7 +86,7 @@ void Game::Update() {
 	point2->draw();
 	model->draw();
 	cube->draw();
-	line.draw(point2->transform.position, spot->transform.position, glm::vec3(0.f, 1.f, 0.f));
+	plane.draw(10, glm::vec3(0, 1, 0));
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 

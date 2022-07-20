@@ -42,9 +42,6 @@ void Line::draw(glm::vec3 pos1, glm::vec3 pos2,  glm::vec3 color) {
 	};
 	transform.position = pos1;
 	lineColor = color;
-	std::cout << "value: " << vertices[2] << std::endl;
-	std::cout << "pos1: " << pos1.z << std::endl;
-	std::cout << "pos2: " << pos1.z << std::endl;
 	_shader.setVec3("outColor", lineColor);
 	_shader.setVec3("PointA", pos1);
 	_shader.setVec3("PointB", pos2);
