@@ -68,7 +68,7 @@ Model::~Model()
 	//Assimp::DefaultLogger::kill();
 }
 
-void Model::draw()
+void Model::draw(Line* line)
 {
 	updateSelfAndChild();
 	updateVectors();
@@ -81,7 +81,7 @@ void Model::draw()
 	if (!meshes.empty()) {
 		for (auto* mesh : meshes) {
 			if (mesh)
-				mesh->Draw(getModelMatrix());
+				mesh->Draw(line);
 		}
 	}
 
@@ -150,12 +150,14 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
+	std::vector<glm::vec3> positions;
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		Vertex vertex;
 
 		glm::vec3 vec = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
 		vertex.position = vec;
+		positions.push_back(vec);
 		if (mesh->HasNormals()) {
 			glm::vec3 normals = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 			vertex.normal = normals;
@@ -194,7 +196,9 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		std::vector<Texture> RoughnessMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE_ROUGHNESS, "roughness");
 		textures.insert(textures.end(), RoughnessMaps.begin(), RoughnessMaps.end());
 	}
-	return new Mesh(renderer, _shader, vertices, indices, textures, mesh->mName.C_Str());
+	Mesh* newMesh = new Mesh(renderer, _shader, vertices, indices, textures, mesh->mName.C_Str());
+	newMesh->aabbPositions = positions;
+	return newMesh;
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)

@@ -63,9 +63,7 @@ int Gamebase::InitEngine() {
 
     gui->init();
 
-    plane = Plane(glm::vec3(1,0,0), glm::vec3(-1,5,-10));
-    plane.InitializeDebugLines(DebuggingShader, renderer);
-    line = Line(DebuggingShader, renderer);
+    line = new Line(DebuggingShader, renderer);
 
     time.reset();
 

@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <vector>
+#include "Math/AABB.h"
+#include "debug.h"
 
 class Shader;
 class Renderer;
@@ -27,14 +29,16 @@ class ENGINE_API Mesh : public Entity
 	unsigned int vao, vbo, ebo;
 	Shader shader;
 	Renderer* _renderer;
+	AABB* boundingBox;
 	void setupMesh();
 public:
 	std::vector<Vertex>	vertices;
+	std::vector<glm::vec3> aabbPositions;
 	std::vector<unsigned int>	indices;
 	std::vector<Texture> textures;
 	Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex>	vertices, std::vector<unsigned int>	indices, std::vector<Texture> textures, const char* name);
 	~Mesh();
-	void Draw(glm::mat4 modelMat);
+	void Draw(Line* line);
 
 	// Inherited via Entity
 	virtual void setColor(glm::vec3 color) override;

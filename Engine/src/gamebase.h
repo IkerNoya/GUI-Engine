@@ -34,7 +34,7 @@ protected:
 	Shader DebuggingShader;
 	Camera* camera;
 	GuiLayer* gui;
-	Line line;
+	Line* line;
 	Plane plane;
 
 	Input input;

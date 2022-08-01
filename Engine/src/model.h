@@ -38,7 +38,7 @@ class ENGINE_API Model : public Entity {
 public:
 	Model(Renderer* renderer, Shader& shader,const char* path, bool shouldFlipUVs, const char* name);
 	~Model();
-	void draw();
+	void draw(Line* line);
 
 
 	// Inherited via Entity

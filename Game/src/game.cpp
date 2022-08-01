@@ -26,12 +26,12 @@ void Game::Init() {
 	//model = new Model(renderer, standardShader, "res/models/nanosuit/nanosuit.obj", false,"nanosuit");
 	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"vamp");
 	//model = new Model(renderer, standardShader, "res/models/backpack/backpack.obj", true,"backpack");
-	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"claire");
+	model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"claire");
 	//model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"mansion");
-	model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
+	//model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
 	model->SetPosition(.5f, -0.440f, -1);
 	model->SetScale(.3f,.3f, .3f);
-	model->show(false);
+	//model->show(false);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
 	directional->init();
@@ -85,10 +85,9 @@ void Game::Update() {
 	spot->draw();
 	point->draw();
 	point2->draw();
-	model->draw();
+	model->draw(line);
 	cube->draw();
-	plane.draw(10, glm::vec3(0, 1, 0));
-	//line.draw(spot->transform.position, point2->transform.position, glm::vec3(1, 0, 0));
+	//line->draw(spot->transform.position, point2->transform.position, glm::vec3(1, 0, 0));
 
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }

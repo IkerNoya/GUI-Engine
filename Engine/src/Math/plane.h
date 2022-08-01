@@ -26,10 +26,6 @@ public:
 	float getSignedDistanceToPlan(const glm::vec3& point) const {
 		return glm::dot(normal, point) - distance;
 	}
-	void InitializeDebugLines(Shader& shader, Renderer* renderer);
-
-	void draw(float size, glm::vec3 color);
-	std::string toString();
 };
 
 #endif // !PLANE_H

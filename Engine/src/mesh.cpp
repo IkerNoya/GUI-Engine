@@ -31,6 +31,7 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 	this->indices = indices;
 	this->textures = textures;
 	_renderer = renderer;
+	boundingBox = new AABB();
 
 	std::string sufix = " - mesh";
 	std::string newName = name + sufix;
@@ -38,19 +39,23 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
+	boundingBox->attachToEntity(modelMatrix, transform);
+	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
 
 	setupMesh();
 }
 
 Mesh::~Mesh()
 {
+	if (boundingBox) delete boundingBox;
 }
 
-void Mesh::Draw(glm::mat4 modelMat)
+void Mesh::Draw(Line* line)
 {
 	updateSelfAndChild();
 	updateVectors();
-
+	if (boundingBox)
+		boundingBox->draw(line);
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	for (unsigned int i = 0; i < textures.size(); i++) {
