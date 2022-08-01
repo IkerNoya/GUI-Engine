@@ -62,10 +62,11 @@ void Game::Init() {
 	point2->setColor(1, 1, 1);
 
 	player = new Player(camera, standardShader, renderer, 0, true);
-	player->SetPosition(cube->transform.position + glm::vec3(0, 0.5f, 0));
+	//player->SetPosition(cube->transform.position + glm::vec3(0, 0.5f, 0));
 
-	plane = Plane(glm::vec3(1,0,-1), glm::vec3(1, 1, -1.5f), glm::vec3(1, -1, -2));
-	plane.setShader(DebuggingShader);
+	//plane = Plane(glm::vec3(1,0,3), glm::vec3(1, 1, -1.f), glm::vec3(1, -1, -3));
+	//std::cout << "debugging shader: " << DebuggingShader.getID();
+	//plane.InitializeDebugLines(DebuggingShader, renderer);
 
 
 }
@@ -87,6 +88,8 @@ void Game::Update() {
 	model->draw();
 	cube->draw();
 	plane.draw(10, glm::vec3(0, 1, 0));
+	//line.draw(spot->transform.position, point2->transform.position, glm::vec3(1, 0, 0));
+
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 

@@ -15,7 +15,7 @@ class Game : public Gamebase{
 	LightSource* point;
 	LightSource* point2;
 
-	Plane plane;
+
 
 	float timer = 0;
 	float speed = 1;

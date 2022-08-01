@@ -53,9 +53,9 @@ int Gamebase::InitEngine() {
 
     glEnable(GL_DEPTH_TEST);
 
-    camera->SetPosition(0, 0, 3);
+    camera->SetPosition(0, 0, 0);
     camera->transform.rotation.y = -90;
-    camera->setDirection(glm::vec3(0.f, 0.f, 0.f));
+    camera->setDirection(glm::vec3(0.f, 0.f, 1.f));
 
     camera->addShader(standardShader);
     camera->addShader(DebuggingShader);
@@ -63,7 +63,9 @@ int Gamebase::InitEngine() {
 
     gui->init();
 
-    line = Line(DebuggingShader);
+    plane = Plane(glm::vec3(1,0,0), glm::vec3(-1,5,-10));
+    plane.InitializeDebugLines(DebuggingShader, renderer);
+    line = Line(DebuggingShader, renderer);
 
     time.reset();
 

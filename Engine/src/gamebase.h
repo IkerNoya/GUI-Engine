@@ -35,6 +35,7 @@ protected:
 	Camera* camera;
 	GuiLayer* gui;
 	Line line;
+	Plane plane;
 
 	Input input;
 	Time time;

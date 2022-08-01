@@ -13,7 +13,7 @@ class ENGINE_API Line :  public Entity {
 	glm::mat4 model;
 public:
 	Line();
-	Line(Shader& shader);
+	Line(Shader& shader, Renderer* renderer);
 	~Line();
 	void Init();
 	void draw(glm::vec3 pos1, glm::vec3 pos2, glm::vec3 color);

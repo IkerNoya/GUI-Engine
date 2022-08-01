@@ -13,7 +13,7 @@ Line::Line() : Entity() {
 	_vao = 0;
 }
 
-Line::Line(Shader& shader) : Entity() {
+Line::Line(Shader& shader, Renderer* renderer) : Entity(renderer) {
 	_vbo = 0;
 	_vao = 0;
 	_shader = shader;
@@ -37,8 +37,8 @@ void Line::draw(glm::vec3 pos1, glm::vec3 pos2,  glm::vec3 color) {
 	updateVectors();
 	updateMatrices();
 	vertices = {
-		pos1.x, pos1.y, pos1.z - 3,
-		pos2.x, pos2.y, pos2.z - 3
+		pos1.x, pos1.y, pos1.z ,
+		pos2.x, pos2.y, pos2.z 
 	};
 	transform.position = pos1;
 	lineColor = color;
