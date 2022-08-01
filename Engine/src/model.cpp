@@ -198,6 +198,7 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	}
 	Mesh* newMesh = new Mesh(renderer, _shader, vertices, indices, textures, mesh->mName.C_Str());
 	newMesh->aabbPositions = positions;
+	newMesh->SetBoundingBoxPoints();
 	return newMesh;
 }
 

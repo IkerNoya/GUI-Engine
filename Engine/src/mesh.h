@@ -39,6 +39,7 @@ public:
 	Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex>	vertices, std::vector<unsigned int>	indices, std::vector<Texture> textures, const char* name);
 	~Mesh();
 	void Draw(Line* line);
+	void SetBoundingBoxPoints();
 
 	// Inherited via Entity
 	virtual void setColor(glm::vec3 color) override;

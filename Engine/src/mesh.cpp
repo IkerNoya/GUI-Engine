@@ -40,7 +40,6 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
 	boundingBox->attachToEntity(modelMatrix, transform);
-	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
 
 	setupMesh();
 }
@@ -78,6 +77,10 @@ void Mesh::Draw(Line* line)
 	shader.setMat4("transform", getModelMatrix());
 	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
 	_renderer->unbindBuffers();
+}
+
+void Mesh::SetBoundingBoxPoints() {
+	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
 }
 
 void Mesh::setColor(glm::vec3 color)
