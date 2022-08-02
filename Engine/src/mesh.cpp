@@ -31,7 +31,7 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 	this->indices = indices;
 	this->textures = textures;
 	_renderer = renderer;
-	boundingBox = new AABB();
+	boundingBox = new AABB(renderer, shader);
 
 	std::string sufix = " - mesh";
 	std::string newName = name + sufix;
@@ -80,7 +80,9 @@ void Mesh::Draw(Line* line)
 }
 
 void Mesh::SetBoundingBoxPoints() {
+
 	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
+	boundingBox->Create();
 }
 
 void Mesh::setColor(glm::vec3 color)

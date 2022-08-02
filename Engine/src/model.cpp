@@ -108,7 +108,7 @@ void Model::LoadModel(std::string path, bool shouldFlipUVs)
 	if(scene)
 		processNode(scene->mRootNode, scene, nullptr);
 
-	std::cout << _rootChildren.size() << std::endl;
+	//std::cout << _rootChildren.size() << std::endl;
 
 }
 
