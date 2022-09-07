@@ -29,7 +29,7 @@ class ENGINE_API Mesh : public Entity
 	unsigned int vao, vbo, ebo;
 	Shader shader;
 	Renderer* _renderer;
-	AABB* boundingBox;
+	//AABB* boundingBox;
 	void setupMesh();
 public:
 	std::vector<Vertex>	vertices;
@@ -39,7 +39,7 @@ public:
 	Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex>	vertices, std::vector<unsigned int>	indices, std::vector<Texture> textures, const char* name);
 	~Mesh();
 	void Draw(Line* line);
-	void SetBoundingBoxPoints();
+	//void SetBoundingBoxPoints();
 
 	// Inherited via Entity
 	virtual void setColor(glm::vec3 color) override;

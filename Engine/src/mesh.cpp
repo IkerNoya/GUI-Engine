@@ -31,7 +31,7 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 	this->indices = indices;
 	this->textures = textures;
 	_renderer = renderer;
-	boundingBox = new AABB();
+	//boundingBox = new AABB();
 
 	std::string sufix = " - mesh";
 	std::string newName = name + sufix;
@@ -39,22 +39,22 @@ Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std
 
 	DataManager* data = DataManager::Get();
 	data->addEntity(this, _id);
-	boundingBox->attachToEntity(modelMatrix, transform);
+	//boundingBox->attachToEntity(modelMatrix, transform);
 
 	setupMesh();
 }
 
 Mesh::~Mesh()
 {
-	if (boundingBox) delete boundingBox;
+	//if (boundingBox) delete boundingBox;
 }
 
 void Mesh::Draw(Line* line)
 {
 	updateSelfAndChild();
 	updateVectors();
-	if (boundingBox)
-		boundingBox->draw(line);
+	//if (boundingBox)
+	//	boundingBox->draw(line);
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	for (unsigned int i = 0; i < textures.size(); i++) {
@@ -79,9 +79,9 @@ void Mesh::Draw(Line* line)
 	_renderer->unbindBuffers();
 }
 
-void Mesh::SetBoundingBoxPoints() {
-	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
-}
+//void Mesh::SetBoundingBoxPoints() {
+//	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
+//}
 
 void Mesh::setColor(glm::vec3 color)
 {
