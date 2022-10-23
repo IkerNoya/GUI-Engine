@@ -14,7 +14,9 @@ class Game : public Gamebase{
 	LightSource* spot;
 	LightSource* point;
 	LightSource* point2;
-
+	Model* leftPlane;
+	Model* backPlane;
+	Model* downPlane;
 
 
 	float timer = 0;

@@ -18,6 +18,7 @@
 #include "model.h"
 #include "debug.h"
 #include "Math/plane.h"
+#include "BSP.h"
 
 class Renderer;
 class ENGINE_API Gamebase {
@@ -36,6 +37,7 @@ protected:
 	GuiLayer* gui;
 	Line* line;
 	Plane plane;
+	BSP* bsp;
 
 	Input input;
 	Time time;

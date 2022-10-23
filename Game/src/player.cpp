@@ -21,7 +21,7 @@ void Player::SetPosition(glm::vec3 pos)
 {
 	//if (_isFirstPerson) {
 	//	//playerModel->SetPosition(pos.x, pos.y, pos.z);
-		_camera->transform.position = pos;
+		_camera->SetPosition(pos.x, pos.y, pos.z);
 	//}
 	//else {
 

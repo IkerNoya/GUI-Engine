@@ -94,16 +94,16 @@ void Model::LoadModel(std::string path, bool shouldFlipUVs)
 		return;
 	}
 	directory = std::filesystem::path(path).parent_path().string();
-	Mesh* _meshParentBase = new Mesh();
-	_meshParentBase->SetName(scene->mRootNode->mName.C_Str());
-	_meshParentBase->setParent(this);
-	addChild(_meshParentBase);
-	meshes.push_back(_meshParentBase);
-	_meshParentBase->setNode(scene->mRootNode);
+	Mesh* baseMeshParent = new Mesh();
+	baseMeshParent->SetName(scene->mRootNode->mName.C_Str());
+	baseMeshParent->setParent(this);
+	addChild(baseMeshParent);
+	meshes.push_back(baseMeshParent);
+	baseMeshParent->setNode(scene->mRootNode);
 
-	if (_meshParentBase->getNode()->mNumChildren > 0) {
-		_meshParentBase->setIsParent(true);
-		parentMeshes.push_back(_meshParentBase);
+	if (baseMeshParent->getNode()->mNumChildren > 0) {
+		baseMeshParent->setIsParent(true);
+		parentMeshes.push_back(baseMeshParent);
 	}
 	if(scene)
 		processNode(scene->mRootNode, scene);
@@ -117,6 +117,36 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 		Mesh* newMesh = processMesh(mesh, scene);
 		newMesh->SetName(mesh->mName.C_Str());
 		newMesh->setNode(node);
+		float minX = 0;
+		float maxX = 0;
+		float minY = 0;
+		float maxY = 0;
+		float minZ = 0;
+		float maxZ = 0;
+
+		for (int k = 0; k < scene->mMeshes[node->mMeshes[i]]->mVertices->Length(); k++) {
+			if (scene->mMeshes[node->mMeshes[i]]->mVertices[k].x > maxX)
+				maxX = scene->mMeshes[node->mMeshes[i]]->mVertices[k].x;
+
+			if (scene->mMeshes[node->mMeshes[i]]->mVertices[k].x < minX)
+				minX = scene->mMeshes[node->mMeshes[i]]->mVertices[k].x;
+
+			if (scene->mMeshes[node->mMeshes[i]]->mVertices[k].y > maxY)
+				maxY = scene->mMeshes[node->mMeshes[i]]->mVertices[k].y;
+
+			else if (scene->mMeshes[node->mMeshes[i]]->mVertices[k].y < minY)
+				minY = scene->mMeshes[node->mMeshes[i]]->mVertices[k].y;
+
+			if (scene->mMeshes[node->mMeshes[i]]->mVertices[k].z > maxZ)
+				maxZ = scene->mMeshes[node->mMeshes[i]]->mVertices[k].z;
+
+			if (scene->mMeshes[node->mMeshes[i]]->mVertices[k].z < minZ)
+				minZ = scene->mMeshes[node->mMeshes[i]]->mVertices[k].z;
+		}
+
+		newMesh->SetMinColl(glm::vec3(minX, minY, minZ));
+		newMesh->SetMaxColl(glm::vec3(maxX, maxY, maxZ));
+
 		meshes.push_back(newMesh);
 		for (int j = 0; j < parentMeshes.size(); j++) {
 			if (meshes.back()->getNode()->mParent == parentMeshes[j]->getNode()) {

@@ -27,12 +27,39 @@ void Game::Init() {
 	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"vamp");
 	//model = new Model(renderer, standardShader, "res/models/backpack/backpack.obj", true,"backpack");
 	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"claire");
-	model = new Model(renderer, standardShader, "res/models/Pepe1.fbx", false,"xd");
+	model = new Model(renderer, standardShader, "res/models/Pepe2.fbx", false,"xd");
 	//model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"mansion");
 	//model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
-	model->SetPosition(-0.360f, -0.140f, -1);
-	model->transform.rotation = glm::vec3(-90, 0, -90);
-	model->SetScale(.1f,.1f, .1f);
+	leftPlane = new Model(renderer, standardShader, "res/models/plane.fbx", false, "leftPlane");
+	leftPlane->SetScale(0.1, 0.1, 0.05);
+	leftPlane->SetPosition(1, 0, 2);
+	leftPlane->transform.rotation = glm::vec3(0, -90, 0);
+	downPlane = new Model(renderer, standardShader, "res/models/plane.fbx", false, "leftPlane");
+	downPlane->SetScale(0.1, 0.1, 0.05);
+	downPlane->SetPosition(0, -1, 2);
+	downPlane->transform.rotation = glm::vec3(-90, 0, 0);
+	backPlane = new Model(renderer, standardShader, "res/models/plane.fbx", false, "leftPlane");
+	backPlane->SetScale(0.1, 0.1, 0.05);
+	backPlane->SetPosition(0, 0, 3);
+	backPlane->transform.rotation = glm::vec3(0, 180, 0);
+	bsp->addPlane(leftPlane,glm::vec3(0,-90,0), glm::vec3(0,90,0));
+	bsp->addPlane(downPlane, glm::vec3(-90, 0, 0), glm::vec3(90, 0, 0));
+	bsp->addPlane(backPlane, glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
+
+	bsp->addModelToCheck(model);
+
+	model->GetMeshes()[0]->SetGeneralColls(model->GetMeshes()[0]);
+	for (int i = 0; i < model->GetMeshes().size(); i++) {
+		std::cout << "mesh name: " << model->GetMeshes()[i]->GetName() << std::endl;
+		std::cout << "min col x: " << model->GetMeshes()[i]->GetMinColl().x << " - y: " << model->GetMeshes()[i]->GetMinColl().y << " - z: " << model->GetMeshes()[i]->GetMinColl().z << std::endl;
+		std::cout << "max col x: " << model->GetMeshes()[i]->GetMaxColl().x << " - y: " << model->GetMeshes()[i]->GetMaxColl().y << " - z: " << model->GetMeshes()[i]->GetMaxColl().z << std::endl;
+		std::cout << std::endl;
+		std::cout << "min col gen  x: " << model->GetMeshes()[i]->GetMinCollGeneral().x << " - y: " << model->GetMeshes()[i]->GetMinCollGeneral().y << " - z: " << model->GetMeshes()[i]->GetMinCollGeneral().z << std::endl;
+		std::cout << "max col gen x: " << model->GetMeshes()[i]->GetMaxCollGeneral().x << " - y: " << model->GetMeshes()[i]->GetMaxCollGeneral().y << " - z: " << model->GetMeshes()[i]->GetMaxCollGeneral().z << std::endl;
+		std::cout << std::endl;
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - - - " << std::endl;
+		std::cout << std::endl;
+	}
 	//model->show(false);
 
 	directional = new LightSource(renderer, standardShader, LightType::DirectionalLight, "directional");
@@ -86,8 +113,14 @@ void Game::Update() {
 	spot->draw();
 	point->draw();
 	point2->draw();
+	model->GetMeshes()[0]->SetGeneralColls(model->GetMeshes()[0]);
 	model->draw(line);
 	cube->draw();
+	leftPlane->draw(line);
+	downPlane->draw(line);
+	backPlane->draw(line);
+	//bsp->checkPlaneCamera(camera);
+	//bsp->check();
 	//line->draw(spot->transform.position, point2->transform.position, glm::vec3(1, 0, 0));
 
 	//std::cout << "fps: " << time.getFPS() << "\n";

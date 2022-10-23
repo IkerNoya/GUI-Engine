@@ -19,7 +19,6 @@ Gamebase::Gamebase() {
     inspector = new Inspector(window, dataManager);
     worldData = new WorldData(window, dataManager);
     camera = new Camera(window, renderer, ProjectionType::perspective);
-
 }
 
 Gamebase::~Gamebase() {
@@ -52,6 +51,8 @@ int Gamebase::InitEngine() {
     DebuggingShader.createShader("..//Engine//src//shaders//Debugging//DebugLines.vert", "..//Engine//src//shaders//Debugging//DebugLines.frag");
 
     glEnable(GL_DEPTH_TEST);
+
+    bsp = new BSP(standardShader);
 
     camera->SetPosition(0, 0, 0);
     camera->transform.rotation.y = -90;

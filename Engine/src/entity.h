@@ -86,6 +86,8 @@ public:
 	inline std::vector<Entity*> getChildren() { return children; }
 	inline Entity* getParent() { return parent; }
 	inline bool IsParent() const { return _isParent; }
+	inline glm::vec3 getGlobalPosition() const { return modelMatrix.trs[3]; }
+	inline glm::vec3 getGlobalScale() const { return glm::vec3(glm::length(modelMatrix.trs[0]), glm::length(modelMatrix.trs[1]), glm::length(modelMatrix.trs[2])); }
 
 private:
 	glm::mat4 getLocalModelMatrix();
