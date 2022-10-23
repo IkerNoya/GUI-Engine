@@ -171,6 +171,16 @@ void Entity::updateVectors()
 	updateUp();
 }
 
+void Entity::setParent(Entity* newParent)
+{
+	parent = newParent;
+}
+
+void Entity::setIsParent(bool isParent)
+{
+	_isParent = isParent;
+}
+
 std::string Entity::GetName() {
 	return _name;
 }

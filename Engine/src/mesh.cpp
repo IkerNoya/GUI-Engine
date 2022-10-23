@@ -3,6 +3,7 @@
 
 #include "mesh.h"
 #include "shader.h"
+#include "assimp/scene.h"
 #include <string>
 
 #include "dataManager.h"
@@ -22,6 +23,10 @@ void Mesh::setupMesh()
 	_renderer->setMeshAttribPointers(shader, sizeof(Vertex), 0, offsetof(Vertex, color), offsetof(Vertex, normal), offsetof(Vertex, texCoords));
 
 	glBindVertexArray(0);
+}
+
+Mesh::Mesh()
+{
 }
 
 Mesh::Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, const char* name) : Entity(renderer)
@@ -53,6 +58,7 @@ void Mesh::Draw(Line* line)
 {
 	updateSelfAndChild();
 	updateVectors();
+	if (!ShouldDraw()) return;
 	//if (boundingBox)
 	//	boundingBox->draw(line);
 	unsigned int diffuseNr = 1;
@@ -79,14 +85,15 @@ void Mesh::Draw(Line* line)
 	_renderer->unbindBuffers();
 }
 
-//void Mesh::SetBoundingBoxPoints() {
-//	boundingBox->setVerticesColliders(boundingBox->generateAABB_pos(aabbPositions));
-//}
-
 void Mesh::setColor(glm::vec3 color)
 {
 }
 
 void Mesh::setColor(float r, float g, float b)
 {
+}
+
+void Mesh::setNode(aiNode* newNode)
+{
+	node = newNode;
 }

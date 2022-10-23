@@ -20,9 +20,10 @@ enum aiTextureType;
 
 class ENGINE_API Model : public Entity {
 	std::vector<Mesh*> meshes;
+	std::vector<Mesh*> parentMeshes;
 	std::vector<Texture> texturesLoaded;
 	Entity* _root;
-	std::vector<Entity*> _rootChildren;
+	//std::vector<Entity*> _rootChildren;
 	std::string directory;
 	Shader _shader;
 	Renderer* renderer;
@@ -31,7 +32,7 @@ class ENGINE_API Model : public Entity {
 
 
 	void LoadModel(std::string path, bool shouldFlipUVs);
-	void processNode(aiNode* node, const aiScene* scene, Entity* parent);
+	void processNode(aiNode* node, const aiScene* scene);
 	Mesh* processMesh(aiMesh* mesh, const aiScene* scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
@@ -45,6 +46,8 @@ public:
 	virtual void setColor(glm::vec3 color) override;
 
 	virtual void setColor(float r, float g, float b) override;
+
+	inline std::vector<Mesh*> GetMeshes() { return meshes; }
 
 };
 

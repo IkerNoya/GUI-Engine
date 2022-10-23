@@ -60,7 +60,6 @@ int Gamebase::InitEngine() {
     camera->addShader(standardShader);
     camera->addShader(DebuggingShader);
 
-
     gui->init();
 
     line = new Line(DebuggingShader, renderer);
@@ -70,7 +69,6 @@ int Gamebase::InitEngine() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
-
 
 	return 0;
 }

@@ -38,6 +38,7 @@ protected:
 	ModelMatrix modelMatrix;
 	bool _isLightSource = false;
 	bool _shouldDraw = true;
+	bool _isParent = false;
 	Shader _entityShader;
 
 	std::vector<Entity*> children;
@@ -74,6 +75,8 @@ protected:
 	void updateVectors();
 
 public:
+	void setParent(Entity* newParent);
+	void setIsParent(bool isParent);
 	std::string GetName();
 	inline virtual glm::vec3 getColor() const { return glm::vec3(1); };
 	inline bool IsLightSource() { return _isLightSource; }
@@ -82,6 +85,7 @@ public:
 	inline virtual void show(bool value) { _shouldDraw = value; }
 	inline std::vector<Entity*> getChildren() { return children; }
 	inline Entity* getParent() { return parent; }
+	inline bool IsParent() const { return _isParent; }
 
 private:
 	glm::mat4 getLocalModelMatrix();

@@ -138,6 +138,9 @@
     <ClInclude Include="src\Math\AABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BSP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gamebase.cpp">
@@ -228,6 +231,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Math\AABB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BSP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

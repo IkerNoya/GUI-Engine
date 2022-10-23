@@ -29,21 +29,24 @@ class ENGINE_API Mesh : public Entity
 	unsigned int vao, vbo, ebo;
 	Shader shader;
 	Renderer* _renderer;
-	//AABB* boundingBox;
+
 	void setupMesh();
 public:
 	std::vector<Vertex>	vertices;
 	std::vector<glm::vec3> aabbPositions;
 	std::vector<unsigned int>	indices;
 	std::vector<Texture> textures;
+	class aiNode* node;
+	Mesh();
 	Mesh(Renderer* renderer, Shader& shader, std::vector<Vertex>	vertices, std::vector<unsigned int>	indices, std::vector<Texture> textures, const char* name);
 	~Mesh();
 	void Draw(Line* line);
-	//void SetBoundingBoxPoints();
 
 	// Inherited via Entity
 	virtual void setColor(glm::vec3 color) override;
 	virtual void setColor(float r, float g, float b) override;
+	void setNode(aiNode* newNode);
+	inline aiNode* getNode() const { return node; }
 };
 
 
