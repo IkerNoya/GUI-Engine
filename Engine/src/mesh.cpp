@@ -66,7 +66,7 @@ void Mesh::Draw(Line* line)
 	UpdateColliderPos();
 	UpdateColliderScale();
 	if (!ShouldDraw()) return;
-	line->draw(GetMinCollGeneral(), GetMaxCollGeneral(), glm::vec3(0, 1, 0));
+	//line->draw(GetMinCollGeneral(), GetMaxCollGeneral(), glm::vec3(0, 1, 0));
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	for (unsigned int i = 0; i < textures.size(); i++) {

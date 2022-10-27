@@ -6,8 +6,10 @@
 #include "dataManager.h"
 #include <iostream>
 #include <forward_list>
+#include "gtc/quaternion.hpp"
 
 int Entity::_nextEntityID = 0;
+float deg2rad = (glm::pi<float>() * 2.0f) / 360.0f;
 
 void Entity::updateModel() {
 	modelMatrix.trs = modelMatrix.translate * modelMatrix.rotation.x * modelMatrix.rotation.y * modelMatrix.rotation.z * modelMatrix.scale;
@@ -76,6 +78,7 @@ void Entity::SetPosition(float x, float y, float z) {
 	
 	modelMatrix.translate = glm::translate(glm::mat4(1.0f), transform.position);
 	updateModel();
+	updateVectors();
 }
 
 void Entity::updateMatrices(){
@@ -97,6 +100,7 @@ void Entity::SetScale(float x, float y, float z) {
 
 	modelMatrix.scale = glm::scale(glm::mat4(1.0f), transform.scale);
 	updateModel();
+	updateVectors();
 }
 
 void Entity::SetID(int id) {
@@ -166,9 +170,13 @@ void Entity::updateSelfAndChild()
 
 void Entity::updateVectors()
 {
-	updateForward();
+	/*updateForward();
 	updateRight();
-	updateUp();
+	updateUp();*/
+	transform.rotationQuat = EulerToQuat(transform.rotation);
+	transform.forward = QuatXVec(transform.rotationQuat, glm::vec3(0, 0, 1));
+	transform.up = QuatXVec(transform.rotationQuat, glm::vec3(0, 1, 0));
+	transform.right = QuatXVec(transform.rotationQuat, glm::vec3(1, 0, 0));
 }
 
 void Entity::setParent(Entity* newParent)
@@ -183,6 +191,59 @@ void Entity::setIsParent(bool isParent)
 
 std::string Entity::GetName() {
 	return _name;
+}
+
+void Entity::show(bool value)
+{
+	_shouldDraw = value;
+	if (children.size() <= 0 || _shouldDraw) return;
+
+	for (auto* child : children) {
+		if (child) {
+			child->show(value);
+		}
+	}
+}
+
+glm::quat Entity::EulerToQuat(glm::vec3 euler)
+{
+	euler *= deg2rad;
+
+	float cy = cos(euler.z * 0.5);
+	float sy = sin(euler.z * 0.5);
+	float cp = cos(euler.x * 0.5);
+	float sp = sin(euler.x * 0.5);
+	float cr = cos(euler.y * 0.5);
+	float sr = sin(euler.y * 0.5);
+
+	glm::quat q;
+	q.w = cr * cp * cy + sr * sp * sy;
+	q.x = cr * sp * cy + sr * cp * sy;
+	q.y = sr * cp * cy - cr * sp * sy;
+	q.z = cr * cp * sy - sr * sp * cy;
+	return q;
+}
+
+glm::vec3 Entity::QuatXVec(glm::quat quat, glm::vec3 vec)
+{
+	float x2 = quat.x * 2.0f;
+	float y2 = quat.y * 2.0f;
+	float z2 = quat.z * 2.0f;
+	float xx2 = quat.x * x2;
+	float yy2 = quat.y * y2;
+	float zz2 = quat.z * z2;
+	float xy2 = quat.x * y2;
+	float xz2 = quat.x * z2;
+	float yz2 = quat.y * z2;
+	float wx2 = quat.w * x2;
+	float wy2 = quat.w * y2;
+	float wz2 = quat.w * z2;
+
+	glm::vec3 res;
+	res.x = (1.0f - (yy2 + zz2)) * vec.x + (xy2 - wz2) * vec.y + (xz2 + wy2) * vec.z;
+	res.y = (xy2 + wz2) * vec.x + (1.0f - (xx2 + zz2)) * vec.y + (yz2 - wx2) * vec.z;
+	res.z = (xz2 - wy2) * vec.x + (yz2 + wx2) * vec.y + (1.0f - (xx2 + yy2)) * vec.z;
+	return res;
 }
 
 

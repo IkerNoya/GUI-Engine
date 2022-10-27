@@ -4,6 +4,7 @@
 #include "renderer.h"
 #include "mat4x4.hpp"
 #include <vector>
+#include "gtc/quaternion.hpp"
 
 // using glm vec3 temporarily, will later use my
 struct ENGINE_API Rotation {
@@ -21,6 +22,7 @@ struct ENGINE_API ModelMatrix {
 
 struct ENGINE_API Transform {
 	glm::vec3 position;
+	glm::quat rotationQuat;
 	glm::vec3 rotation;
 	glm::vec3 scale;
 	glm::vec3 forward;
@@ -82,12 +84,18 @@ public:
 	inline bool IsLightSource() { return _isLightSource; }
 	inline Shader GetShader() { return _entityShader; }
 	inline virtual bool ShouldDraw() const { return _shouldDraw; }
-	inline virtual void show(bool value) { _shouldDraw = value; }
+	virtual void show(bool value);
 	inline std::vector<Entity*> getChildren() { return children; }
 	inline Entity* getParent() { return parent; }
 	inline bool IsParent() const { return _isParent; }
 	inline glm::vec3 getGlobalPosition() const { return modelMatrix.trs[3]; }
+	glm::quat EulerToQuat(glm::vec3 euler);
+	glm::vec3 QuatXVec(glm::quat quat, glm::vec3 vec);
 	inline glm::vec3 getGlobalScale() const { return glm::vec3(glm::length(modelMatrix.trs[0]), glm::length(modelMatrix.trs[1]), glm::length(modelMatrix.trs[2])); }
+	inline glm::vec3 getForward() const { return transform.forward; }
+	inline glm::vec3 getRight() const { return transform.right; }
+	inline glm::vec3 getBack() const { return -transform.forward; }
+	inline glm::vec3 getUp() const { return transform.up; }
 
 private:
 	glm::mat4 getLocalModelMatrix();

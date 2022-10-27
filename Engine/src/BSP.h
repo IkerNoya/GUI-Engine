@@ -21,7 +21,7 @@ public:
 	~BSP();
 
 	void check();
-	void checkObject(Mesh* mesh);
+	void checkObject(Mesh* mesh, bool isRoot);
 	void checkPlaneCamera(Entity* camera);
 	void addPlane(Model* model, glm::vec3 angleLookA, glm::vec3 angleLookB);
 	void addModelToCheck(Model* model);

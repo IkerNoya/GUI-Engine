@@ -64,6 +64,7 @@ void Model::draw(Line* line)
 {
 	updateSelfAndChild();
 	updateVectors();
+	meshes.front()->SetGeneralColls(meshes[1]);
 	if (!ShouldDraw())
 		return;
 
@@ -167,6 +168,8 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	for (unsigned int i = 0; i < node->mNumChildren; i++) {
 		processNode(node->mChildren[i], scene);
 	}
+	if (node->mNumChildren <= 0 && meshes.back()->getParent())
+		meshes.back()->SetGeneralColls((Mesh*)(meshes.back()->getParent()));
 }
 Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
