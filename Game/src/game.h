@@ -7,6 +7,8 @@ class Game : public Gamebase{
 	Cube* cube;
 
 	Model* model;
+	
+	std::vector<Model*> Scene;
 
 	Player* player;
 
@@ -18,7 +20,6 @@ class Game : public Gamebase{
 	Model* backPlane;
 	Model* downPlane;
 
-
 	float timer = 0;
 	float speed = 1;
 	float rotationSpeed = 100;
@@ -28,6 +29,8 @@ class Game : public Gamebase{
 	bool firstMouse = true;
 	float xPosIn = 0;
 	float yPosIn = 0;
+
+	void SetPos(Model* model);
 
 public:
 	Game();

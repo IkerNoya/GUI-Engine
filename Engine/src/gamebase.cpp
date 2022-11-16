@@ -63,6 +63,8 @@ int Gamebase::InitEngine() {
 
     gui->init();
 
+    modelImporter = new ModelImporter();
+
     line = new Line(DebuggingShader, renderer);
 
     time.reset();

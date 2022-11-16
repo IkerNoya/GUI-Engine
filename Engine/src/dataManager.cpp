@@ -1,6 +1,8 @@
 #include "dataManager.h"
 #include <iostream>
 #include <mutex>
+#include <string>
+#include <algorithm>
 
 DataManager* DataManager::_instance = nullptr;
 
@@ -53,6 +55,35 @@ std::vector<Entity*> DataManager::getLevelEntities() {
 
 void DataManager::setSelectedEntity(Entity* entity) {
 	selectedEntity = entity;
+}
+
+Entity* DataManager::GetEntityWithName(const char* name)
+{
+	for (auto* entity : levelEntities) {
+		if (entity->GetName() == name) {
+			return entity;
+		}
+	}
+	return nullptr;
+}
+
+bool DataManager::TryGetPlanes(const char* name, std::vector<Entity*>& entities)
+{
+
+	std::string planeSufix = name;
+
+	for (auto* entity : levelEntities)
+	{
+		std::string entityName = entity->GetName();
+		auto res = std::mismatch(planeSufix.begin(), planeSufix.end(), entityName.begin());
+		if (res.first == planeSufix.end()) {
+			entities.push_back(entity);
+		}
+	}
+	if (entities.size() > 0)
+		return true;
+
+	return false ;
 }
 
 Entity* DataManager::getSelectedEntity() {

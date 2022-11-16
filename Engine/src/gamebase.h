@@ -19,6 +19,7 @@
 #include "debug.h"
 #include "Math/plane.h"
 #include "BSP.h"
+#include "ModelImporter.h"
 
 class Renderer;
 class ENGINE_API Gamebase {
@@ -38,6 +39,7 @@ protected:
 	Line* line;
 	Plane plane;
 	BSP* bsp;
+	ModelImporter* modelImporter;
 
 	Input input;
 	Time time;

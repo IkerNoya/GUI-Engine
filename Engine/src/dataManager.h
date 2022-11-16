@@ -24,6 +24,8 @@ public:
 	std::vector<Entity*> getLevelEntities();
 	Entity* getSelectedEntity();
 	void setSelectedEntity(Entity* entity);
+	Entity* GetEntityWithName(const char* name);
+	bool TryGetPlanes(const char* name, std::vector<Entity*>& entities);
 }; 
 
 
