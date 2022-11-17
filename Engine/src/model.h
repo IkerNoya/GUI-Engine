@@ -21,23 +21,18 @@ enum aiTextureType;
 class ENGINE_API Model : public Entity {
 	std::vector<Mesh*> meshes;
 	std::vector<Mesh*> parentMeshes;
-	std::vector<Texture> texturesLoaded;
 	Entity* _root;
 	//std::vector<Entity*> _rootChildren;
 	std::string directory;
 	Shader _shader;
 	Renderer* renderer;
-	TextureImporter* texImporter;
 	DataManager* _dataManager;
 
-
-	void LoadModel(std::string path, bool shouldFlipUVs);
-	void processNode(aiNode* node, const aiScene* scene);
-	Mesh* processMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
-
 public:
-	Model(Renderer* renderer, Shader& shader,const char* path, bool shouldFlipUVs, const char* name);
+	std::vector<Texture> texturesLoaded;
+	Mesh* baseMeshParent;
+
+	Model(Renderer* renderer, Shader& shader, const char *name);
 	~Model();
 	void draw(Line* line);
 
@@ -47,7 +42,11 @@ public:
 
 	virtual void setColor(float r, float g, float b) override;
 
+	void AddMesh(Mesh* mesh);
+	void AddParentMesh(Mesh* mesh);
+
 	inline std::vector<Mesh*> GetMeshes() { return meshes; }
+	inline std::vector<Mesh*> GetParentMeshes() { return parentMeshes; }
 
 };
 

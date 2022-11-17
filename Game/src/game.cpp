@@ -37,20 +37,6 @@ void Game::SetPos(Model* model)
 	model->GetMeshes()[5]->SetScale(0.9, 0.200, 3);
 
 	model->SetPosition(0, 0, 2);
-
-
-	for (int i = 0; i < model->GetMeshes().size(); i++) {
-		std::cout << "mesh name: " << model->GetMeshes()[i]->GetName() << std::endl;
-		std::cout << "min col x: " << model->GetMeshes()[i]->GetMinColl().x << " - y: " << model->GetMeshes()[i]->GetMinColl().y << " - z: " << model->GetMeshes()[i]->GetMinColl().z << std::endl;
-		std::cout << "max col x: " << model->GetMeshes()[i]->GetMaxColl().x << " - y: " << model->GetMeshes()[i]->GetMaxColl().y << " - z: " << model->GetMeshes()[i]->GetMaxColl().z << std::endl;
-		std::cout << std::endl;
-		std::cout << "min col gen  x: " << model->GetMeshes()[i]->GetMinCollGeneral().x << " - y: " << model->GetMeshes()[i]->GetMinCollGeneral().y << " - z: " << model->GetMeshes()[i]->GetMinCollGeneral().z << std::endl;
-		std::cout << "max col gen x: " << model->GetMeshes()[i]->GetMaxCollGeneral().x << " - y: " << model->GetMeshes()[i]->GetMaxCollGeneral().y << " - z: " << model->GetMeshes()[i]->GetMaxCollGeneral().z << std::endl;
-		std::cout << std::endl;
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - - - " << std::endl;
-		std::cout << std::endl;
-	}
-
 }
 #pragma endregion xd 
 
@@ -81,21 +67,21 @@ void Game::Init() {
 	//model = new Model(renderer, standardShader, "res/models/vamp/dancing_vampire.dae", false,"vamp");
 	//model = new Model(renderer, standardShader, "res/models/backpack/backpack.obj", true,"backpack");
 	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"claire");
-	model = new Model(renderer, standardShader, "res/models/bodyna.fbx", false,"xd");
+	model = modelImporter->LoadModel("res/models/bodyna.fbx", false,"xd");
 	model->SetPosition(-1, 1, 1);
 	model->SetScale(0.1, 0.1, 0.1);
 	model->transform.rotation = glm::vec3(180, 0, 0);
 	//model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"mansion");
 	//model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
-	leftPlane = new Model(renderer, standardShader, "res/models/plane.fbx", false, "leftPlane");
+	leftPlane = modelImporter->LoadModel("res/models/plane.fbx", false, "leftPlane");
 	leftPlane->SetScale(0.1, 0.1, 0.05);
 	leftPlane->SetPosition(1, 0, 2);
 	leftPlane->transform.rotation = glm::vec3(0, -90, 0);
-	downPlane = new Model(renderer, standardShader, "res/models/plane.fbx", false, "DownPlane");
+	downPlane = modelImporter->LoadModel("res/models/plane.fbx", false, "DownPlane");
 	downPlane->SetScale(0.1, 0.1, 0.05);
 	downPlane->SetPosition(0, -1, 2);
 	downPlane->transform.rotation = glm::vec3(-90, 0, 0);
-	backPlane = new Model(renderer, standardShader, "res/models/plane.fbx", false, "BackPlane");
+	backPlane =modelImporter->LoadModel("res/models/plane.fbx", false, "BackPlane");
 	backPlane->SetScale(0.1, 0.1, 0.05);
 	backPlane->SetPosition(0, 0, 3);
 	backPlane->transform.rotation = glm::vec3(0, 180, 0);
@@ -105,7 +91,21 @@ void Game::Init() {
 
 	bsp->addModelToCheck(model);
 
-	Scene = modelImporter->LoadScene(renderer, standardShader, "res/models/ScenePepe.fbx", false);
+	Scene = modelImporter->LoadScene("res/models/ScenePepe2.fbx", false);
+	dataManager->TryGetPlanes("Plane_", planes);
+
+	//for (int i = 0; i < Scene.size(); i++) {
+	//	if (Scene[i]) {
+	//		for (int j = 0; j < planes.size(); j++) {
+	//			if (planes[j]) {
+	//				if (Scene[i]->GetName() == planes[j]->GetName()) {
+	//					continue;
+	//				}
+	//				SetPos(Scene[i]);
+	//			}
+	//		}
+	//	}
+	//}
 
 	//model->show(false);
 
@@ -172,6 +172,11 @@ void Game::Update() {
 	bsp->checkPlaneCamera(camera);
 	bsp->check();
 	line->draw(spot->transform.position, point2->transform.position, glm::vec3(1, 0, 0));
+	for (int i = 0; i < Scene.size(); i++) {
+		if (Scene[i]) {
+			Scene[i]->draw(line);
+		}
+	}
 	//std::cout << "fps: " << time.getFPS() << "\n";
 }
 
