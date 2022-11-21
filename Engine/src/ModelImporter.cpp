@@ -49,17 +49,19 @@ void ModelImporter::LoadFromNode(Model* model, aiNode* node, bool shouldFlipUVs,
 
 	model->baseMeshParent = new Mesh();
 
-	model->baseMeshParent->SetName(node->mName.C_Str());
+	model->baseMeshParent->SetName(scene->mRootNode->mName.C_Str());
 	model->baseMeshParent->setParent(model);
 
 	model->addChild(model->baseMeshParent);
 	model->AddMesh(model->baseMeshParent);
-	model->baseMeshParent->setNode(node);
+	model->baseMeshParent->setNode(scene->mRootNode);
 
-	model->baseMeshParent->setIsParent(true);
-	model->AddParentMesh(model->baseMeshParent);
+	if (model->baseMeshParent->getNode()->mNumChildren > 0) {
+		model->baseMeshParent->setIsParent(true);
+		model->AddParentMesh(model->baseMeshParent);
+	}
 
-	if (node)
+	if (scene)
 		processNode(model, node, scene);
 }
 
@@ -232,6 +234,7 @@ std::vector<Model*> ModelImporter::LoadScene(const char* path, bool shouldFlipUV
 	}
 	directory = std::filesystem::path(path).parent_path().string();
 	for (int i = 0; i < scene->mRootNode->mNumChildren; i++) {
+		//Model* model = LoadModel(path, shouldFlipUVs, scene->mRootNode->mChildren[i]->mName.C_Str());
 		Model* model = new Model(renderer, _shader, scene->mRootNode->mChildren[i]->mName.C_Str());
 		LoadFromNode(model, scene->mRootNode->mChildren[i], shouldFlipUVs, scene);
 		models.push_back(model);

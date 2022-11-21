@@ -67,7 +67,7 @@ Entity* DataManager::GetEntityWithName(const char* name)
 	return nullptr;
 }
 
-bool DataManager::TryGetPlanes(const char* name, std::vector<Entity*>& entities)
+bool DataManager::TryGetEntityFromPrefix(const char* name, std::vector<Entity*>& entities)
 {
 
 	std::string planeSufix = name;

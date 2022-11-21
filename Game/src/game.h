@@ -20,6 +20,7 @@ class Game : public Gamebase{
 	Model* backPlane;
 	Model* downPlane;
 	std::vector<Entity*> planes;
+	std::vector<Entity*> Pepes;
 
 	float timer = 0;
 	float speed = 1;

@@ -25,7 +25,7 @@ public:
 	Entity* getSelectedEntity();
 	void setSelectedEntity(Entity* entity);
 	Entity* GetEntityWithName(const char* name);
-	bool TryGetPlanes(const char* name, std::vector<Entity*>& entities);
+	bool TryGetEntityFromPrefix(const char* name, std::vector<Entity*>& entities);
 }; 
 
 

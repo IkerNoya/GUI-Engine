@@ -81,7 +81,7 @@ void Game::Init() {
 	downPlane->SetScale(0.1, 0.1, 0.05);
 	downPlane->SetPosition(0, -1, 2);
 	downPlane->transform.rotation = glm::vec3(-90, 0, 0);
-	backPlane =modelImporter->LoadModel("res/models/plane.fbx", false, "BackPlane");
+	backPlane = modelImporter->LoadModel("res/models/plane.fbx", false, "BackPlane");
 	backPlane->SetScale(0.1, 0.1, 0.05);
 	backPlane->SetPosition(0, 0, 3);
 	backPlane->transform.rotation = glm::vec3(0, 180, 0);
@@ -92,20 +92,18 @@ void Game::Init() {
 	bsp->addModelToCheck(model);
 
 	Scene = modelImporter->LoadScene("res/models/ScenePepe2.fbx", false);
-	dataManager->TryGetPlanes("Plane_", planes);
-
-	//for (int i = 0; i < Scene.size(); i++) {
-	//	if (Scene[i]) {
-	//		for (int j = 0; j < planes.size(); j++) {
-	//			if (planes[j]) {
-	//				if (Scene[i]->GetName() == planes[j]->GetName()) {
-	//					continue;
-	//				}
-	//				SetPos(Scene[i]);
-	//			}
-	//		}
-	//	}
-	//}
+	for (auto* sceneModel : Scene) {
+		if (sceneModel) {
+			sceneModel->SetScale(.1, .1, .1);
+		}
+	}
+	dataManager->TryGetEntityFromPrefix("Plane_", planes);
+	dataManager->TryGetEntityFromPrefix("Pepe", Pepes);
+	for (auto* xd : Pepes) {
+		if (xd) {
+			SetPos((Model*)xd);
+		}
+	}
 
 	//model->show(false);
 
@@ -145,8 +143,6 @@ void Game::Init() {
 	//plane.InitializeDebugLines(DebuggingShader, renderer);
 
 	SetPos(model);
-
-
 }
 
 
