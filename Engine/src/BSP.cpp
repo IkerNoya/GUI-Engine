@@ -25,7 +25,6 @@ void BSP::checkObject(Mesh* mesh, bool isRoot)
 	if (!isRoot)
 	{
 		bool checkPassed = true;
-		std::cout << std::endl;
 
 		if (mesh->IsParent()) {
 			for (int i = 0; i < _planes.size(); i++) {

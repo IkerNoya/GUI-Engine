@@ -85,11 +85,10 @@ void Game::Init() {
 	backPlane->SetScale(0.1, 0.1, 0.05);
 	backPlane->SetPosition(0, 0, 3);
 	backPlane->transform.rotation = glm::vec3(0, 180, 0);
-	bsp->addPlane(leftPlane,glm::vec3(0,-90,0), glm::vec3(0,90,0));
-	bsp->addPlane(downPlane, glm::vec3(-90, 0, 0), glm::vec3(90, 0, 0));
-	bsp->addPlane(backPlane, glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
+	//bsp->addPlane(leftPlane,glm::vec3(0,-90,0), glm::vec3(0,90,0));
+	//bsp->addPlane(downPlane, glm::vec3(-90, 0, 0), glm::vec3(90, 0, 0));
+	//bsp->addPlane(backPlane, glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
 
-	bsp->addModelToCheck(model);
 
 	Scene = modelImporter->LoadScene("res/models/ScenePepe2.fbx", false);
 	for (auto* sceneModel : Scene) {
@@ -99,11 +98,16 @@ void Game::Init() {
 	}
 	dataManager->TryGetEntityFromPrefix("Plane_", planes);
 	dataManager->TryGetEntityFromPrefix("Pepe", Pepes);
-	for (auto* xd : Pepes) {
-		if (xd) {
-			SetPos((Model*)xd);
-		}
-	}
+	//planes[0] = Pane3 = left | planes[1] = Plane2 = right | planes[2] = Plane1 = back 
+	//bsp->addPlane((Model*)planes[0], glm::vec3(0, -90, 0), glm::vec3(0, 90, 0));
+	//bsp->addPlane((Model*)planes[1], glm::vec3(0, 90, 0), glm::vec3(0, -90, 0));
+	//bsp->addPlane((Model*)planes[2], glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
+	bsp->addModelToCheck(model);
+	//for (auto* xd : Pepes) {
+	//	if (xd) {
+	//		bsp->addModelToCheck((Model*)xd);
+	//	}
+	//}
 
 	//model->show(false);
 
@@ -136,6 +140,7 @@ void Game::Init() {
 	point2->setColor(1, 1, 1);
 
 	player = new Player(camera, standardShader, renderer, 0, true);
+	player->SetPosition(glm::vec3(camera->transform.position.x, camera->transform.position.y, camera->transform.position.z + 1));
 	//player->SetPosition(cube->transform.position + glm::vec3(0, 0.5f, 0));
 
 	//plane = Plane(glm::vec3(1,0,3), glm::vec3(1, 1, -1.f), glm::vec3(1, -1, -3));
