@@ -100,12 +100,11 @@ void Game::Init() {
 	//planes[2] = Pane3 = left | planes[1] = Plane2 = right | planes[0] = Plane1 = back 
 	bsp->addPlane((Model*)planes[2], glm::vec3(0, -90, 0), glm::vec3(0, 90, 0));
 	bsp->addPlane((Model*)planes[1], glm::vec3(0, 90, 0), glm::vec3(0, -90, 0));
-	bsp->addPlane((Model*)planes[0], glm::vec3(0, 90, 0), glm::vec3(0, 270, 0));
+	bsp->addPlane((Model*)planes[0], glm::vec3(0, -90, 0), glm::vec3(0, 90, 0));
 	//bsp->addModelToCheck(model);
 	for (auto* xd : Pepes) {
 		if (xd) {
 			bsp->addModelToCheck((Model*)xd);
-			SetPos((Model*)xd);
 		}
 	}
 
