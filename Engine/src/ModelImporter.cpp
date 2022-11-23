@@ -242,21 +242,38 @@ std::vector<Model*> ModelImporter::LoadScene(const char* path, bool shouldFlipUV
 		aiVector3D pos;
 		aiVector3D rot;
 		aiVector3D scale; 
+		aiQuaternion quat; 
+		glm::quat q = glm::quat(quat.x, quat.y, quat.z, quat.w);
+		//blender to engine: pepe1 ej: x = 0.6 y = 1.18 z = 5.32  engine | blender: x = .66 y = 5.32 z = 1.18
+		//                                                                           forward    right      up
+		// LOS EJES ESTAN AL REVES CON BLENDER!!!!
 
 		mat.Decompose(scale, rot, pos);
-		pos.x /= 100;
-		pos.y /= 100;
-		pos.z /= 100; 
-		scale.x /= 100; 
-		scale.y /= 100; 
-		scale.z /= 100; 
+		mat.Decompose(scale, quat, pos);
+
+
+		//pos.x /= 100;
+		//pos.y /= 100;
+		//pos.z /= 100; 
+		//scale.x /= 100; 
+		//scale.y /= 100; 
+		//scale.z /= 100; 
+		std::cout << "ENGINE-------------------------" << scene->mRootNode->mChildren[i]->mName.C_Str() << "--------------------------" << std::endl;
 		std::cout << "pos: " << pos.x << " | " << pos.y << " | " << pos.z << std::endl;
 		std::cout << "rot: " << rot.x << " | " << rot.y << " | " << rot.z << std::endl;
 		std::cout << "scale: " << scale.x << " | " << scale.y << " | " << scale.z << std::endl;
+		std::cout << "-------------------------------------------------------------------" << std::endl;
 
 		model->SetPosition(pos.y, pos.z, pos.x);
 		model->SetScale(scale.y, scale.z, scale.x);
-		model->SetRot(glm::degrees(rot.y), glm::degrees(rot.z), glm::degrees(rot.x));
+
+		model->SetRot(glm::degrees(rot.y), glm::degrees(rot.z) + 90, glm::degrees(rot.x));
+
+		std::cout << "GAME-------------------------" << scene->mRootNode->mChildren[i]->mName.C_Str() << "--------------------------" << std::endl;
+		std::cout << "pos: " << model->transform.position.x << " | " << model->transform.position.y << " | " << model->transform.position.z << std::endl;
+		std::cout << "rot: " << model->transform.rotation.x << " | " << model->transform.rotation.y << " | " << model->transform.rotation.z << std::endl;
+		std::cout << "scale: " << scale.x << " | " << scale.y << " | " << scale.z << std::endl;
+		std::cout << "-------------------------------------------------------------------" << std::endl;
 
 		models.push_back(model);
 	}

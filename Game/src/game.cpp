@@ -36,7 +36,6 @@ void Game::SetPos(Model* model)
 	model->GetMeshes()[5]->SetScale(-0.040, 0.870, -1.950); // r foot
 	model->GetMeshes()[5]->SetScale(0.9, 0.200, 3);
 
-	model->SetPosition(0, 0, 2);
 }
 #pragma endregion xd 
 
@@ -69,7 +68,7 @@ void Game::Init() {
 	//model = new Model(renderer, standardShader, "res/models/claire/claire.obj", false,"claire");
 	model = modelImporter->LoadModel("res/models/bodyna.fbx", false,"xd");
 	model->SetPosition(-1, 1, 1);
-	model->SetScale(0.1, 0.1, 0.1);
+	model->SetScale(0.2, 0.2, 0.2);
 	model->transform.rotation = glm::vec3(180, 0, 0);
 	//model = new Model(renderer, standardShader, "res/models/Mansion_Hall_Level.fbx", true,"mansion");
 	//model = new Model(renderer, standardShader, "res/models/Bob.fbx", true,"Scene Graph Test");
@@ -90,7 +89,7 @@ void Game::Init() {
 	//bsp->addPlane(backPlane, glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
 
 
-	Scene = modelImporter->LoadScene("res/models/ScenePepe.fbx", false);
+	Scene = modelImporter->LoadScene("res/models/ScenePepe.dae", false);
 	/*for (auto* sceneModel : Scene) {
 		if (sceneModel) {
 			sceneModel->SetScale(.1, .1, .1);
@@ -98,16 +97,17 @@ void Game::Init() {
 	}*/
 	dataManager->TryGetEntityFromPrefix("Plane_", planes);
 	dataManager->TryGetEntityFromPrefix("Pepe", Pepes);
-	//planes[0] = Pane3 = left | planes[1] = Plane2 = right | planes[2] = Plane1 = back 
-	//bsp->addPlane((Model*)planes[0], glm::vec3(0, -90, 0), glm::vec3(0, 90, 0));
-	//bsp->addPlane((Model*)planes[1], glm::vec3(0, 90, 0), glm::vec3(0, -90, 0));
-	//bsp->addPlane((Model*)planes[2], glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
-	bsp->addModelToCheck(model);
-	//for (auto* xd : Pepes) {
-	//	if (xd) {
-	//		bsp->addModelToCheck((Model*)xd);
-	//	}
-	//}
+	//planes[2] = Pane3 = left | planes[1] = Plane2 = right | planes[0] = Plane1 = back 
+	bsp->addPlane((Model*)planes[2], glm::vec3(0, -90, 0), glm::vec3(0, 90, 0));
+	bsp->addPlane((Model*)planes[1], glm::vec3(0, 90, 0), glm::vec3(0, -90, 0));
+	bsp->addPlane((Model*)planes[0], glm::vec3(0, 90, 0), glm::vec3(0, 270, 0));
+	//bsp->addModelToCheck(model);
+	for (auto* xd : Pepes) {
+		if (xd) {
+			bsp->addModelToCheck((Model*)xd);
+			SetPos((Model*)xd);
+		}
+	}
 
 	//model->show(false);
 

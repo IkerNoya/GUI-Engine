@@ -72,6 +72,7 @@ public:
 	virtual void setShader(Shader& shader);
 	void SetRot(float x, float y, float z);
 	void SetRot(glm::vec3 euler);
+	void SetRot(glm::quat quaternion);
 
 protected:
 	void ComputeModelMatrix();

@@ -76,10 +76,8 @@ void BSP::checkPlaneCamera(Entity* camera)
 {
 	for (int i = 0; i < _planes.size(); i++) {
 
-
 		glm::vec3 dirFromAtoB = glm::normalize(camera->transform.position - _planes[i].model->transform.position);
 		float dotProd = glm::dot(dirFromAtoB, _planes[i].model->getForward());
-
 		if (dotProd < 0) {
 			glm::vec3 rot;
 			if (_planes[i].model->transform.rotation == _planes[i].angleLookA)

@@ -276,3 +276,10 @@ void Entity::SetRot(glm::vec3 euler)
 	updateVectors();
 	updateMatrices();
 }
+
+void Entity::SetRot(glm::quat quaternion)
+{
+	transform.rotationQuat = quaternion;
+	updateVectors();
+	updateMatrices();
+}
