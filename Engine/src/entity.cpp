@@ -7,6 +7,7 @@
 #include <iostream>
 #include <forward_list>
 #include "gtc/quaternion.hpp"
+#include <gtx/quaternion.hpp>
 
 int Entity::_nextEntityID = 0;
 float deg2rad = (glm::pi<float>() * 2.0f) / 360.0f;
@@ -67,7 +68,7 @@ glm::mat4 Entity::getLocalModelMatrix(){
 	const glm::mat4 transformY = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.y), glm::vec3(0, 1, 0));
 	const glm::mat4 transformZ = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
 
-	const glm::mat4 rotationMatrix = transformX * transformY * transformZ;
+	const glm::mat4 rotationMatrix = glm::toMat4(transform.rotationQuat);
 	return glm::translate(glm::mat4(1.0f), transform.position) * rotationMatrix * glm::scale(glm::mat4(1.0f), transform.scale);
 }
 
@@ -87,6 +88,8 @@ void Entity::updateMatrices(){
 	modelMatrix.rotation.x = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.x), glm::vec3(1, 0, 0));
 	modelMatrix.rotation.y = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.y), glm::vec3(0, 1, 0));
 	modelMatrix.rotation.z = glm::rotate(glm::mat4(1.0), glm::radians(transform.rotation.z), glm::vec3(0, 0, 1));
+
+	modelMatrix.rotMatrix = glm::toMat4(transform.rotationQuat);
 
 	modelMatrix.scale = glm::scale(glm::mat4(1.0f), transform.scale);
 
@@ -258,4 +261,18 @@ void Entity::setRenderer(Renderer* renderer){
 }
 
 void Entity::setShader(Shader& shader) {
+}
+
+void Entity::SetRot(float x, float y, float z)
+{
+	transform.rotation = glm::vec3(x, y, z);
+	updateVectors();
+	updateMatrices();
+}
+
+void Entity::SetRot(glm::vec3 euler)
+{
+	transform.rotation = euler;
+	updateVectors();
+	updateMatrices();
 }

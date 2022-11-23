@@ -90,12 +90,12 @@ void Game::Init() {
 	//bsp->addPlane(backPlane, glm::vec3(0, 0, 0), glm::vec3(0, 180, 0));
 
 
-	Scene = modelImporter->LoadScene("res/models/ScenePepe2.fbx", false);
-	for (auto* sceneModel : Scene) {
+	Scene = modelImporter->LoadScene("res/models/ScenePepe.fbx", false);
+	/*for (auto* sceneModel : Scene) {
 		if (sceneModel) {
 			sceneModel->SetScale(.1, .1, .1);
 		}
-	}
+	}*/
 	dataManager->TryGetEntityFromPrefix("Plane_", planes);
 	dataManager->TryGetEntityFromPrefix("Pepe", Pepes);
 	//planes[0] = Pane3 = left | planes[1] = Plane2 = right | planes[2] = Plane1 = back 

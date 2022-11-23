@@ -206,6 +206,7 @@ std::vector<Texture> ModelImporter::loadMaterialTextures(Model* model, aiMateria
 			model->texturesLoaded.push_back(texture);
 		}
 	}
+	return textures;
 }
 
 ModelImporter::ModelImporter()
@@ -237,8 +238,27 @@ std::vector<Model*> ModelImporter::LoadScene(const char* path, bool shouldFlipUV
 		//Model* model = LoadModel(path, shouldFlipUVs, scene->mRootNode->mChildren[i]->mName.C_Str());
 		Model* model = new Model(renderer, _shader, scene->mRootNode->mChildren[i]->mName.C_Str());
 		LoadFromNode(model, scene->mRootNode->mChildren[i], shouldFlipUVs, scene);
+		aiMatrix4x4 mat = scene->mRootNode->mChildren[i]->mTransformation;
+		aiVector3D pos;
+		aiVector3D rot;
+		aiVector3D scale; 
+
+		mat.Decompose(scale, rot, pos);
+		pos.x /= 100;
+		pos.y /= 100;
+		pos.z /= 100; 
+		scale.x /= 100; 
+		scale.y /= 100; 
+		scale.z /= 100; 
+		std::cout << "pos: " << pos.x << " | " << pos.y << " | " << pos.z << std::endl;
+		std::cout << "rot: " << rot.x << " | " << rot.y << " | " << rot.z << std::endl;
+		std::cout << "scale: " << scale.x << " | " << scale.y << " | " << scale.z << std::endl;
+
+		model->SetPosition(pos.y, pos.z, pos.x);
+		model->SetScale(scale.y, scale.z, scale.x);
+		model->SetRot(glm::degrees(rot.y), glm::degrees(rot.z), glm::degrees(rot.x));
+
 		models.push_back(model);
-		std::cout << "HIjo: " << scene->mRootNode->mChildren[i]->mName.C_Str() << std::endl;
 	}
 
     return models;

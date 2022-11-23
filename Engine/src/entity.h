@@ -15,6 +15,7 @@ struct ENGINE_API Rotation {
 
 struct ENGINE_API ModelMatrix {
 	glm::mat4 translate;
+	glm::mat4 rotMatrix;
 	Rotation rotation;
 	glm::mat4 scale;
 	glm::mat4 trs;
@@ -47,11 +48,11 @@ protected:
 	Entity* parent;
 
 	void updateModel();
-	void updateMatrices();
 	void updateUp();
 	void updateRight();
 	void updateForward();
 public:
+	void updateMatrices();
 	Entity();
 	Entity(Renderer* renderer);
 	~Entity();
@@ -69,6 +70,8 @@ public:
 	void addChild(Entity* entity);
 	void setRenderer(Renderer* renderer);
 	virtual void setShader(Shader& shader);
+	void SetRot(float x, float y, float z);
+	void SetRot(glm::vec3 euler);
 
 protected:
 	void ComputeModelMatrix();
